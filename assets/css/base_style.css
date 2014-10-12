@@ -1,0 +1,59 @@
+/**
+ * Body
+ **/
+body {
+    background-color: rgb(58, 58, 60);
+}
+
+/**
+ * Text
+ **/
+body, div, span, li {
+    color: white;
+}
+
+a {
+    transition: color .1s linear;
+}
+
+a:link, a:visited {
+    color: #ACD4F6;
+}
+
+a:hover {
+    color: #72A4CF;
+    text-decoration: none;
+}
+
+/**
+ * Navbar
+ **/
+.navbar-default {
+    background-image: none;
+    background-color: rgba(59, 40, 68, 0.4);
+    border: none;
+    border-radius: 0px;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #C1C593;
+    background-color: rgba(48, 33, 54, 0.0);
+    transition: background-color .2s linear, color .1s linear;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+    color: #F1F5C8;
+    background-color: rgba(48, 33, 54, 0.4);
+}
+
+.navbar-default .navbar-nav > li.active > a {
+    color: rgb(238, 233, 118);
+    background-image: none;
+    background-color: rgba(96, 70, 109, 0.4);
+    transition: background-color .2s linear, color .1s linear;
+}
+
+.navbar-default .navbar-nav > li.active > a:hover {
+    color: #82856A;
+    background-color: rgba(46, 33, 53, 0.4);
+}

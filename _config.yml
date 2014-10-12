@@ -1,0 +1,28 @@
+gems:
+  - jekyll-mentions
+  - jemoji
+  - jekyll-sitemap
+  - jekyll-coffeescript
+
+timezone: "Europe/Madrid"
+
+title: The abode of melchor9000
+
+author:
+  name: Melchor Garau Madrigal
+  email: melchor9000@gmail.com
+  github: melchor629
+  twitter: melchor629
+
+production_url: http://melchor9000.me
+
+# For more see: http://jekyllrb.com/docs/permalinks/
+permalink: /:categories/:year/:month/:day/:title
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
