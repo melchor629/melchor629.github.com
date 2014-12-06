@@ -3,6 +3,8 @@
  **/
 body {
     background-color: rgb(58, 58, 60);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
 }
 
 /**
@@ -56,4 +58,18 @@ a:hover {
 .navbar-default .navbar-nav > li.active > a:hover {
     color: #82856A;
     background-color: rgba(46, 33, 53, 0.4);
+}
+
+/**
+ * Main Page -> Profile
+ **/
+.profile {
+    width: 70%;
+    text-align: center;
+}
+
+.profile_img > div > img {
+    width: 256px;
+    border-radius: 150px;
+
 }

@@ -15,12 +15,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100' rel='stylesheet' type='text/css'>
     <!-- Sticky Footer -->
     <link href="{{ site.baseurl }}/assets/css/bs-sticky-footer.css" rel="stylesheet">
     <!-- Personal Theme -->
     <link href="{{ site.baseurl }}/assets/css/base_style.css" rel="stylesheet">
     <!-- Syntax highlight theme -->
     <link href="{{ site.baseurl }}/assets/css/syntax.css" rel="stylesheet">
+    <!-- Material design effect for links -->
+    <link href="{{ site.baseurl }}/assets/css/waves.min.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -63,9 +66,13 @@
             {% for node in site.pages %}
                 {% if node.title != null %}
                     {% if page.url == node.url %}
-                        <li class="active"><a href="{{ site.baseurl }}{{ node.url }}">{{ node.title }}</a>
+                        <li class="active">
+                          <a href="{{ site.baseurl }}{{ node.url }}" class="waves-effect waves-light">{{ node.title }}</a>
+                        </li>
                     {% else %}
-                        <li><a href="{{ site.baseurl }}{{ node.url }}">{{ node.title }}</a>
+                        <li>
+                          <a href="{{ site.baseurl }}{{ node.url }}" class="waves-effect waves-light">{{ node.title }}</a>
+                        </li>
                     {% endif %}
                 {% endif %}
             {% endfor %}
@@ -84,8 +91,8 @@
         <p>&copy; {{ site.time | date: '%Y' }} {{ site.author.name }}
           with a little help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>. Powered by <a href="http://jekyllrb.com"
-          title="Transform your plain text into static websites and blogs." target="_blank">Jekyll</a> and <a href="http://pages.github.com" target="_blank">
-            Github Pages</a>
+          title="Transform your plain text into static websites and blogs." target="_blank">Jekyll</a> and
+          <a href="http://pages.github.com" target="_blank">Github Pages</a>
         </p>
       </div>
     </div>
@@ -94,5 +101,12 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <!-- Material design effect for links -->
+    <script src="{{ site.baseurl }}/assets/js/waves.min.js"></script>
+    <!-- Parallax effects -->
+    <script src="{{ site.baseurl }}/assets/js/jquery.parallax.min.js"></script>
+    <script>
+      Waves.displayEffect();
+    </script>
   </body>
 </html>

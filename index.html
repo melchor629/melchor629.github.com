@@ -2,14 +2,27 @@
 layout: default
 title: The abode of melchor9000
 ---
-Under construction...
-{% highlight java %}
-package org.melchor629;
+<div class="center-block profile">
+    <div class="profile-name">
+        <h1>melchor9000</h1>
+        <h3>Melchor Garau Madrigal</h3>
+    </div>
 
-public class Index {
-    public static void main(String args[]) {
-        System.out.printf("%d arguments", args.length);
-        System.exit(0);
+    <div class="profile_img">
+        <div class="layer" data-depth="0.3">
+            <img src="assets/img/Pixel Art.png">
+        </div>
+    </div>
+
+    <div class="profile-description">
+        <p class="lead">
+            18 Años<br>Estudiante de Ingenería del Software en la Universidad de Málaga<br>Programador...
+        </p>
+    </div>
+</div>
+
+<script>
+    document.onreadystatechange = function() {
+        $('.profile_img').parallax();
     }
-}
-{% endhighlight %}
+</script>
