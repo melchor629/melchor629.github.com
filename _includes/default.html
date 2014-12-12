@@ -70,7 +70,7 @@
                         <li class="active">
                           <a href="{{ site.baseurl }}{{ node.url }}" class="waves-effect waves-light">{{ node.title }}</a>
                         </li>
-                    {% else %}
+                    {% else if node.title != '' %}
                         <li>
                           <a href="{{ site.baseurl }}{{ node.url }}" class="waves-effect waves-light">{{ node.title }}</a>
                         </li>

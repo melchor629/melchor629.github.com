@@ -3,7 +3,7 @@ title: About me
 layout: default
 ---
 ## Que cosa mas chula lo de la página de inicio y la foto...
-¿A que mola? Este efecto funciona tanto en un ordenador como en un móvil* y tablet (con OS reciente).
+¿A que mola? Este efecto funciona tanto en un ordenador como en un móvil* y tablet (con OS reciente y navegador decente).
 
 Más técnicamente, he usado la librería [Parallax](https://github.com/wagerfield/parallax), que te permite hacer grandes efectos de "_Parallax_" en una web.
 

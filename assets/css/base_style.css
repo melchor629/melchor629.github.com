@@ -28,6 +28,31 @@ a:hover {
 }
 
 /**
+ * Panels
+ **/
+.panel-default {
+    border-color: #86869E;
+}
+
+.panel-default > .panel-heading {
+    background-image: linear-gradient(to bottom, #636262 0px, #5A5A5A 100%);
+    background-repeat: repeat-x;
+}
+
+.panel-default > .panel-heading a {
+    color: rgb(186, 142, 37);
+}
+
+.panel-default > .panel-heading a:hover {
+    color: #D4A942;
+}
+
+.panel-default > .panel-collapse > .panel-body {
+    background-color: #4B4B4D;
+    border-top-color: #86869E;
+}
+
+/**
  * Navbar
  **/
 .navbar-default {
@@ -72,4 +97,13 @@ a:hover {
     width: 256px;
     border-radius: 150px;
 
+}
+
+/**
+ * Posts
+ **/
+hr.post-separator {
+    border-color: gray;
+    border-style: dashed none none;
+    margin-bottom: 30px;
 }
