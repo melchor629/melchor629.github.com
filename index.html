@@ -1,104 +1,12 @@
 ---
 layout: default
 title: Home
+styles:
+  - less/index.css
+scripts:
+  - js/cheet.min.js
+  - coffee/index.js
 ---
-<style>
-/** TODO Meter todo esto en Less y añadir animation: show .3s; y @animation ... **/
-    .keys {
-        position: absolute;
-        top: 100px;
-    }
-
-    .keys > .key {
-        float: left;
-        width: 30px;
-        height: 30px;
-        font-size: 20px;
-        background-color: #984D4D;
-        text-align: center;
-        margin-left: 10px;
-        border-radius: 30px;
-        box-shadow: rgba(210, 66, 66, 0.62) 0px 0px 8px 2px;
-        color: #FF7E00;
-
-        -webkit-animation: show .3s;
-        -moz-animation: show .3s;
-    }
-
-    .keys > .bye {
-        -webkit-animation: hide .3s;
-        -moz-animation: hide .3s;
-        opacity: 0;
-    }
-
-    @-webkit-keyframes show {
-        0% {
-            opacity: 0;
-            transform: scale(0.7);
-        }
-
-        80% {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-
-        100% {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-
-    @-moz-keyframes show {
-        0% {
-            opacity: 0;
-            transform: scale(0.7);
-        }
-
-        80% {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-
-        100% {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-
-    @-webkit-keyframes hide {
-        100% {
-            opacity: 0;
-            transform: scale(1.7);
-        }
-
-        20% {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-
-        0% {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-
-    @-moz-keyframes hide {
-        100% {
-            opacity: 0;
-            transform: scale(1.7);
-        }
-
-        20% {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-
-        0% {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-</style>
 
 <div class="center-block profile">
     <div class="profile-name">
@@ -120,7 +28,7 @@ title: Home
 </div>
 
 <div class="keys hidden">
-
+    <!-- Keys from the current cheet -->
 </div>
 
 <script>
@@ -128,6 +36,3 @@ title: Home
         $('.profile_img').parallax();
     }
 </script>
-
-<script src="assets/js/cheet.min.js"></script>
-<script src="assets/coffee/index.js"></script>
