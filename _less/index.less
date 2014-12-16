@@ -1,3 +1,34 @@
+@import "lib/prefixed_statements";
+
+/**
+ * Main Page -> Profile
+ **/
+.profile {
+    width: 70%;
+    text-align: center;
+
+    .profile_img > div > img {
+        width: 256px;
+        border-radius: 150px;
+    }
+
+    .profile_name {
+        h1 {
+            color: rgb(255, 133, 27);
+        }
+
+        h3 {
+            color: rgb(186, 142, 51);
+        }
+    }
+
+    .profile_description {
+        p {
+            color: #A1A1A1;
+        }
+    }
+}
+
 /**
  * Keyboard cheets
  * Design and (dis)appear effect
@@ -18,19 +49,16 @@
         box-shadow: rgba(210, 66, 66, 0.62) 0px 0px 8px 2px;
         color: #FF7E00;
 
-        -webkit-animation: show .3s;
-        -moz-animation: show .3s;
+        .animation(show .3s);
     }
 
     .bye {
-        -webkit-animation: hide .3s;
-        -moz-animation: hide .3s;
+        .animation(hide .3s);
         opacity: 0;
     }
 }
 
-//TODO Mirar si en less se puede simplificar las declaraciones siguientes
-@-webkit-keyframes show {
+.keyframes(show, {
     0% {
         opacity: 0;
         transform: scale(0.7);
@@ -45,26 +73,9 @@
         opacity: 1;
         transform: scale(1);
     }
-}
+});
 
-@-moz-keyframes show {
-    0% {
-        opacity: 0;
-        transform: scale(0.7);
-    }
-
-    80% {
-        opacity: 1;
-        transform: scale(1.1);
-    }
-
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@-webkit-keyframes hide {
+.keyframes(hide, {
     100% {
         opacity: 0;
         transform: scale(1.7);
@@ -79,21 +90,4 @@
         opacity: 1;
         transform: scale(1);
     }
-}
-
-@-moz-keyframes hide {
-    100% {
-        opacity: 0;
-        transform: scale(1.7);
-    }
-
-    20% {
-        opacity: 1;
-        transform: scale(1.1);
-    }
-
-    0% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
+});

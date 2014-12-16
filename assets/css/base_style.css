@@ -84,26 +84,3 @@ a:hover {
     color: #82856A;
     background-color: rgba(46, 33, 53, 0.4);
 }
-
-/**
- * Main Page -> Profile
- **/
-.profile {
-    width: 70%;
-    text-align: center;
-}
-
-.profile_img > div > img {
-    width: 256px;
-    border-radius: 150px;
-
-}
-
-/**
- * Posts
- **/
-hr.post-separator {
-    border-color: gray;
-    border-style: dashed none none;
-    margin-bottom: 30px;
-}

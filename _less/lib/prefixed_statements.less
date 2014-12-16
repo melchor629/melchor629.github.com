@@ -1,0 +1,37 @@
+/**
+ * Función que define todas las variantes de @keyframes.
+ * @name Nombre de la animación (o keyframes)
+ * @rules Las reglas que definen la animación
+ **/
+.keyframes(@name, @rules) {
+    @-webkit-keyframes @name {
+        @rules();
+    }
+
+    @-moz-keyframes @name {
+        @rules();
+    }
+
+    @keyframes @name {
+        @rules();
+    }
+}
+
+/**
+ * Coloca las variantes de animation con prefijos dados
+ * los argumentos varios, definidos por la definición de
+ * animation en CSS.
+ * ... argumentos varios
+ **/
+.animation(...) {
+    -webkit-animation: @arguments;
+       -moz-animation: @arguments;
+            animation: @arguments;
+}
+
+.transform(...) {
+    -webkit-transform: @arguments;
+       -moz-transform: @arguments;
+        -ms-transform: @arguments;
+            transform: @arguments;
+}

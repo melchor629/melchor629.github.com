@@ -6,8 +6,10 @@ fs.watch('./_less/', function(a, b) {
     if(ext === 'less') {
         //lessc -x ./_less/b ./assets/less/b
         var fCss = b.substr(0, b.lastIndexOf('.')) + '.css';
-        var pr = cp.exec('lessc ' + ['-x', './_less/' + b, './assets/less/' + fCss].join(' '));
+        var pr = cp.exec('lessc ' + '-x ./_less/' + b +' ./assets/less/' + fCss, function(e, stdout, stderr) {
+            if(stdout) console.log(stdout);
+            if(stderr) console.error(stderr);
+        });
         console.log('Compilando \'./_less/' + b + '\' a \'./assets/less/' + fCss +'\'');
-        pr.stdout.addListener('data', function(d) { console.log(d) });
     }
 });

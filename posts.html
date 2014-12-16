@@ -1,15 +1,19 @@
 ---
 layout: default
 title: Posts
+styles:
+  - less/posts.css
+scripts:
+  - coffee/posts.js
 ---
 <ul class="list-unstyled">
   	{% for post in site.posts %}
-    	<li>
-      		<h2>
-                <a href="{{ post.url }}">{{ post.title }}</a>
-                <small><p class="text-right">{{ post.date | date_to_rfc822 }}</p></small>
+    	<li class="post_entry">
+      		<h2 class="post_header">
+                <a class="post_title" href="{{ post.url }}">{{ post.title }}</a>
+                <small><p class="text-right post_created_time">{{ post.date | date_to_rfc822 }}</p></small>
             </h2>
-      		<p class="lead">{{ post.excerpt | remove: '<p>' | remove: '</p>' }}...</p>
+      		<p class="lead post_content">{{ post.excerpt | remove: '<p>' | remove: '</p>' }}...</p>
             <hr class="post-separator">
     	</li>
   	{% endfor %}
