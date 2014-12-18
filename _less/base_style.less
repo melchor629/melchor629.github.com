@@ -1,0 +1,120 @@
+@import "lib/material_design_colors";
+
+/**
+ * Body
+ **/
+body {
+    background-color: white;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
+
+/**
+ * Text
+ **/
+body, div, span, li {
+    color: black;
+}
+
+a {
+    transition: color .1s linear;
+}
+
+a:link, a:visited, a:focus {
+    color: @primary-color-normal;
+}
+
+a:hover {
+    color: @primary-color-light;
+    text-decoration: none;
+}
+
+/**
+ * Panels
+ **/
+.panel-default {
+    border-color: transparent;
+}
+
+.panel-default > .panel-heading {
+    background-image: none;
+    background-color: @primary-color-normal;
+}
+
+.panel-default > .panel-heading a {
+    color: @accent-color;
+}
+
+.panel-default > .panel-heading a:hover {
+    color: @accent-color;
+}
+
+.panel-default > .panel-collapse > .panel-body {
+    background-color: @primary-color-light;
+    border-top-color: transparent;
+}
+
+/** TODO Crear un ease bonito, adecuado a material design y pasar esto a less... **/
+/**
+ * Navbar
+ **/
+.navbar-default {
+    background-image: none;
+    background-color: @primary-color-normal;
+    border: none;
+    border-radius: 0px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 5px;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: white;
+    transition: background-color .2s linear, color .1s linear;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    color: white;
+    background-color: @primary-color-dark;
+}
+
+.navbar-default .navbar-nav > li.active > a {
+    color: white;
+    background-image: none;
+    background-color: @primary-color-dark;
+    transition: background-color .2s linear, color .1s linear;
+}
+
+.navbar-default .navbar-nav > li.active > a:hover {
+    color: @accent-color;
+    background-color: @primary-color-dark;
+}
+
+.navbar-default .navbar-brand {
+    color: @accent-color;
+    font-weight: 400;
+    text-shadow: none;
+}
+
+.navbar-default .navbar-brand:hover {
+    color: @accent-color;
+}
+
+.navbar-default .navbar-collapse {
+    border-color: @primary-color-normal;
+    box-shadow: none;
+}
+
+/**
+ * Footer
+ **/
+#footer {
+    background-color: @primary-color-normal;
+    box-shadow: rgba(0,0,0,0.4) 0px 2px 5px inset;
+}
+
+#footer a, #footer a:hover {
+    color: @primary-color-light;
+}
+
+#footer p {
+    color: @md-grey-100;
+}

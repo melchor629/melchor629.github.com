@@ -25,6 +25,8 @@
     <link href="{{ site.baseurl }}/assets/css/syntax.css" rel="stylesheet">
     <!-- Material design effect for links -->
     <link href="{{ site.baseurl }}/assets/css/waves.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -48,7 +50,7 @@
     <!-- Custom styles from individual pages -->
     {% if page.styles %}
       {% for style in page.styles %}
-        <link href="{{ site.baseurl }}/assets/{{ style }}" rel="stylesheet">
+        <link href="{{ site.baseurl }}/assets/css/{{ style }}" rel="stylesheet">
       {% endfor %}
     {% endif %}
 
@@ -75,11 +77,11 @@
                 {% if node.title != null %}
                     {% if page.url == node.url %}
                         <li class="active">
-                          <a href="{{ site.baseurl }}{{ node.url }}" class="waves-effect waves-light">{{ node.title }}</a>
+                          <a href="{{ site.baseurl }}{{ node.url }}" class="waves-effect waves-button waves-light">{{ node.title }}</a>
                         </li>
                     {% else if node.title != '' %}
                         <li>
-                          <a href="{{ site.baseurl }}{{ node.url }}" class="waves-effect waves-light">{{ node.title }}</a>
+                          <a href="{{ site.baseurl }}{{ node.url }}" class="waves-effect waves-button waves-light">{{ node.title }}</a>
                         </li>
                     {% endif %}
                 {% endif %}
@@ -120,7 +122,7 @@
     <!-- Custom scripts from individual pages -->
     {% if page.scripts %}
       {% for script in page.scripts %}
-        <script src="{{ site.baseurl }}/assets/{{ script }}"></script>
+        <script src="{{ site.baseurl }}/assets/js/{{ script }}"></script>
       {% endfor %}
     {% endif %}
 

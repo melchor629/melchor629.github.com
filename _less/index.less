@@ -1,4 +1,5 @@
 @import "lib/prefixed_statements";
+@import "lib/material_design_colors";
 
 /**
  * Main Page -> Profile
@@ -14,17 +15,17 @@
 
     .profile_name {
         h1 {
-            color: rgb(255, 133, 27);
+            color: @primary-color-normal;
         }
 
         h3 {
-            color: rgb(186, 142, 51);
+            color: @primary-color-light;
         }
     }
 
     .profile_description {
         p {
-            color: #A1A1A1;
+            color: @md-grey-700;
         }
     }
 }

@@ -1,4 +1,5 @@
 @import "lib/prefixed_statements";
+@import "lib/material_design_colors";
 
 /**
  * Posts
@@ -6,10 +7,10 @@
  .post_entry {
     .post_header {
         .post_title {
-            color: #AAFFAA;
+            color: @primary-color-normal;
 
             &:hover {
-                color: #FFAAFF;
+                color: @primary-color-light;
             }
         }
     }
@@ -18,5 +19,20 @@
         border-color: gray;
         border-style: dashed none none;
         margin-bottom: 30px;
+    }
+}
+
+.return {
+    background-color: @accent-color;
+    border-radius: 30px;
+    width: 48px;
+    height: 48px;
+    box-shadow: rgba(0,0,0,0.35) 0px 2px 7px;
+    cursor: pointer;
+
+    i {
+        font-size: 22px;
+        padding: 12px 0px;
+        color: white;
     }
 }

@@ -2,9 +2,9 @@
 layout: default
 title: Posts
 styles:
-  - less/posts.css
+  - posts.css
 scripts:
-  - coffee/posts.js
+  - posts.js
 ---
 <ul class="list-unstyled">
   	{% for post in site.posts %}
@@ -18,3 +18,7 @@ scripts:
     	</li>
   	{% endfor %}
 </ul>
+
+<div class="return waves-effect waves-circle waves-float">
+    <i class="fa fa-arrow-left"></i>
+</div>
