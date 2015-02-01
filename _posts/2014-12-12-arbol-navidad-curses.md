@@ -1,6 +1,5 @@
 ---
 title: Un árbol de navidad para tu terminal
-layout: default
 date: 2014-12-12 23:37:55
 tags: ['terminal', 'ncurses', 'libncurses', 'curses', 'linux', 'mac os x', 'navidad', 'arbol']
 ---

@@ -27,6 +27,30 @@ translateMonth = (month) ->
         when 'Dec' then mes = 'Dic'
     mes
 
+showReturnIcon = () ->
+    $('.return').removeClass('hide').addClass('show')
+
+hideReturnIcon = ->
+    $('.return').removeClass('show').addClass('hide')
+
+loadPost = (url) ->
+    $('.mainPage').removeClass('show').addClass('_hide')
+    $.get(url, (html) ->
+        $('.postPage').append(html).removeClass('_hide').addClass('show')
+        showReturnIcon()
+    );
+    setTimeout ->
+        $('.mainPage').hide()
+    , 500
+
+returnMainPage = ->
+    $('.postPage').removeClass('show').addClass('_hide')
+    $('.mainPage').removeClass('_hide').addClass('show').show()
+    hideReturnIcon()
+    setTimeout ->
+        $('.postPage').empty()
+    , 500
+
 (->
     $('.post_created_time').each (k, v) ->
         v = $ v
@@ -35,4 +59,13 @@ translateMonth = (month) ->
         mes = translateMonth parts[2]
 
         v.text(v.text().replace(parts[1], dia).replace(parts[2], mes))
+
+    $('a.post_title').click (e) ->
+        e.preventDefault()
+        loadPost $(this).attr('href')
+        false
+
+    $('.return').click ->
+        returnMainPage()
+        false
 )()
