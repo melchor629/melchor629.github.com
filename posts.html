@@ -8,7 +8,7 @@ scripts:
 ---
 <div class="mainPage">
     <!-- TODO Rewrite del diseño de posts  - ponerlo parecido a BlenderGuru -->
-    <ul class="list-unstyled">
+    <!--<ul class="list-unstyled">
         {% for post in site.posts %}
             <li class="post_entry">
                 <h2 class="post_header">
@@ -19,7 +19,37 @@ scripts:
                 <hr class="post-separator">
             </li>
         {% endfor %}
-    </ul>
+    </ul>-->
+
+    <div class="posts_container">
+        {% for post in site.posts %}
+            <div class="post_entry">
+                <div class="post_thumb">
+                    {% if post.thumb != null %}
+                    <img src="/assets/img/posts/{{ post.thumb }}">
+                    {% elsif post.ext_thum != null %}
+                    <img src="{{ post.ext_thum }}">
+                    {% elsif post.thumbnail != null %}
+                    <img src="{{ post.thumbnail }}">
+                    {% else %}
+                    <img src="/assets/img/posts/noimg.png">
+                    {% endif %}
+                    <a href="{{ post.url }}" class="post_url">
+                        <div class="cover"></div>
+                        <span>Ver</span>
+                    </a>
+                </div>
+                <h3 class="text-center post_title">
+                    <a href="{{ post.url }}" class="post_url">
+                        {{ post.title }}
+                    </a>
+                </h3>
+                <div class="post_info">
+                    <small><p class="text-right post_created_time">{{ post.date | date_to_rfc822 }}</p></small>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 </div>
 
 <div class="postPage _hide"> <!-- Se rellenará con un post --> </div>

@@ -2,6 +2,7 @@
 title: Un árbol de navidad para tu terminal
 date: 2014-12-12 23:37:55
 tags: ['terminal', 'ncurses', 'libncurses', 'curses', 'linux', 'mac os x', 'navidad', 'arbol']
+thumb: arbolDeNavidadCurses.png
 ---
 En estas fechas tan señaladas como son la navidad (_y los ejercicios de programación de la universidad_) hacen de este post algo (_ciertamente_) bonito:
 

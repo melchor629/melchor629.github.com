@@ -8,7 +8,7 @@ body {
 /**
  * Posts
  **/
- .post_entry {
+/*.post_entry {
     .post_header {
         .post_title {
             color: @primary-color-normal;
@@ -23,6 +23,62 @@ body {
         border-color: gray;
         border-style: dashed none none;
         margin-bottom: 30px;
+    }
+}*/
+
+.post_entry {
+    float: left;
+    width: 45%;
+    max-height: 360px;
+    margin: 0 0 45px;
+
+    &:nth-child(odd) {
+        clear: left;
+    }
+
+    &:nth-child(even) {
+        margin-left: 5%;
+    }
+
+    .post_thumb {
+        max-height: 300px;
+        overflow: hidden;
+        position: relative;
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+
+        .post_url {
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            height: 100%;
+            width: 100%;
+            background-color: fade(@accent-color, 30%);
+            opacity: 0;
+            transition: opacity .2s linear;
+
+            &:hover {
+                opacity: 1;
+            }
+
+            span {
+                position: absolute;
+                color: white;
+                top: 50%;
+                left: 50%;
+                margin-top: -15px;
+                margin-left: -22px;
+                padding: 3px 10px;
+                border: lightblue dotted 2px;
+            }
+        }
+    }
+
+    .post_title {
+
     }
 }
 

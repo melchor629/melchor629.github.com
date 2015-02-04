@@ -25,8 +25,12 @@ showReturnIcon = () ->
 hideReturnIcon = ->
     $('.return').removeClass('show').addClass('hide')
 
+oldScrollPos = 0
 loadPost = (url) ->
     $('.mainPage').removeClass('show').addClass('_hide')
+    oldScrollPos = window.scrollY
+    #TODO ANIMATE
+    window.scrollTo(0, 0)
     $.get(url, (html) ->
         $('.postPage').append(html).removeClass('_hide').addClass('show').css('position', 'absolute')
         showReturnIcon()
@@ -42,6 +46,8 @@ returnMainPage = ->
     hideReturnIcon()
     setTimeout ->
         $('.postPage').empty()
+        #TODO ANIMATE
+        window.scrollTo(0, oldScrollPos)
     , 500
 
 (->
@@ -53,7 +59,7 @@ returnMainPage = ->
 
         v.text(v.text().replace(parts[1], dia).replace(parts[2], mes))
 
-    $('a.post_title').click (e) ->
+    $('.post_url').click (e) ->
         e.preventDefault()
         loadPost $(this).attr('href')
         false
