@@ -33,6 +33,7 @@ scripts:
 
 <script>
     document.onreadystatechange = function() {
-        $('.profile_img').parallax();
+        if(document.readyState === 'interactive')
+            $('.profile_img').parallax();
     }
 </script>

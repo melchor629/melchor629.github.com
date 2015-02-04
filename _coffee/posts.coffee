@@ -14,16 +14,8 @@ translateMonth = (month) ->
     mes = month
     switch(month)
         when 'Jan' then mes = 'Ene'
-        #when 'Feb' then mes = 'Ene'
-        #when 'Mar' then mes = 'Ene'
         when 'Apr' then mes = 'Abr'
-        #when 'May' then mes = 'Ene'
-        #when 'Jun' then mes = 'Ene'
-        #when 'Jul' then mes = 'Ene'
         when 'Aug' then mes = 'Ago'
-        #when 'Sep' then mes = 'Ene'
-        #when 'Oct' then mes = 'Ene'
-        #when 'Nov' then mes = 'Ene'
         when 'Dec' then mes = 'Dic'
     mes
 
@@ -36,11 +28,12 @@ hideReturnIcon = ->
 loadPost = (url) ->
     $('.mainPage').removeClass('show').addClass('_hide')
     $.get(url, (html) ->
-        $('.postPage').append(html).removeClass('_hide').addClass('show')
+        $('.postPage').append(html).removeClass('_hide').addClass('show').css('position', 'absolute')
         showReturnIcon()
     );
     setTimeout ->
         $('.mainPage').hide()
+        $('.postPage').css('position', 'relative')
     , 500
 
 returnMainPage = ->

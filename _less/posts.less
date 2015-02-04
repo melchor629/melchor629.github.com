@@ -41,6 +41,7 @@ body {
 
 .postPage {
     position: relative;
+    top: 50px;
 
     &._hide {
         .animation(outPostPage .5s);
@@ -136,11 +137,13 @@ body {
 
 .keyframes(outPostPage, {
     from {
+        top: 50px;
         left: 0px;
         opacity: 1;
     }
 
     to {
+        top: 50px;
         left: 300px;
         opacity: 0;
     }

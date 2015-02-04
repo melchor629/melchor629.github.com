@@ -60,11 +60,12 @@
   loadPost = function(url) {
     $('.mainPage').removeClass('show').addClass('_hide');
     $.get(url, function(html) {
-      $('.postPage').append(html).removeClass('_hide').addClass('show');
+      $('.postPage').append(html).removeClass('_hide').addClass('show').css('position', 'absolute');
       return showReturnIcon();
     });
     return setTimeout(function() {
-      return $('.mainPage').hide();
+      $('.mainPage').hide();
+      return $('.postPage').css('position', 'relative');
     }, 500);
   };
 
