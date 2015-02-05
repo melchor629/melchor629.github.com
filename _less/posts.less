@@ -82,6 +82,10 @@ body {
     }
 }
 
+.container {
+    position: relative; //Para que funcione el efecto
+}
+
 .mainPage {
     position: relative;
 
@@ -97,7 +101,6 @@ body {
 
 .postPage {
     position: relative;
-    top: 50px;
 
     &._hide {
         .animation(outPostPage .5s);
@@ -107,6 +110,11 @@ body {
     &.show {
         display: block;
         .animation(inPostPage .5s);
+    }
+
+    img {
+        max-width: 100%;
+        height: auto
     }
 }
 

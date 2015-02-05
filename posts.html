@@ -5,6 +5,7 @@ styles:
   - posts.css
 scripts:
   - posts.js
+  - lazyload.min.js
 ---
 <div class="mainPage">
     <!-- TODO Rewrite del diseño de posts  - ponerlo parecido a BlenderGuru -->
@@ -32,7 +33,7 @@ scripts:
                     {% elsif post.thumbnail != null %}
                     <img src="{{ post.thumbnail }}">
                     {% else %}
-                    <img src="/assets/img/posts/noimg.png">
+                    <img src="/assets/img/posts/no_img.png">
                     {% endif %}
                     <a href="{{ post.url }}" class="post_url">
                         <div class="cover"></div>
