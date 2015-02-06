@@ -8,44 +8,47 @@ body {
 /**
  * Posts
  **/
-/*.post_entry {
-    .post_header {
-        .post_title {
-            color: @primary-color-normal;
+.post_entry {
+    margin: 0 0 15px;
+    padding: 5px;
 
-            &:hover {
-                color: @primary-color-light;
-            }
+    //Clearfix para tener pares de posts en linea
+    @media (min-width: 768px) and (max-width: 1199px) {
+        &:nth-child(odd) {
+            clear: left;
         }
     }
 
-    .post-separator {
-        border-color: gray;
-        border-style: dashed none none;
-        margin-bottom: 30px;
-    }
-}*/
-
-.post_entry {
-    float: left;
-    width: 45%;
-    max-height: 360px;
-    margin: 0 0 45px;
-
-    &:nth-child(odd) {
-        clear: left;
+    @media (min-width: 1200px) {
+        //Los elementos multiplos de 3 (0, 3, 6, ...)
+        //n empieza en 1, no en 0
+        &:nth-child(3n+1) {
+            clear: left;
+        }
     }
 
-    &:nth-child(even) {
-        margin-left: 5%;
+
+    .inner-outer {
+        border-radius: 4px;
+        box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.45);
+        transition: box-shadow .2s linear;
+        width: 100%;
+        height: 100%;
+        background-color: @primary-color-normal;
+
+        &:hover {
+            box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.35);
+        }
     }
 
     .post_thumb {
+        margin-top: 10px;
         max-height: 300px;
         overflow: hidden;
         position: relative;
 
         img {
+            border-radius: 4px 4px 0 0;
             width: 100%;
             height: auto;
         }
@@ -56,29 +59,22 @@ body {
             left: 0px;
             height: 100%;
             width: 100%;
-            background-color: fade(@accent-color, 30%);
-            opacity: 0;
+            background-color: transparent;
             transition: opacity .2s linear;
-
-            &:hover {
-                opacity: 1;
-            }
-
-            span {
-                position: absolute;
-                color: white;
-                top: 50%;
-                left: 50%;
-                margin-top: -15px;
-                margin-left: -22px;
-                padding: 3px 10px;
-                border: lightblue dotted 2px;
-            }
         }
     }
 
     .post_title {
+        padding-right: 25px;
+        padding-left: 25px;
+        a {
+            color: white;
+        }
+    }
 
+    .post_info {
+        padding-right: 25px;
+        color: white;
     }
 }
 

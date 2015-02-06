@@ -8,45 +8,32 @@ scripts:
   - lazyload.min.js
 ---
 <div class="mainPage">
-    <!-- TODO Rewrite del diseño de posts  - ponerlo parecido a BlenderGuru -->
-    <!--<ul class="list-unstyled">
+    <div class="posts_container row">
         {% for post in site.posts %}
-            <li class="post_entry">
-                <h2 class="post_header">
-                    <a class="post_title" href="{{ post.url }}">{{ post.title }}</a>
-                    <small><p class="text-right post_created_time">{{ post.date | date_to_rfc822 }}</p></small>
-                </h2>
-                <p class="lead post_content">{{ post.excerpt | remove: '<p>' | remove: '</p>' }}...</p>
-                <hr class="post-separator">
-            </li>
-        {% endfor %}
-    </ul>-->
-
-    <div class="posts_container">
-        {% for post in site.posts %}
-            <div class="post_entry">
-                <div class="post_thumb">
-                    {% if post.thumb != null %}
-                    <img src="/assets/img/posts/{{ post.thumb }}">
-                    {% elsif post.ext_thum != null %}
-                    <img src="{{ post.ext_thum }}">
-                    {% elsif post.thumbnail != null %}
-                    <img src="{{ post.thumbnail }}">
-                    {% else %}
-                    <img src="/assets/img/posts/no_img.png">
-                    {% endif %}
-                    <a href="{{ post.url }}" class="post_url">
-                        <div class="cover"></div>
-                        <span>Ver</span>
-                    </a>
-                </div>
-                <h3 class="text-center post_title">
-                    <a href="{{ post.url }}" class="post_url">
-                        {{ post.title }}
-                    </a>
-                </h3>
-                <div class="post_info">
-                    <small><p class="text-right post_created_time">{{ post.date | date_to_rfc822 }}</p></small>
+            <div class="post_entry col-sm-6 col-lg-4">
+                <div class="inner-outer">
+                    <div class="post_thumb">
+                        {% if post.thumb != null %}
+                        <img src="/assets/img/posts/{{ post.thumb }}">
+                        {% elsif post.ext_thum != null %}
+                        <img src="{{ post.ext_thum }}">
+                        {% elsif post.thumbnail != null %}
+                        <img src="{{ post.thumbnail }}">
+                        {% else %}
+                        <img src="/assets/img/posts/no_img.png">
+                        {% endif %}
+                        <a href="{{ post.url }}" class="post_url">
+                            <div class="cover"></div>
+                        </a>
+                    </div>
+                    <h3 class="text-center post_title">
+                        <a href="{{ post.url }}" class="post_url">
+                            {{ post.title }}
+                        </a>
+                    </h3>
+                    <div class="post_info">
+                        <small><p class="text-right post_created_time">{{ post.date | date_to_rfc822 }}</p></small>
+                    </div>
                 </div>
             </div>
         {% endfor %}
