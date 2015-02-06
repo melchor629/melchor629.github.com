@@ -112,6 +112,36 @@ body {
         max-width: 100%;
         height: auto
     }
+
+    iframe.yt {
+        position: relative;
+        border: none;
+        left: 50%;
+
+        @media (max-width: 767px) {
+            width: 320px;
+            height: 240px;
+            margin-left: -160px;
+        }
+        
+        @media (min-width: 768px) {
+            width: 640px;
+            height: 360px;
+            margin-left: -320px;
+        }
+
+        @media (min-width: 992px) {
+            width: 853px;
+            height: 480px;
+            margin-left: -427px;
+        }
+
+        @media (min-width: 1400px) {
+            width: 1280px;
+            height: 720px;
+            margin-left: -640px;
+        }
+    }
 }
 
 .return {
