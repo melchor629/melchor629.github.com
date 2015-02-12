@@ -1,5 +1,4 @@
 gems:
-  - jekyll-mentions
   - jemoji
   - jekyll-sitemap
   - jekyll-coffeescript

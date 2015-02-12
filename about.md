@@ -49,13 +49,13 @@ Y sobre lenguajes de marcado (Markup Languages), tenemos simplemente _HTML_ y _M
 Y por último, sobre formatos para intercambio de datos tenemos _JSON_, _XML_ y _YAML_.
 
 ##¿Tienes feisbuk?
-Si, pero casi nunca lo uso... _No me enviéis peticiones de amistad_
+Si, pero casi nunca lo uso... _No me enviéis peticiones de amistad_ :confused:
 
 ##¿Tienes Twitter?
-Si, ese en cambio lo uso mucho mas, [@melchor629](https://twitter.com/melchor629).
+Si, ese en cambio lo uso mucho mas, [@melchor629](https://twitter.com/melchor629) :smile:
 
 ##¿Y GitHub? No lo has puesto...
-[@melchor629](https://github.com/melchor629)
+:smirk: [@melchor629](https://github.com/melchor629)
 
 ##¿Tienes un pepino de pe se?
 
@@ -78,7 +78,7 @@ No, pero no está mal. Suelen llegar esto:
 Pero en lugar de 13 MB, 14MB
 
 ##Quiero saber más...
-**No.**
+**No.** :angry:
 
 ##¿Por qué?
-**Porque no.**
+**Porque no.** :rage:
