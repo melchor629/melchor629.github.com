@@ -34,19 +34,41 @@ createCheat 'f i l l space d e space p u t a', ->
 createCheat 'a r o u n d space t h e space w o r l d', ->
     playSound 'atw'
 
+años = ->
+    d = new Date
+    n = new Date 830037600000
+    if d.getMonth() >= n.getMonth() and d.getDate() >= n.getDate()
+        año = d.getYear() - n.getYear()
+    else
+        año = d.getYear() - n.getYear() - 1
+    $('#año').text año
+
+años()
+
 window.soundBuffers = soundBuffers = {}
+window.AudioContext = window.webkitAudioContext || window.AudioContext
 window.audioCtx = audioCtx = new AudioContext()
 
+a = new Audio
+canPlay =
+    mp4: a.canPlayType('audio/m4a; codecs="mp4a.40.5'),
+    mp3: a.canPlayType('audio/mp3'),
+    ogg: a.canPlayType('audio/ogg; codecs="vorbis"')
+
+for c of canPlay
+    if canPlay[c]
+        canPlay.def = c;
+
 loadSound = (name, snd) ->
+    file = snd or "/assets/snd/#{name}.#{canPlay.def}"
     request = new XMLHttpRequest();
-    request.open('GET', snd);
+    request.open('GET', file);
     request.responseType = 'arraybuffer';
     request.onload = (e) ->
-        audioCtx.decodeAudioData(request.response, (buffer) ->
+        audioCtx.decodeAudioData request.response, (buffer) ->
             soundBuffers[name] = buffer
-        )
     request.onerror = (e) ->
-        window.alert e
+        console.error 'El archivo ' + file + ' no existe'
     request.send();
 
 playSound = (name) ->
@@ -61,4 +83,4 @@ playSound = (name) ->
             source.start(0);
         , 100
 
-loadSound 'atw', 'assets/snd/atw.ogg'
+loadSound 'atw'

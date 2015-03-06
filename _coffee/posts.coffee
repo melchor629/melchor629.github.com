@@ -64,7 +64,11 @@ returnMainPage = ->
         loadPost $(this).attr('href')
         false
 
-    $('.return').click ->
+    $('.back').click ->
         returnMainPage()
+        false
+
+    $('.share').click ->
+        alert 'share'
         false
 )()

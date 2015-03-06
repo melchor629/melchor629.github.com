@@ -1,3 +1,3 @@
 jekyll: jekyll serve
-coffee: coffee --watch --compile --output assets/js _coffee/
+coffee: coffee -o assets/js/ -cw _coffee/
 less: node less-watch

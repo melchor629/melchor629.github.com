@@ -12,16 +12,14 @@ scripts:
         {% for post in site.posts %}
             <div class="post_entry col-sm-6 col-lg-4">
                 <div class="inner-outer">
-                    <div class="post_thumb">
+                    <div class="post_thumb" style="background-image:
                         {% if post.thumb != null %}
-                        <img src="/assets/img/posts/{{ post.thumb }}">
-                        {% elsif post.ext_thum != null %}
-                        <img src="{{ post.ext_thum }}">
+                        url(/assets/img/posts/{{ post.thumb }})
                         {% elsif post.thumbnail != null %}
-                        <img src="{{ post.thumbnail }}">
+                        url({{ post.thumbnail }})
                         {% else %}
-                        <img src="/assets/img/posts/no_img.png">
-                        {% endif %}
+                        url(/assets/img/posts/no_img.png)
+                        {% endif %}">
                         <a href="{{ post.url }}" class="post_url">
                             <div class="cover"></div>
                         </a>
@@ -42,6 +40,10 @@ scripts:
 
 <div class="postPage _hide"> <!-- Se rellenará con un post --> </div>
 
-<div class="return waves-effect waves-circle waves-float hide">
+<div class="return waves-effect waves-circle waves-float hide back">
     <i class="fa fa-arrow-left"></i>
+</div>
+
+<div class="return waves-effect waves-circle waves-float hide share">
+    <i class="fa fa-share"></i>
 </div>

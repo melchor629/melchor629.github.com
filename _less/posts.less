@@ -43,15 +43,13 @@ body {
 
     .post_thumb {
         margin-top: 10px;
-        max-height: 300px;
+        height: 300px;
         overflow: hidden;
         position: relative;
-
-        img {
-            border-radius: 4px 4px 0 0;
-            width: 100%;
-            height: auto;
-        }
+        border-radius: 4px 4px 0 0;
+        background-position: center;
+        background-size: auto 100%;
+        background-repeat: no-repeat;
 
         .post_url {
             position: absolute;
@@ -151,9 +149,9 @@ body {
     height: 48px;
     box-shadow: rgba(0,0,0,0.35) 0px 2px 7px;
     cursor: pointer;
-    position: fixed;
+    position: absolute;
     right: 8%;
-    top: 25px;
+    top: -45px;
 
     i {
         font-size: 22px;
@@ -163,40 +161,44 @@ body {
 
     &.hide {
         display: block !important;
-        top: -55px;
+        top: -130px;
         .animation(outReturn .8s cubic-bezier(.72,.15,.5,.95)); 
     }
 
     &.show {
         .animation(inReturn .8s cubic-bezier(.72,.15,.5,.95));
     }
+
+    &.share {
+        right: 14%;
+    }
 }
 
 .keyframes(inReturn, {
     0% {
-        top: -55px;
+        top: -130px;
         .transform(rotate(180deg));
     }
 
     60% {
-        top: 40px;
+        top: -20px;
         .transform(rotate(-30deg));
     }
 
     100% {
-        top: 20px;
+        top: -45px;
         .transform(rotate(0deg));
     }
 });
 
 .keyframes(outReturn, {
     100% {
-        top: -55px;
+        top: -130px;
         .transform(rotate(180deg));
     }
 
     0% {
-        top: 20px;
+        top: -45px;
         .transform(rotate(0deg));
     }
 });
