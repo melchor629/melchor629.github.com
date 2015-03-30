@@ -5,7 +5,7 @@ tags: ['arduino', 'programación', 'presentación', 'aprender', 'electronica']
 thumb: arduino-UNO.png
 ---
 
-En este post pongo una presentación que hecho sobre Arduino. Es sencillo e introductorio. Para ver la presentación simplemente entrad [en este enlace](/arduino) y disfrutadlo.
+En este post pongo una presentación que hecho sobre Arduino. Es sencillo e introductorio. Para ver la presentación simplemente entrad [en este enlace](/arduino) y disfrutadlo. Una versión PDF está disponible aquí: [PDF](/arduino/arduino.pdf).
 
 Alguno de los enlaces que os puede ayudar después de la presentación son:
 
