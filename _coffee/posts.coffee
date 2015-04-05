@@ -20,17 +20,30 @@ translateMonth = (month) ->
     mes
 
 showReturnIcon = () ->
-    $('.return').removeClass('hide').addClass('show')
+    $('.return').show().removeClass('hide').addClass('show')
 
 hideReturnIcon = ->
     $('.return').removeClass('show').addClass('hide')
+    setTimeout () ->
+        $('.return').hide()
+    , 1000
+
+smoothScroll = (from, to) ->
+    scroll = (from, to, time) ->
+        window.scrollTo 0, from + (to - from) * time
+        console.log from + (to - from) * time
+        time += 1  / 60
+        if(time <= 1.0)
+            window.requestAnimationFrame scroll, from, to, time
+    scroll from, to, 0
 
 oldScrollPos = 0
 loadPost = (url) ->
     $('.mainPage').removeClass('show').addClass('_hide')
     oldScrollPos = window.scrollY
     #TODO ANIMATE
-    window.scrollTo(0, 0)
+    #window.scrollTo(0, 0)
+    smoothScroll(oldScrollPos, 0)
     $.get(url, (html) ->
         $('.postPage').append(html).removeClass('_hide').addClass('show').css('position', 'absolute')
         showReturnIcon()
@@ -47,7 +60,8 @@ returnMainPage = ->
     setTimeout ->
         $('.postPage').empty()
         #TODO ANIMATE
-        window.scrollTo(0, oldScrollPos)
+        #window.scrollTo(0, oldScrollPos)
+        smoothScroll(0, oldScrollPos)
     , 500
 
 (->
