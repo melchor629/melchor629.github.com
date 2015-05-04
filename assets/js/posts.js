@@ -61,19 +61,33 @@
   };
 
   smoothScroll = function(from, to, duration) {
-    var scroll, started;
-    started = window.performance.now();
-    scroll = function(timestamp) {
-      var time;
-      time = (timestamp - started) / 1000;
-      window.scrollTo(0, from + (to - from) * time / duration);
-      console.log(from + (to - from) * time / duration);
-      console.log("Tiempo " + time);
-      if (time <= duration) {
-        return window.requestAnimationFrame(scroll);
+    var done, position, target, tween, update;
+    position = {
+      x: 0,
+      y: from
+    };
+    target = {
+      x: 0,
+      y: to
+    };
+    done = false;
+    tween = new TWEEN.Tween(position).to(target, duration);
+    tween.easing(TWEEN.Easing.Cubic.InOut);
+    tween.onUpdate(function() {
+      window.scrollTo(position.x, position.y);
+      return console.log(position);
+    });
+    tween.onComplete(function() {
+      return done = true;
+    });
+    tween.start();
+    update = function() {
+      TWEEN.update();
+      if (!done) {
+        return window.requestAnimationFrame(update);
       }
     };
-    return scroll(from, to, 0);
+    return update();
   };
 
   oldScrollPos = 0;
@@ -81,7 +95,7 @@
   loadPost = function(url) {
     $('.mainPage').removeClass('show').addClass('_hide');
     oldScrollPos = window.scrollY;
-    smoothScroll(oldScrollPos, 0, 0.5);
+    smoothScroll(oldScrollPos, 0, 500);
     $.get(url, function(html) {
       $('.postPage').append(html).removeClass('_hide').addClass('show').css('position', 'absolute');
       return showReturnIcon();
@@ -98,7 +112,7 @@
     hideReturnIcon();
     return setTimeout(function() {
       $('.postPage').empty();
-      return smoothScroll(0, oldScrollPos, 1.0);
+      return smoothScroll(0, oldScrollPos, 1000);
     }, 500);
   };
 

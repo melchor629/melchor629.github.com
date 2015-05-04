@@ -29,22 +29,28 @@ hideReturnIcon = ->
     , 1000
 
 smoothScroll = (from, to, duration) ->
-    #TODO Change interpollator
-    started = window.performance.now()
-    scroll = (timestamp) ->
-        time = (timestamp - started) / 1000
-        window.scrollTo 0, from + (to - from) * time / duration
-        console.log from + (to - from) * time / duration
-        console.log "Tiempo #{time}"
-        if(time <= duration)
-            window.requestAnimationFrame scroll
-    scroll from, to, 0
+    position = {x: 0, y: from}
+    target = {x: 0, y: to}
+    done = false
+    tween = new TWEEN.Tween(position).to target, duration
+    tween.easing TWEEN.Easing.Cubic.InOut
+    tween.onUpdate ->
+        window.scrollTo position.x, position.y
+        console.log position
+    tween.onComplete ->
+        done = true
+    tween.start()
+    update = ->
+        TWEEN.update()
+        if not done
+            window.requestAnimationFrame update
+    update()
 
 oldScrollPos = 0
 loadPost = (url) ->
     $('.mainPage').removeClass('show').addClass('_hide')
     oldScrollPos = window.scrollY
-    smoothScroll(oldScrollPos, 0, 0.5)
+    smoothScroll(oldScrollPos, 0, 500)
     $.get(url, (html) ->
         $('.postPage').append(html).removeClass('_hide').addClass('show').css('position', 'absolute')
         showReturnIcon()
@@ -60,7 +66,7 @@ returnMainPage = ->
     hideReturnIcon()
     setTimeout ->
         $('.postPage').empty()
-        smoothScroll(0, oldScrollPos, 1.0)
+        smoothScroll(0, oldScrollPos, 1000)
     , 500
 
 (->
