@@ -37,7 +37,7 @@ createCheat 'a r o u n d space t h e space w o r l d', ->
 años = ->
     d = new Date
     n = new Date 830037600000
-    if d.getMonth() >= n.getMonth() and d.getDate() >= n.getDate()
+    if d.getMonth() > n.getMonth() or (d.getMonth() is n.getMonth() and d.getDate() >= n.getDate())
         año = d.getYear() - n.getYear()
     else
         año = d.getYear() - n.getYear() - 1

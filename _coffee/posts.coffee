@@ -20,30 +20,31 @@ translateMonth = (month) ->
     mes
 
 showReturnIcon = () ->
-    $('.return').show().removeClass('hide').addClass('show')
+    $('.return').css('opacity', 1).removeClass('hide').addClass('show')
 
 hideReturnIcon = ->
     $('.return').removeClass('show').addClass('hide')
     setTimeout () ->
-        $('.return').hide()
+        $('.return').css('opacity', 0)
     , 1000
 
-smoothScroll = (from, to) ->
-    scroll = (from, to, time) ->
-        window.scrollTo 0, from + (to - from) * time
-        console.log from + (to - from) * time
-        time += 1  / 60
-        if(time <= 1.0)
-            window.requestAnimationFrame scroll, from, to, time
+smoothScroll = (from, to, duration) ->
+    #TODO Change interpollator
+    started = window.performance.now()
+    scroll = (timestamp) ->
+        time = (timestamp - started) / 1000
+        window.scrollTo 0, from + (to - from) * time / duration
+        console.log from + (to - from) * time / duration
+        console.log "Tiempo #{time}"
+        if(time <= duration)
+            window.requestAnimationFrame scroll
     scroll from, to, 0
 
 oldScrollPos = 0
 loadPost = (url) ->
     $('.mainPage').removeClass('show').addClass('_hide')
     oldScrollPos = window.scrollY
-    #TODO ANIMATE
-    #window.scrollTo(0, 0)
-    smoothScroll(oldScrollPos, 0)
+    smoothScroll(oldScrollPos, 0, 0.5)
     $.get(url, (html) ->
         $('.postPage').append(html).removeClass('_hide').addClass('show').css('position', 'absolute')
         showReturnIcon()
@@ -59,9 +60,7 @@ returnMainPage = ->
     hideReturnIcon()
     setTimeout ->
         $('.postPage').empty()
-        #TODO ANIMATE
-        #window.scrollTo(0, oldScrollPos)
-        smoothScroll(0, oldScrollPos)
+        smoothScroll(0, oldScrollPos, 1.0)
     , 500
 
 (->

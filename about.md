@@ -59,7 +59,7 @@ Si, ese en cambio lo uso mucho mas, [@melchor629](https://twitter.com/melchor629
 
 ##¿Tienes un pepino de pe se?
 
->pe se: escrito literalmente de decir PC 
+>pe se: escrito literalmente de decir PC
 
 Pues si, no me quejo de nada, menos de la RAM de la gráfica, que es muy poca.
 
@@ -82,3 +82,6 @@ Pero en lugar de 13 MB, 14MB
 
 ##¿Por qué?
 **Porque no.** :rage:
+
+##Enga, enrollate…
+[Enlace a un lugar donde puedes preguntar](http://ask.fm/Melchor629)
