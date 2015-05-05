@@ -60,7 +60,7 @@
     }, 1000);
   };
 
-  smoothScroll = function(from, to, duration) {
+  smoothScroll = function(from, to, duration, cbk) {
     var done, position, target, tween, update;
     position = {
       x: 0,
@@ -78,7 +78,10 @@
       return console.log(position);
     });
     tween.onComplete(function() {
-      return done = true;
+      done = true;
+      if (cbk != null) {
+        return cbk();
+      }
     });
     tween.start();
     update = function() {
@@ -93,17 +96,18 @@
   oldScrollPos = 0;
 
   loadPost = function(url) {
-    $('.mainPage').removeClass('show').addClass('_hide');
     oldScrollPos = window.scrollY;
-    smoothScroll(oldScrollPos, 0, 500);
-    $.get(url, function(html) {
-      $('.postPage').append(html).removeClass('_hide').addClass('show').css('position', 'absolute');
-      return showReturnIcon();
+    return smoothScroll(oldScrollPos, 0, 500, function() {
+      $('.mainPage').removeClass('show').addClass('_hide');
+      showReturnIcon();
+      return $.get(url, function(html) {
+        $('.postPage').append(html).removeClass('_hide').addClass('show').css('position', 'absolute');
+        return setTimeout(function() {
+          $('.mainPage').hide();
+          return $('.postPage').css('position', 'relative');
+        }, 500);
+      });
     });
-    return setTimeout(function() {
-      $('.mainPage').hide();
-      return $('.postPage').css('position', 'relative');
-    }, 500);
   };
 
   returnMainPage = function() {

@@ -28,7 +28,7 @@ hideReturnIcon = ->
         $('.return').css('opacity', 0)
     , 1000
 
-smoothScroll = (from, to, duration) ->
+smoothScroll = (from, to, duration, cbk) ->
     position = {x: 0, y: from}
     target = {x: 0, y: to}
     done = false
@@ -39,6 +39,7 @@ smoothScroll = (from, to, duration) ->
         console.log position
     tween.onComplete ->
         done = true
+        cbk() if cbk?
     tween.start()
     update = ->
         TWEEN.update()
@@ -48,17 +49,17 @@ smoothScroll = (from, to, duration) ->
 
 oldScrollPos = 0
 loadPost = (url) ->
-    $('.mainPage').removeClass('show').addClass('_hide')
     oldScrollPos = window.scrollY
-    smoothScroll(oldScrollPos, 0, 500)
-    $.get(url, (html) ->
-        $('.postPage').append(html).removeClass('_hide').addClass('show').css('position', 'absolute')
+    smoothScroll oldScrollPos, 0, 500, ->
+        $('.mainPage').removeClass('show').addClass '_hide'
         showReturnIcon()
-    );
-    setTimeout ->
-        $('.mainPage').hide()
-        $('.postPage').css('position', 'relative')
-    , 500
+        $.get url, (html) ->
+            $('.postPage').append(html).removeClass('_hide').addClass('show').css 'position', 'absolute'
+
+            setTimeout ->
+                $('.mainPage').hide()
+                $('.postPage').css('position', 'relative')
+            , 500
 
 returnMainPage = ->
     $('.postPage').removeClass('show').addClass('_hide')
