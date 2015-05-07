@@ -20,12 +20,12 @@ translateMonth = (month) ->
     mes
 
 showReturnIcon = () ->
-    $('.return').css('opacity', 1).removeClass('hide').addClass('show')
+    $('.circle-button').css('opacity', 1).removeClass('hide').addClass('show')
 
 hideReturnIcon = ->
-    $('.return').removeClass('show').addClass('hide')
+    $('.circle-button').removeClass('show').addClass('hide')
     setTimeout () ->
-        $('.return').css('opacity', 0)
+        $('.circle-button').css('opacity', 0)
     , 1000
 
 smoothScroll = (from, to, duration, cbk) ->
@@ -36,7 +36,6 @@ smoothScroll = (from, to, duration, cbk) ->
     tween.easing TWEEN.Easing.Cubic.InOut
     tween.onUpdate ->
         window.scrollTo position.x, position.y
-        console.log position
     tween.onComplete ->
         done = true
         cbk() if cbk?
@@ -70,6 +69,10 @@ returnMainPage = ->
         smoothScroll(0, oldScrollPos, 1000)
     , 500
 
+twitterIntentUrl = (username, url, text) ->
+    return "http://twitter.com/intent/tweet?text=#{encodeURIComponent(text)}&
+        url=#{encodeURIComponent(url)}&via=#{username}&related=#{username}%3AMelchor%20Garau%20Madrigal"
+
 (->
     $('.post_created_time').each (k, v) ->
         v = $ v
@@ -84,11 +87,36 @@ returnMainPage = ->
         loadPost $(this).attr('href')
         false
 
-    $('.back').click ->
+    $('.circle-button.back').click ->
         returnMainPage()
         false
 
-    $('.share').click ->
-        alert 'share'
-        false
+    #Efecto para share
+    enterT = undefined; leaveT = undefined; tapped = false
+    $('.circle-button-group.share').mouseenter ->
+        $(this).find('.circle-button-extra').css('display', 'block')
+        clearTimeout leaveT
+        enterT = setTimeout =>
+            $(this).find('.circle-button-extra').addClass('hover')
+                .animate({top: '-45px'}, 300);
+        , 20
+    .mouseleave ->
+        $(this).find('.circle-button-extra').removeClass('hover').each (k,v) ->
+            $(v).animate({top: "#{-73 - 48 * k}px"}, 300)
+        clearTimeout enterT
+        leaveT = setTimeout =>
+            $(this).find('.circle-button-extra').css('display', 'none')
+        , 333
+    $('.circle-button.share').on 'tap', ->
+        if tapped
+            $('.circle-button-group.share').trigger 'mouseleave'
+            tapped = false
+        else
+            $('.circle-button-group.share').trigger 'mouseenter'
+            tapped = true
+
+    #Mejorar efecto de aparicion de los elementos de share
+    $('.circle-button-group.share .circle-button-extra').each (k,v) ->
+        $(v).css('top', "#{-73 - 48 * k}px")
+
 )()
