@@ -1,3 +1,10 @@
+images = [
+    1
+    'assets/img/Pixel Art.png'
+    'https://pbs.twimg.com/media/CERI-yNW0AIwIA6.jpg:large'
+    'https://pbs.twimg.com/media/CDGwAolWIAA-xkF.jpg:large'
+    'https://pbs.twimg.com/media/CEe1sRkWYAE0Wiy.jpg:large'
+]
 
 addKey = (key)->
     $('.keys').append("""
@@ -12,27 +19,36 @@ removeKeys = ->
 
 createCheat = (cheatStr, done) ->
     cheet cheatStr, {
-        next: (str, key, num, seq)->
+        next: (str, key, num, seq) ->
+            key = ' ' if key is 'space'
             addKey key
 
         fail: ->
             removeKeys()
 
         done: ->
-            done()
+            done() if done?
             setTimeout ->
                 removeKeys()
             , 1000
     }
 
 createCheat '↑ ↑ ↓ ↓ ← → ← → b a', ->
-    alert 'Voilà!'
+    images[0] = (images[0] + 1) % (images.length)
+    (images[0] = 1) if images[0] is 0
+    $('.profile_img img').attr('src', images[images[0]])
 
 createCheat 'f i l l space d e space p u t a', ->
     alert 'Com goses insultarme? Fill de meuca, al infern aniràs...'
 
 createCheat 'a r o u n d space t h e space w o r l d', ->
     playSound 'atw'
+
+createCheat 'i n t e r s t e l l a r', ->
+    playSound 'stay'
+
+createCheat 's a t u r d a y space n i g h t space f e v e r', ->
+    playSound 'staying alive'
 
 años = ->
     d = new Date
@@ -51,16 +67,31 @@ window.audioCtx = audioCtx = new AudioContext()
 
 a = new Audio
 canPlay =
-    mp4: a.canPlayType('audio/m4a; codecs="mp4a.40.5'),
-    mp3: a.canPlayType('audio/mp3'),
+    m4a: a.canPlayType('audio/m4a;') or a.canPlayType('audio/x-m4a') or a.canPlayType('audio/aac'),
+    mp3: a.canPlayType('audio/mp3') or a.canPlayType('audio/mpeg;'),
     ogg: a.canPlayType('audio/ogg; codecs="vorbis"')
+    wav: a.canPlayType('audio/wav; codecs="1"');
 
 for c of canPlay
     if canPlay[c]
         canPlay.def = c;
 
-loadSound = (name, snd) ->
-    file = snd or "/assets/snd/#{name}.#{canPlay.def}"
+loadSound = (name, snd_or_av1, av2) ->
+    if arguments.length is 1
+        file = "/assets/snd/#{name}.#{canPlay.def}"
+    else if arguments.length is 2
+        file = snd_or_av1
+    else if arguments.length is 3
+        if canPlay[snd_or_av1]
+            file = "/assets/snd/#{name}.#{snd_or_av1}"
+        else if canPlay[av2]
+            file = "/assets/snd/#{name}.#{av2}"
+        else
+            throw "No se puede reproducir en ningún formato";
+    else
+        console.error "Demasiados argumentos para loadSound. No se hace nada"
+        return;
+
     request = new XMLHttpRequest();
     request.open('GET', file);
     request.responseType = 'arraybuffer';
@@ -83,4 +114,6 @@ playSound = (name) ->
             source.start(0);
         , 100
 
-loadSound 'atw'
+loadSound 'atw', 'mp3', 'ogg'
+loadSound 'stay', 'm4a', 'ogg'
+loadSound 'staying alive', 'm4a', 'ogg'
