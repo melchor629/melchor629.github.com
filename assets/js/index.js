@@ -58,7 +58,11 @@
   });
 
   createCheat('s a t u r d a y space n i g h t space f e v e r', function() {
-    return playSound('staying alive');
+    if (Math.round(Math.random())) {
+      return playSound('staying alive');
+    } else {
+      return playSound('staying alive2');
+    }
   });
 
   años = function() {
@@ -148,5 +152,19 @@
   loadSound('stay', 'm4a', 'ogg');
 
   loadSound('staying alive', 'm4a', 'ogg');
+
+  loadSound('staying alive2', 'm4a', 'ogg');
+
+  $('.profile_img img').load(function() {
+    return $(this).css('margin-top', ((256 - $(this).height()) / 2) + "px");
+  });
+
+  new Hammer(document.querySelector('.profile_img img')).on('press', function(e) {
+    images[0] = (images[0] + 1) % images.length;
+    if (images[0] === 0) {
+      images[0] = 1;
+    }
+    return $('.profile_img img').attr('src', images[images[0]]);
+  });
 
 }).call(this);

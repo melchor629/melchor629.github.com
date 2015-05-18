@@ -8,9 +8,22 @@
     width: 70%;
     text-align: center;
 
-    .profile_img > div > img {
+    .profile_img > div > .image-wrapper {
         width: 256px;
-        border-radius: 150px;
+        height: 256px;
+        margin: 0 auto;
+
+        .image-wrapper-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 150px;
+            overflow: hidden;
+
+            img {
+                width: 256px;
+                position: relative;
+            }
+        }
     }
 
     .profile_name {
@@ -36,7 +49,7 @@
  **/
 .keys {
     position: absolute;
-    top: 100px;
+    bottom: 100px;
 
     .key {
         float: left;
@@ -62,33 +75,33 @@
 .keyframes(show, {
     0% {
         opacity: 0;
-        transform: scale(0.7);
+        .transform(scale(0.7));
     }
 
     80% {
         opacity: 1;
-        transform: scale(1.1);
+        .transform(scale(1.2));
     }
 
     100% {
         opacity: 1;
-        transform: scale(1);
+        .transform(scale(1));
     }
 });
 
 .keyframes(hide, {
     100% {
         opacity: 0;
-        transform: scale(1.7);
+        .transform(scale(.3));
     }
 
     20% {
         opacity: 1;
-        transform: scale(1.1);
+        .transform(scale(.8));
     }
 
     0% {
         opacity: 1;
-        transform: scale(1);
+        .transform(scale(1));
     }
 });

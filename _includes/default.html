@@ -131,7 +131,11 @@
     <!-- Custom scripts from individual pages -->
     {% if page.scripts %}
       {% for script in page.scripts %}
-        <script src="{{ site.baseurl }}/assets/js/{{ script }}"></script>
+        {% if script contains 'http' %}
+            <script src="{{ script }}"></script>
+        {% else %}
+            <script src="{{ site.baseurl }}/assets/js/{{ script }}"></script>
+        {% endif %}
       {% endfor %}
     {% endif %}
     <script>

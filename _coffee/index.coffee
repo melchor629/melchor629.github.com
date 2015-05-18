@@ -48,7 +48,10 @@ createCheat 'i n t e r s t e l l a r', ->
     playSound 'stay'
 
 createCheat 's a t u r d a y space n i g h t space f e v e r', ->
-    playSound 'staying alive'
+    if Math.round Math.random()
+        playSound 'staying alive'
+    else
+        playSound 'staying alive2'
 
 años = ->
     d = new Date
@@ -117,3 +120,12 @@ playSound = (name) ->
 loadSound 'atw', 'mp3', 'ogg'
 loadSound 'stay', 'm4a', 'ogg'
 loadSound 'staying alive', 'm4a', 'ogg'
+loadSound 'staying alive2', 'm4a', 'ogg'
+
+$('.profile_img img').load ->
+    $(this).css('margin-top', "#{(256 - $(this).height()) / 2}px");
+
+new Hammer(document.querySelector('.profile_img img')).on 'press', (e) ->
+    images[0] = (images[0] + 1) % (images.length)
+    (images[0] = 1) if images[0] is 0
+    $('.profile_img img').attr('src', images[images[0]])
