@@ -4,6 +4,8 @@ images = [
     'https://pbs.twimg.com/media/CERI-yNW0AIwIA6.jpg:large'
     'https://pbs.twimg.com/media/CDGwAolWIAA-xkF.jpg:large'
     'https://pbs.twimg.com/media/CEe1sRkWYAE0Wiy.jpg:large'
+    'https://pbs.twimg.com/profile_images/602232617807798273/0Vjm_cHi.jpg'
+    'https://pbs.twimg.com/media/CGGc8fnWMAA0GnY.jpg:large'
 ]
 
 addKey = (key)->
