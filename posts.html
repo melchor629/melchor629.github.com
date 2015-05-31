@@ -15,9 +15,9 @@ scripts:
                 <div class="inner-outer">
                     <div class="post_thumb" style="background-image:
                         {% if post.thumb != null %}
-                        url(/assets/img/posts/{{ post.thumb }})
+                        url('/assets/img/posts/{{ post.thumb }}')
                         {% elsif post.thumbnail != null %}
-                        url({{ post.thumbnail }})
+                        url('{{ post.thumbnail }}')
                         {% else %}
                         url(/assets/img/posts/no_img.png)
                         {% endif %}">
