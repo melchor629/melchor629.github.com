@@ -101,6 +101,7 @@
       showReturnIcon();
       return $.get(url, function(html) {
         $('.postPage').append(html).removeClass('_hide').addClass('show').css('position', 'absolute');
+        window.location.hash = "#" + url;
         return setTimeout(function() {
           $('.mainPage').hide();
           return $('.postPage').css('position', 'relative');
@@ -113,6 +114,7 @@
     $('.postPage').removeClass('show').addClass('_hide');
     $('.mainPage').removeClass('_hide').addClass('show').show();
     hideReturnIcon();
+    window.location.hash = "";
     return setTimeout(function() {
       $('.postPage').empty();
       return smoothScroll(0, oldScrollPos, 1000);
@@ -177,9 +179,12 @@
         return tapped = true;
       }
     });
-    return $('.circle-button-group.share .circle-button-extra').each(function(k, v) {
+    $('.circle-button-group.share .circle-button-extra').each(function(k, v) {
       return $(v).css('top', (-73 - 48 * k) + "px");
     });
+    if (window.location.hash !== "") {
+      return loadPost(decodeURIComponent(window.location.hash.substr(1)));
+    }
   })();
 
 }).call(this);

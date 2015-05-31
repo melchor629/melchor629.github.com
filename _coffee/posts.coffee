@@ -54,6 +54,7 @@ loadPost = (url) ->
         showReturnIcon()
         $.get url, (html) ->
             $('.postPage').append(html).removeClass('_hide').addClass('show').css 'position', 'absolute'
+            window.location.hash = "#" + url
 
             setTimeout ->
                 $('.mainPage').hide()
@@ -64,6 +65,7 @@ returnMainPage = ->
     $('.postPage').removeClass('show').addClass('_hide')
     $('.mainPage').removeClass('_hide').addClass('show').show()
     hideReturnIcon()
+    window.location.hash = ""
     setTimeout ->
         $('.postPage').empty()
         smoothScroll(0, oldScrollPos, 1000)
@@ -119,4 +121,6 @@ twitterIntentUrl = (username, url, text) ->
     $('.circle-button-group.share .circle-button-extra').each (k,v) ->
         $(v).css('top', "#{-73 - 48 * k}px")
 
+    if window.location.hash isnt ""
+        loadPost decodeURIComponent window.location.hash.substr 1
 )()
