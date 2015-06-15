@@ -60,6 +60,9 @@ loadPost = (url) ->
                 $('.mainPage').hide()
                 $('.postPage').css('position', 'relative')
             , 500
+        .fail (error) ->
+            alert 'Post no existente'
+            returnMainPage()
 
 returnMainPage = ->
     $('.postPage').removeClass('show').addClass('_hide')
@@ -74,6 +77,14 @@ returnMainPage = ->
 twitterIntentUrl = (username, url, text) ->
     return "http://twitter.com/intent/tweet?text=#{encodeURIComponent(text)}&
         url=#{encodeURIComponent(url)}&via=#{username}&related=#{username}%3AMelchor%20Garau%20Madrigal"
+
+lastHash = window.location.hash
+detectUrl = ->
+    if lastHash isnt location.hash
+        loadPost decodeURIComponent window.location.hash
+        lastHash = window.location.hash
+    setTimeout detectUrl, 1000
+setTimeout detectUrl, 1000
 
 (->
     $('.post_created_time').each (k, v) ->
