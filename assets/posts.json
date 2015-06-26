@@ -1,0 +1,17 @@
+---
+layout: nothing
+---
+[
+{% for post in site.posts %}
+    {% raw %} { {% endraw %}
+    {% if post.thumb != null %} "img": "/assets/img/posts/{{ post.thumb }}",
+    {% elsif post.thumbnail != null %} "img": "{{ post.thumbnail }}",
+    {% else %} "img": "/assets/img/posts/no_img.png",
+    {% endif %}
+    "titulo": "{{ post.title }}",
+    "fecha": "{{ post.date | date_to_rfc822 }}",
+    "url": "{{ post.url }}"
+    {% raw %} }, {% endraw %}
+{% endfor %}
+{% raw %} {} {% endraw %}
+]

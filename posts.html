@@ -8,10 +8,20 @@ scripts:
   - tween.min.js
   - posts.js
 ---
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v2.3&appId=223537611005659";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <div class="mainPage">
     <div class="posts_container row">
+        {% assign i = 0 %}
         {% for post in site.posts %}
-            <div class="post_entry col-sm-6 col-lg-4">
+            <div class="post_entry col-sm-6 col-lg-4" data-num="{{ i }}">
                 <div class="inner-outer">
                     <div class="post_thumb" style="background-image:
                         {% if post.thumb != null %}
@@ -35,6 +45,7 @@ scripts:
                     </div>
                 </div>
             </div>
+            {% capture i %}{{ i | plus:1 }}{% endcapture %}
         {% endfor %}
     </div>
 </div>
@@ -50,17 +61,17 @@ scripts:
         <i class="fa fa-share"></i>
     </div>
 
-    <div class="circle-button-extra waves-effect waves-circle waves-float">
+    <div class="circle-button-extra waves-effect waves-circle waves-float" id="share-tw">
         <a href="https://twitter.com/intent/tweet?" target="_blank">
             <i class="fa fa-twitter"></i>
         </a>
     </div>
 
-    <div class="circle-button-extra waves-effect waves-circle waves-float">
+    <div class="circle-button-extra waves-effect waves-circle waves-float" id="share-fb">
         <i class="fa fa-facebook"></i>
     </div>
 
-    <div class="circle-button-extra waves-effect waves-circle waves-float">
+    <div class="circle-button-extra waves-effect waves-circle waves-float" id="share-g+">
         <i class="fa fa-google-plus"></i>
     </div>
 </div>

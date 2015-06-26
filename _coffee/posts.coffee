@@ -19,6 +19,8 @@ translateMonth = (month) ->
         when 'Dec' then mes = 'Dic'
     mes
 
+postsInfo = undefined
+
 showReturnIcon = () ->
     $('.circle-button').css('opacity', 1).removeClass('hide').addClass('show')
 
@@ -47,14 +49,18 @@ smoothScroll = (from, to, duration, cbk) ->
     update()
 
 oldScrollPos = 0
-loadPost = (url) ->
+loadPost = (num) ->
+    num = Number num
+    post = postsInfo[num]
     oldScrollPos = window.scrollY
     smoothScroll oldScrollPos, 0, 500, ->
         $('.mainPage').removeClass('show').addClass '_hide'
         showReturnIcon()
-        $.get url, (html) ->
+        $.get post.url, (html) ->
             $('.postPage').append(html).removeClass('_hide').addClass('show').css 'position', 'absolute'
-            window.location.hash = "#" + url
+            window.location.hash = "#" + post.url
+            $('#share-tw a').attr 'href', twitterIntentUrl 'melchor629', window.location, "\"#{post.titulo}\""
+            $('title').text "#{post.titulo} - The abode of melchor9000"
 
             setTimeout ->
                 $('.mainPage').hide()
@@ -72,19 +78,17 @@ returnMainPage = ->
     setTimeout ->
         $('.postPage').empty()
         smoothScroll(0, oldScrollPos, 1000)
+        $('title').text "Posts - The abode of melchor9000"
     , 500
 
 twitterIntentUrl = (username, url, text) ->
     return "http://twitter.com/intent/tweet?text=#{encodeURIComponent(text)}&
         url=#{encodeURIComponent(url)}&via=#{username}&related=#{username}%3AMelchor%20Garau%20Madrigal"
 
-lastHash = window.location.hash
-detectUrl = ->
-    if lastHash isnt location.hash
-        loadPost decodeURIComponent window.location.hash
-        lastHash = window.location.hash
-    setTimeout detectUrl, 1000
-setTimeout detectUrl, 1000
+findNum = (url) ->
+    for i in [0..postsInfo.length]
+        if postsInfo[i].url is url
+            return i
 
 (->
     $('.post_created_time').each (k, v) ->
@@ -97,7 +101,7 @@ setTimeout detectUrl, 1000
 
     $('.post_url').click (e) ->
         e.preventDefault()
-        loadPost $(this).attr('href')
+        loadPost $(this).closest('.post_entry').data('num')
         false
 
     $('.circle-button.back').click ->
@@ -132,6 +136,15 @@ setTimeout detectUrl, 1000
     $('.circle-button-group.share .circle-button-extra').each (k,v) ->
         $(v).css('top', "#{-73 - 48 * k}px")
 
-    if window.location.hash isnt ""
-        loadPost decodeURIComponent window.location.hash.substr 1
+    $('#share-fb').click (e) ->
+        FB.ui
+            method: 'share'
+            href: window.location.toString()
+        , (response) ->
+            console.log response
+
+    $.get('/assets/posts.json').success (data) ->
+        postsInfo = data
+        if window.location.hash isnt ""
+            loadPost findNum decodeURIComponent window.location.hash.substr 1
 )()
