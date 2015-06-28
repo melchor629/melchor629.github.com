@@ -90,20 +90,59 @@ findNum = (url) ->
         if postsInfo[i].url is url
             return i
 
-(->
-    $('.post_created_time').each (k, v) ->
-        v = $ v
-        parts = /^(\w{3}), \d\d (\w{3}).+$/i.exec v.text()
-        dia = translateDay parts[1]
-        mes = translateMonth parts[2]
+esVisible = (v) ->
+    scrollTop = window.scrollY
+    height = $(window).height()
+    position = 80 + $(v).position().top
+    postHeight = $(v).height()
+    #console.log "#{position} < #{scrollTop + height} and #{position} >= #{scrollTop}"
+    position < scrollTop + height and position + postHeight >= scrollTop
+    #position < scrollTop + height
 
-        v.text(v.text().replace(parts[1], dia).replace(parts[2], mes))
+añadirPosts = (linea) ->
+    numOfPostsPerLine = 1
+    if $(window).width() >= 768 and $(window).width() <= 1199
+        numOfPostsPerLine = 2
+    else if $(window).width() >= 1200
+        numOfPostsPerLine = 3
 
-    $('.post_url').click (e) ->
+    postsInfo.linea = linea
+    postsInfo.cargados = (linea + 1) * numOfPostsPerLine
+    if postsInfo.cargados > postsInfo.length
+        postsInfo.cargados = postsInfo.length
+        int = [linea * numOfPostsPerLine..postsInfo.length - 1]
+    else
+        int = [linea * numOfPostsPerLine..(linea + 1) * numOfPostsPerLine - 1]
+    for i in int
+        añadirPost i
+
+añadirPost = (num) ->
+    post = postsInfo[num]
+    postEntry = $('<div/>').addClass('post_entry col-sm-6 col-lg-4').data('num', num);
+    innerOuter = $('<div/>').addClass('inner-outer')
+    postThumb = $('<div/>').addClass('post_thumb').css('background-image', "url('#{post.img}')")
+    postThumbLink = $('<a/>').attr('href', post.url).append($('<div/>').addClass('cover'))
+        .addClass('post_url')
+    title = $('<h3/>').addClass('text-center post_title')
+    titleLink = $('<a/>').attr('href', post.url).addClass('post_url').text(post.titulo)
+    fechaPartes = /^(\w{3}), \d\d (\w{3}).+$/i.exec post.fecha
+    dia = translateDay fechaPartes[1]
+    mes = translateMonth fechaPartes[2]
+    fecha = post.fecha.replace(fechaPartes[1], dia).replace(fechaPartes[2], mes)
+    info = $('<div/>').addClass('post_info')
+    .append("<small><p class=\"text-right post_created_time\">#{fecha}</p></small>")
+
+    postThumb.append postThumbLink
+    title.append titleLink
+    innerOuter.append(postThumb).append(title).append(info)
+    postEntry.append(innerOuter)
+    postEntry.find('.post_url').click (e) ->
         e.preventDefault()
         loadPost $(this).closest('.post_entry').data('num')
         false
+    $('.posts_container').append(postEntry)
 
+(->
     $('.circle-button.back').click ->
         returnMainPage()
         false
@@ -145,6 +184,17 @@ findNum = (url) ->
 
     $.get('/assets/posts.json').success (data) ->
         postsInfo = data
+        postsInfo.pop()
+        añadirPosts(0)
+        $(window).scroll()
         if window.location.hash isnt ""
             loadPost findNum decodeURIComponent window.location.hash.substr 1
+
+    $(window).scroll (e) ->
+        abajoPos = window.scrollY + $(window).height()
+        if abajoPos > $('.posts_container').height() + 70 and postsInfo.length isnt postsInfo.cargados
+            añadirPosts postsInfo.linea + 1
+        else if postsInfo.length is postsInfo.cargados
+            $(window).off 'scroll'
+
 )()

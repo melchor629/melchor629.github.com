@@ -18,36 +18,7 @@ scripts:
 }(document, 'script', 'facebook-jssdk'));</script>
 
 <div class="mainPage">
-    <div class="posts_container row">
-        {% assign i = 0 %}
-        {% for post in site.posts %}
-            <div class="post_entry col-sm-6 col-lg-4" data-num="{{ i }}">
-                <div class="inner-outer">
-                    <div class="post_thumb" style="background-image:
-                        {% if post.thumb != null %}
-                        url('/assets/img/posts/{{ post.thumb }}')
-                        {% elsif post.thumbnail != null %}
-                        url('{{ post.thumbnail }}')
-                        {% else %}
-                        url(/assets/img/posts/no_img.png)
-                        {% endif %}">
-                        <a href="{{ post.url }}" class="post_url">
-                            <div class="cover"></div>
-                        </a>
-                    </div>
-                    <h3 class="text-center post_title">
-                        <a href="{{ post.url }}" class="post_url">
-                            {{ post.title }}
-                        </a>
-                    </h3>
-                    <div class="post_info">
-                        <small><p class="text-right post_created_time">{{ post.date | date_to_rfc822 }}</p></small>
-                    </div>
-                </div>
-            </div>
-            {% capture i %}{{ i | plus:1 }}{% endcapture %}
-        {% endfor %}
-    </div>
+    <div class="posts_container row"></div>
 </div>
 
 <div class="postPage _hide"> <!-- Se rellenará con un post --> </div>
