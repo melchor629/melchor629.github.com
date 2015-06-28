@@ -30,11 +30,11 @@ hideReturnIcon = ->
         $('.circle-button').css('opacity', 0)
     , 1000
 
-smoothScroll = (from, to, duration, cbk) ->
+smoothScroll = (from, to, cbk) ->
     position = {x: 0, y: from}
     target = {x: 0, y: to}
     done = false
-    tween = new TWEEN.Tween(position).to target, duration
+    tween = new TWEEN.Tween(position).to target, if from-to is 0 then 0 else Math.log2(Math.abs(from - to))*100
     tween.easing TWEEN.Easing.Cubic.InOut
     tween.onUpdate ->
         window.scrollTo position.x, position.y
@@ -53,7 +53,7 @@ loadPost = (num) ->
     num = Number num
     post = postsInfo[num]
     oldScrollPos = window.scrollY
-    smoothScroll oldScrollPos, 0, 500, ->
+    smoothScroll oldScrollPos, 0, ->
         $('.mainPage').removeClass('show').addClass '_hide'
         showReturnIcon()
         $.get post.url, (html) ->
@@ -77,7 +77,7 @@ returnMainPage = ->
     window.location.hash = ""
     setTimeout ->
         $('.postPage').empty()
-        smoothScroll(0, oldScrollPos, 1000)
+        smoothScroll(0, oldScrollPos)
         $('title').text "Posts - The abode of melchor9000"
     , 500
 
@@ -196,5 +196,8 @@ añadirPost = (num) ->
             añadirPosts postsInfo.linea + 1
         else if postsInfo.length is postsInfo.cargados
             $(window).off 'scroll'
+            $(window).off 'resize'
+    $(window).resize (e) ->
+        $(window).scroll()
 
 )()

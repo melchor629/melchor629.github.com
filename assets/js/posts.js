@@ -62,7 +62,7 @@
     }, 1000);
   };
 
-  smoothScroll = function(from, to, duration, cbk) {
+  smoothScroll = function(from, to, cbk) {
     var done, position, target, tween, update;
     position = {
       x: 0,
@@ -73,7 +73,7 @@
       y: to
     };
     done = false;
-    tween = new TWEEN.Tween(position).to(target, duration);
+    tween = new TWEEN.Tween(position).to(target, from - to === 0 ? 0 : Math.log2(Math.abs(from - to)) * 100);
     tween.easing(TWEEN.Easing.Cubic.InOut);
     tween.onUpdate(function() {
       return window.scrollTo(position.x, position.y);
@@ -101,7 +101,7 @@
     num = Number(num);
     post = postsInfo[num];
     oldScrollPos = window.scrollY;
-    return smoothScroll(oldScrollPos, 0, 500, function() {
+    return smoothScroll(oldScrollPos, 0, function() {
       $('.mainPage').removeClass('show').addClass('_hide');
       showReturnIcon();
       return $.get(post.url, function(html) {
@@ -127,7 +127,7 @@
     window.location.hash = "";
     return setTimeout(function() {
       $('.postPage').empty();
-      smoothScroll(0, oldScrollPos, 1000);
+      smoothScroll(0, oldScrollPos);
       return $('title').text("Posts - The abode of melchor9000");
     }, 500);
   };
@@ -273,14 +273,18 @@
         return loadPost(findNum(decodeURIComponent(window.location.hash.substr(1))));
       }
     });
-    return $(window).scroll(function(e) {
+    $(window).scroll(function(e) {
       var abajoPos;
       abajoPos = window.scrollY + $(window).height();
       if (abajoPos > $('.posts_container').height() + 70 && postsInfo.length !== postsInfo.cargados) {
         return añadirPosts(postsInfo.linea + 1);
       } else if (postsInfo.length === postsInfo.cargados) {
-        return $(window).off('scroll');
+        $(window).off('scroll');
+        return $(window).off('resize');
       }
+    });
+    return $(window).resize(function(e) {
+      return $(window).scroll();
     });
   })();
 
