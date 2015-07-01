@@ -275,6 +275,9 @@
     });
     $(window).scroll(function(e) {
       var abajoPos;
+      if ($('.mainPage').hasClass('_hide')) {
+        return;
+      }
       abajoPos = window.scrollY + $(window).height();
       if (abajoPos > $('.posts_container').height() + 70 && postsInfo.length !== postsInfo.cargados) {
         return añadirPosts(postsInfo.linea + 1);

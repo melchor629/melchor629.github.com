@@ -34,7 +34,7 @@ smoothScroll = (from, to, cbk) ->
     position = {x: 0, y: from}
     target = {x: 0, y: to}
     done = false
-    tween = new TWEEN.Tween(position).to target, if from-to is 0 then 0 else Math.log2(Math.abs(from - to))*100
+    tween = new TWEEN.Tween(position).to target, if from-to is 0 then 0 else Math.log2(Math.abs(from-to))*100
     tween.easing TWEEN.Easing.Cubic.InOut
     tween.onUpdate ->
         window.scrollTo position.x, position.y
@@ -191,6 +191,8 @@ añadirPost = (num) ->
             loadPost findNum decodeURIComponent window.location.hash.substr 1
 
     $(window).scroll (e) ->
+        if $('.mainPage').hasClass('_hide')
+            return
         abajoPos = window.scrollY + $(window).height()
         if abajoPos > $('.posts_container').height() + 70 and postsInfo.length isnt postsInfo.cargados
             añadirPosts postsInfo.linea + 1
