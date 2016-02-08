@@ -4,7 +4,7 @@ images = [
     'https://pbs.twimg.com/media/CERI-yNW0AIwIA6.jpg:large'
     'https://pbs.twimg.com/media/CDGwAolWIAA-xkF.jpg:large'
     'https://pbs.twimg.com/media/CEe1sRkWYAE0Wiy.jpg:large'
-    'https://pbs.twimg.com/profile_images/602232617807798273/0Vjm_cHi.jpg'
+    'https://pbs.twimg.com/profile_images/686600608560844800/_DpaL5hv.jpg'
     'https://pbs.twimg.com/media/CGGc8fnWMAA0GnY.jpg:large'
 ]
 
@@ -54,6 +54,21 @@ createCheat 's a t u r d a y space n i g h t space f e v e r', ->
         playSound 'staying alive'
     else
         playSound 'staying alive2'
+
+createCheat 'd o space a space b a r r e l space r o l l', ->
+    $('body').addClass 'barrel-roll'
+    setTimeout ->
+        $('body').removeClass 'barrel-roll'
+    , 4000
+
+createCheat 'l e t s space f l i p', ->
+    if $('body').hasClass 'flip'
+        $('body').removeClass('flip').addClass('iflip')
+        setTimeout ->
+            $('body').removeClass 'iflip'
+        , 2000
+    else
+        $('body').addClass 'flip'
 
 años = ->
     d = new Date

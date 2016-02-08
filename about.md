@@ -43,6 +43,7 @@ Conocer, conozco muchos, pero que sepa, ya no tantos. Esos son lo que os pondré
  - [Objective-C](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html)
  - [Dart](https://www.dartlang.org/)
  - [Less](http://lesscss.org)
+ - [Haskell](http://haskell.org) _Gracias a la carrera_
 
 Y sobre lenguajes de marcado (Markup Languages), tenemos simplemente _HTML_ y _[Markdown](http://daringfireball.net/projects/markdown/syntax)_.
 

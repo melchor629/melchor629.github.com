@@ -105,3 +105,41 @@
         .transform(scale(1));
     }
 });
+
+/**
+ * Barrel roll effect
+ **/
+.barrel-roll {
+    .animation(barrel-roll, 4s, cubic-bezier(.4,0,.4,1));
+}
+
+.keyframes(barrel-roll, {
+    0% {
+        .transform(rotate(360deg));
+    }
+
+    100% {
+        .transform(rotate(0));
+    }
+});
+
+/**
+ * Flip effect
+ **/
+.flip {
+    .animation(flip, 2s);
+    .transform(scale(-1))
+}
+
+.iflip {
+    .animation(iflip, 2s);
+}
+
+.keyframes(flip, {
+    0% { .transform(scale(1)) }
+    100% { .transform(scale(-1)) }
+});
+.keyframes(iflip, {
+    0% { .transform(scale(-1)) }
+    100% { .transform(scale(1)) }
+});

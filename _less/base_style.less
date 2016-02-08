@@ -62,7 +62,7 @@ a:hover {
     background-image: none;
     background-color: @primary-color-normal;
     border: none;
-    border-radius: 0px;
+    border-radius: 0;
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 5px;
 }
 
@@ -71,11 +71,13 @@ a:hover {
     transition: background-color .2s linear, color .1s linear;
     height: 50px;
     padding: 15px;
+    border-radius: 0;
 }
 
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
     color: white;
     background-color: @primary-color-dark;
+    line-height: 1.5em;
 }
 
 .navbar-default .navbar-nav > li.active > a {
