@@ -53,6 +53,7 @@ Aquí os dejo algunos de los renders que he hecho para probar, son preciosos.
 - [Pumpkins near the river](assets/img/chunky1.png)
 - [My bedroom](assets/img/chunky2.png)
 - [House and the lake](assets/img/posts/chunky.png)
+- [Steve in the road](assets/img/chunky3.png)
 
 Entrando en aspectos más técnicos de la aplicación, al empezar a renderizar una
 imagen, observareis que al principio se ve todo muy borroso y con mucho ruido,
