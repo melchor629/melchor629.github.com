@@ -6,10 +6,8 @@ date: 2016-03-27 00:00:00 +0100
 thumb: chunky.png
 ---
 
-<div class="embed-responsive embed-responsive-16by9">
-    <img src="assets/img/chunky1.png" class="embed-responsive-item">
-</div>
-<br>
+![Pumpkins near the river](assets/img/chunky1.png)
+
 Se ve muy bien este mapa de Minecraft, ¿verdad? _Shaders_ estareis pensando, pero
 la realidad es que no. Hablamos de **Chunky**, una herramienta de renderizado¹
 para Minecraft. Es capaz de crear imágenes increibles de tus mapas de Minecraft

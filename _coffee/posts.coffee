@@ -65,6 +65,7 @@ loadPost = (num) ->
             setTimeout ->
                 $('.mainPage').hide()
                 $('.postPage').css('position', 'relative')
+                $('img').attr('data-action', 'zoom')
             , 500
         .fail (error) ->
             alert 'Post no existente'
@@ -95,9 +96,7 @@ esVisible = (v) ->
     height = $(window).height()
     position = 80 + $(v).position().top
     postHeight = $(v).height()
-    #console.log "#{position} < #{scrollTop + height} and #{position} >= #{scrollTop}"
     position < scrollTop + height and position + postHeight >= scrollTop
-    #position < scrollTop + height
 
 añadirPosts = (linea) ->
     numOfPostsPerLine = 1
@@ -142,64 +141,63 @@ añadirPost = (num) ->
         false
     $('.posts_container').append(postEntry)
 
-(->
-    $('.circle-button.back').click ->
-        returnMainPage()
-        false
 
-    #Efecto para share
-    enterT = undefined; leaveT = undefined; tapped = false
-    $('.circle-button-group.share').mouseenter ->
-        $(this).find('.circle-button-extra').css('display', 'block')
-        clearTimeout leaveT
-        enterT = setTimeout =>
-            $(this).find('.circle-button-extra').addClass('hover')
-                .animate({top: '-45px'}, 300);
-        , 20
-    .mouseleave ->
-        $(this).find('.circle-button-extra').removeClass('hover').each (k,v) ->
-            $(v).animate({top: "#{-73 - 48 * k}px"}, 300)
-        clearTimeout enterT
-        leaveT = setTimeout =>
-            $(this).find('.circle-button-extra').css('display', 'none')
-        , 333
-    $('.circle-button.share').on 'tap', ->
-        if tapped
-            $('.circle-button-group.share').trigger 'mouseleave'
-            tapped = false
-        else
-            $('.circle-button-group.share').trigger 'mouseenter'
-            tapped = true
 
-    #Mejorar efecto de aparicion de los elementos de share
-    $('.circle-button-group.share .circle-button-extra').each (k,v) ->
-        $(v).css('top', "#{-73 - 48 * k}px")
+$('.circle-button.back').click ->
+    returnMainPage()
+    false
 
-    $('#share-fb').click (e) ->
-        FB.ui
-            method: 'share'
-            href: window.location.toString()
-        , (response) ->
-            console.log response
+#Efecto para share
+enterT = undefined; leaveT = undefined; tapped = false
+$('.circle-button-group.share').mouseenter ->
+    $(this).find('.circle-button-extra').css('display', 'block')
+    clearTimeout leaveT
+    enterT = setTimeout =>
+        $(this).find('.circle-button-extra').addClass('hover')
+            .animate({top: '-45px'}, 300);
+    , 20
+.mouseleave ->
+    $(this).find('.circle-button-extra').removeClass('hover').each (k,v) ->
+        $(v).animate({top: "#{-73 - 48 * k}px"}, 300)
+    clearTimeout enterT
+    leaveT = setTimeout =>
+        $(this).find('.circle-button-extra').css('display', 'none')
+    , 333
+$('.circle-button.share').on 'tap', ->
+    if tapped
+        $('.circle-button-group.share').trigger 'mouseleave'
+        tapped = false
+    else
+        $('.circle-button-group.share').trigger 'mouseenter'
+        tapped = true
 
-    $.get('/assets/posts.json').success (data) ->
-        postsInfo = data
-        postsInfo.pop()
-        añadirPosts(0)
-        $(window).scroll()
-        if window.location.hash isnt ""
-            loadPost findNum decodeURIComponent window.location.hash.substr 1
+#Mejorar efecto de aparicion de los elementos de share
+$('.circle-button-group.share .circle-button-extra').each (k,v) ->
+    $(v).css('top', "#{-73 - 48 * k}px")
 
-    $(window).scroll (e) ->
-        if $('.mainPage').hasClass('_hide')
-            return
-        abajoPos = window.scrollY + $(window).height()
-        if abajoPos > $('.posts_container').height() + 70 and postsInfo.length isnt postsInfo.cargados
-            añadirPosts postsInfo.linea + 1
-        else if postsInfo.length is postsInfo.cargados
-            $(window).off 'scroll'
-            $(window).off 'resize'
-    $(window).resize (e) ->
-        $(window).scroll()
+$('#share-fb').click (e) ->
+    FB.ui
+        method: 'share'
+        href: window.location.toString()
+    , (response) ->
+        console.log response
 
-)()
+$.get('/assets/posts.json').success (data) ->
+    postsInfo = data
+    postsInfo.pop()
+    añadirPosts(0)
+    $(window).scroll()
+    if window.location.hash isnt ""
+        loadPost findNum decodeURIComponent window.location.hash.substr 1
+
+$(window).scroll (e) ->
+    if $('.mainPage').hasClass('_hide')
+        return
+    abajoPos = window.scrollY + $(window).height()
+    if abajoPos > $('.posts_container').height() + 70 and postsInfo.length isnt postsInfo.cargados
+        añadirPosts postsInfo.linea + 1
+    else if postsInfo.length is postsInfo.cargados
+        $(window).off 'scroll'
+        $(window).off 'resize'
+$(window).resize (e) ->
+    $(window).scroll()

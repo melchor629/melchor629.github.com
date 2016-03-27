@@ -2,7 +2,7 @@
 (function() {
   var a, addKey, audioCtx, años, c, canPlay, createCheat, images, loadSound, playSound, removeKeys, soundBuffers;
 
-  images = [1, 'assets/img/Pixel Art.png', 'https://pbs.twimg.com/media/CERI-yNW0AIwIA6.jpg:large', 'https://pbs.twimg.com/media/CDGwAolWIAA-xkF.jpg:large', 'https://pbs.twimg.com/media/CEe1sRkWYAE0Wiy.jpg:large', 'https://pbs.twimg.com/profile_images/686600608560844800/_DpaL5hv.jpg', 'https://pbs.twimg.com/media/CGGc8fnWMAA0GnY.jpg:large'];
+  images = [1, 'assets/img/Pixel Art.png', 'https://pbs.twimg.com/media/CERI-yNW0AIwIA6.jpg:large', 'https://pbs.twimg.com/media/CDGwAolWIAA-xkF.jpg:large', 'https://pbs.twimg.com/media/CEe1sRkWYAE0Wiy.jpg:large', 'https://pbs.twimg.com/media/CGGc8fnWMAA0GnY.jpg:large', 'https://pbs.twimg.com/media/CeBLo6ZWIAQE_Qn.jpg:large'];
 
   addKey = function(key) {
     return $('.keys').append("<div class=\"key\"> " + key + " </div>").removeClass('hidden');
