@@ -134,7 +134,7 @@
   };
 
   twitterIntentUrl = function(username, url, text) {
-    return "http://twitter.com/intent/tweet?text=" + (encodeURIComponent(text)) + "& url=" + (encodeURIComponent(url)) + "&via=" + username + "&related=" + username + "%3AMelchor%20Garau%20Madrigal";
+    return "http://twitter.com/intent/tweet?text=" + (encodeURIComponent(text)) + "&url=" + (encodeURIComponent(url)) + "&via=" + username + "&related=" + username + "%3AMelchor%20Garau%20Madrigal";
   };
 
   findNum = function(url) {
@@ -265,7 +265,8 @@
   $('#share-fb').click(function(e) {
     return FB.ui({
       method: 'share',
-      href: window.location.toString()
+      href: window.location.toString(),
+      quote: $('title').text()
     }, function(response) {
       return console.log(response);
     });

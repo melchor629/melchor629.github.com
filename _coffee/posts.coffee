@@ -83,7 +83,7 @@ returnMainPage = ->
     , 500
 
 twitterIntentUrl = (username, url, text) ->
-    return "http://twitter.com/intent/tweet?text=#{encodeURIComponent(text)}&
+    return "http://twitter.com/intent/tweet?text=#{encodeURIComponent(text)}&\
         url=#{encodeURIComponent(url)}&via=#{username}&related=#{username}%3AMelchor%20Garau%20Madrigal"
 
 findNum = (url) ->
@@ -179,6 +179,7 @@ $('#share-fb').click (e) ->
     FB.ui
         method: 'share'
         href: window.location.toString()
+        quote: $('title').text()
     , (response) ->
         console.log response
 

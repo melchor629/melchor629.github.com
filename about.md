@@ -44,6 +44,7 @@ Conocer, conozco muchos, pero que sepa, ya no tantos. Esos son lo que os pondré
  - [Dart](https://www.dartlang.org/)
  - [Less](http://lesscss.org)
  - [Haskell](http://haskell.org) _Gracias a la carrera_
+ - [Swift](https://swift.org)
 
 Y sobre lenguajes de marcado (Markup Languages), tenemos simplemente _HTML_ y _[Markdown](http://daringfireball.net/projects/markdown/syntax)_.
 
