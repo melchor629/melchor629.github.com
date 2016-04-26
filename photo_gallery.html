@@ -1,0 +1,71 @@
+---
+layout: default
+title: Photo Gallery
+styles:
+  - gallery.css
+scripts:
+  - flickrApi.js
+  - photoGallery.js
+---
+
+<h1>ANDAMIO</h1>
+
+<div class="row gallery"></div>
+
+<div class="load-spin-container">
+    <div class="center-block load-spin">
+        <!-- De http://codepen.io/jczimm/pen/vEBpoL -->
+        <svg class="load-spin-inner" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="6" stroke-miterlimit="10"/>
+        </svg>
+    </div>
+</div>
+
+<div class="photo-overlay hide">
+    <div class="photo-overlay-container" role="document" style="height: 100%">
+        <div class="image-view">
+            <img src="about:blank" class="image-responsive" style="display:none">
+            <div class="img"></div>
+
+            <div class="buttons-container">
+                <div class="buttons">
+                    <button type="button" class="close" id="close">
+                        <span class="fa-stack">
+                            <i class="fa fa-circle-o fa-stack-2x"></i>
+                            <i class="fa fa-close fa-stack-1x"></i>
+                        </span>
+                    </button>
+                    <button type="button" class="close" id="info">
+                        <span class="fa-stack">
+                            <i class="fa fa-circle-o fa-stack-2x"></i>
+                            <i class="fa fa-info fa-stack-1x"></i>
+                        </span>
+                    </button>
+                </div>
+
+                <div class="change-photo prev">
+                    <i class="fa fa-chevron-left fa-3x"></i>
+                </div>
+                <div class="change-photo next">
+                    <i class="fa fa-chevron-right fa-3x"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="image-info">
+            <div class="page-header">
+                <h2></h2>
+                <span id="descripcion"></span>
+            </div>
+
+            <p class="lead" id="fecha"><strong>Fecha de captura:</strong> <span></span></p>
+            <p class="lead" id="camara"><strong>Capturado con:</strong> <span></span></p>
+            <p class="lead" id="exposicion"><strong>Exposición:</strong> <span></span></p>
+            <p class="lead" id="apertura"><strong>Apertura:</strong> <span></span></p>
+            <p class="lead" id="iso"><strong>ISO:</strong> <span></span></p>
+            <p class="lead" id="dist-focal"><strong>Dist. Focal:</strong> <span></span></p>
+            <p class="lead" id="flash"><strong>Flash:</strong> <span></span></p>
+            <p id="enlace"><a href="#" target="_blank">Ver en Flickr</a></p>
+        </div>
+    </div>
+</div>

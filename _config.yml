@@ -3,6 +3,10 @@ gems:
   - jekyll-sitemap
   - jekyll-coffeescript
 
+kramdown:
+  input: GFM
+  hard_wrap: false
+
 timezone: "Europe/Madrid"
 
 title: The abode of melchor9000
