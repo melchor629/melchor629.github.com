@@ -2,7 +2,7 @@
 (function() {
   var a, addKey, audioCtx, años, c, canPlay, createCheat, images, loadSound, playSound, removeKeys, soundBuffers;
 
-  images = [1, 'assets/img/Pixel Art.png', 'https://pbs.twimg.com/media/CERI-yNW0AIwIA6.jpg:large', 'https://pbs.twimg.com/media/CDGwAolWIAA-xkF.jpg:large', 'https://pbs.twimg.com/media/CEe1sRkWYAE0Wiy.jpg:large', 'https://pbs.twimg.com/media/CGGc8fnWMAA0GnY.jpg:large', 'https://pbs.twimg.com/media/CeBLo6ZWIAQE_Qn.jpg:large'];
+  images = [1, 'assets/img/Pixel Art.png', 'https://pbs.twimg.com/media/CERI-yNW0AIwIA6.jpg:large', 'https://pbs.twimg.com/media/CDGwAolWIAA-xkF.jpg:large', 'https://pbs.twimg.com/media/CEe1sRkWYAE0Wiy.jpg:large', 'https://pbs.twimg.com/media/CGGc8fnWMAA0GnY.jpg:large', 'https://pbs.twimg.com/media/CeBLo6ZWIAQE_Qn.jpg:large', 'https://pbs.twimg.com/media/Cgf7-IEUEAAgWk5.jpg:large'];
 
   addKey = function(key) {
     return $('.keys').append("<div class=\"key\"> " + key + " </div>").removeClass('hidden');
@@ -81,6 +81,10 @@
     } else {
       return $('body').addClass('flip');
     }
+  });
+
+  createCheat('w t f s t b', function() {
+    return playSound('when-the-fire-starts-to-burn');
   });
 
   años = function() {
@@ -172,6 +176,8 @@
   loadSound('staying alive', 'm4a', 'ogg');
 
   loadSound('staying alive2', 'm4a', 'ogg');
+
+  loadSound('when-the-fire-starts-to-burn', 'm4a', 'ogg');
 
   $('.profile_img img').load(function() {
     return $(this).css('margin-top', ((256 - $(this).height()) / 2) + "px");

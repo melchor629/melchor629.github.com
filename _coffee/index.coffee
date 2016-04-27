@@ -6,6 +6,7 @@ images = [
     'https://pbs.twimg.com/media/CEe1sRkWYAE0Wiy.jpg:large'
     'https://pbs.twimg.com/media/CGGc8fnWMAA0GnY.jpg:large'
     'https://pbs.twimg.com/media/CeBLo6ZWIAQE_Qn.jpg:large'
+    'https://pbs.twimg.com/media/Cgf7-IEUEAAgWk5.jpg:large'
 ]
 
 addKey = (key)->
@@ -69,6 +70,9 @@ createCheat 'l e t s space f l i p', ->
         , 2000
     else
         $('body').addClass 'flip'
+
+createCheat 'w t f s t b', ->
+    playSound 'when-the-fire-starts-to-burn'
 
 años = ->
     d = new Date
@@ -138,6 +142,7 @@ loadSound 'atw', 'mp3', 'ogg'
 loadSound 'stay', 'm4a', 'ogg'
 loadSound 'staying alive', 'm4a', 'ogg'
 loadSound 'staying alive2', 'm4a', 'ogg'
+loadSound 'when-the-fire-starts-to-burn', 'm4a', 'ogg'
 
 $('.profile_img img').load ->
     $(this).css('margin-top', "#{(256 - $(this).height()) / 2}px");
