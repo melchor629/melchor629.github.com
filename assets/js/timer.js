@@ -86,9 +86,11 @@
           if (_this._startTime === null) {
             _this._startTime = timestamp;
           }
-          _this.cbk((timestamp - _this._startTime) / _this.duration, timestamp);
           if (timestamp - _this._startTime <= _this.duration) {
+            _this._cbk((timestamp - _this._startTime) / _this.duration, timestamp);
             return window.requestAnimationFrame(func);
+          } else {
+            return _this._endCbk();
           }
         };
       })(this);
@@ -97,6 +99,10 @@
 
     AnimationTimer.prototype.stop = function() {
       return this._startTime = this.duration + 1;
+    };
+
+    AnimationTimer.prototype.onEnd = function(cbk) {
+      return this._endCbk = cbk;
     };
 
     AnimationTimer.prototype.restart = function() {

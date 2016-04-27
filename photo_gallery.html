@@ -4,6 +4,7 @@ title: Photo Gallery
 styles:
   - gallery.css
 scripts:
+  - https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.2.0/imagesloaded.pkgd.min.js
   - jquery.mobile.custom.min.js
   - flickrApi.js
   - timer.js
@@ -26,8 +27,9 @@ scripts:
 <div class="photo-overlay hide">
     <div class="photo-overlay-container" role="document" style="height: 100%">
         <div class="image-view col-sm-8 col-xs-12">
-            <img src="about:blank" class="image-responsive" style="display:none">
-            <div class="img"></div>
+            <img src="about:blank" style="display:none">
+            <div class="img" id="img"></div>
+            <div class="img" id="img2"></div>
 
             <div class="buttons-container">
                 <div class="buttons">
@@ -37,7 +39,7 @@ scripts:
                             <i class="fa fa-close fa-stack-1x"></i>
                         </span>
                     </button>
-                    <button type="button" class="close" id="info">
+                    <button type="button" class="close hidden-xs" id="info">
                         <span class="fa-stack">
                             <i class="fa fa-circle-o fa-stack-2x"></i>
                             <i class="fa fa-info fa-stack-1x"></i>

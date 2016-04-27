@@ -9,6 +9,16 @@
     margin-top: 20px;
     margin-bottom: 60px;
 
+    &.overlay-loading {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        background: white;
+        border-radius: 50px;
+        animation: overlayLoadingShow .25s ease-in-out;
+        z-index: 1000;
+    }
+
     .load-spin {
         width: 42px;
         height: 42px;
@@ -54,6 +64,11 @@
         stroke-dasharray: 89,200;
         stroke-dashoffset: -124px;
     }
+}
+@keyframes overlayLoadingShow {
+    0% { top: -60px }
+    10% { top: -60px }
+    100% { top: 20px }
 }
 
 @green: #008744;
@@ -165,6 +180,12 @@
             background-position: center;
             background-repeat: no-repeat;
             background-size: contain;
+        }
+
+        #img2 {
+            position: relative;
+            top: -100%;
+            display: none;
         }
 
         &.max-size {

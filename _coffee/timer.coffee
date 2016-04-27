@@ -57,12 +57,18 @@ class AnimationTimer
         @_startTime = null
         func = (timestamp) =>
             if @_startTime is null then @_startTime = timestamp
-            @cbk((timestamp - @_startTime) / @duration, timestamp)
-            if timestamp - @_startTime <= @duration then window.requestAnimationFrame func
+            if timestamp - @_startTime <= @duration
+                @_cbk((timestamp - @_startTime) / @duration, timestamp)
+                window.requestAnimationFrame func
+            else
+                @_endCbk()
         window.requestAnimationFrame func
 
     stop: ->
         @_startTime = @duration + 1
+
+    onEnd: (cbk) ->
+        @_endCbk = cbk
 
     restart: ->
         @stop()

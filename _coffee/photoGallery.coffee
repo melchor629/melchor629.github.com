@@ -1,3 +1,14 @@
+class CuriousPromise
+    constructor: (numOfDoneCalls, cbk) ->
+        @num = numOfDoneCalls
+        @cbk = cbk
+        @doneCalls = 0
+
+    done: ->
+        @doneCalls++
+        if @num is @doneCalls
+            @cbk()
+
 class FlickrGallery
     constructor: (opt) ->
         @photosPerPage = opt.photosPerPage || 12
@@ -15,6 +26,7 @@ class FlickrGallery
         @photos = []
         @photoInfo = {}
         @currentPhoto = null
+        @_curiousPromise = null
 
         @_setUpListeners()
         @loadMorePhotos()
@@ -55,13 +67,13 @@ class FlickrGallery
                 photoNum++
 
             $(window).resize()
+            $('.photo-overlay').find('div.next').show()
             @loadingMorePhotos = false
         )
 
     showPhoto: (num) ->
         $('body').css('overflow', 'hidden')
         $('.photo-overlay').find('img').attr('src', flickr.buildLargePhotoUrl(@photos[num]))
-        $('.photo-overlay').find('.img').css('background-image', "url('#{flickr.buildLargePhotoUrl(@photos[num])}')")
         $('.photo-overlay').find('.image-info').find('h2').text(@photos[num].title)
         $('.photo-overlay').removeClass('hide').addClass('show')
         @_loadPhotoImage @photos[num]
@@ -75,6 +87,9 @@ class FlickrGallery
             $('.photo-overlay').find('div.next').hide()
         else
             $('.photo-overlay').find('div.next').show()
+
+        if @currentPhoto is @photos.length - 1 and @page < @totalPages
+            @loadMorePhotos()
 
     hideOverlay: ->
         @currentPhoto = null
@@ -158,19 +173,60 @@ class FlickrGallery
             else
                 $('.photo-overlay').find('#flash').hide()
 
-        if @photoInfo[photo.id] and @photoInfo[photo.id].info
+        _curiousPromise = new CuriousPromise(3, =>
             infoFunc @photoInfo[photo.id].info
+            exifFunc @photoInfo[photo.id].exif
+            @_imageTransition photo
+            @_curiousPromise = null
+            $('.load-spin-container').removeClass('overlay-loading')
+        )
+
+        $('.load-spin-container').addClass('overlay-loading')
+        $('.photo-overlay').find('img').imagesLoaded( =>
+            _curiousPromise.done()
+        )
+
+        if @photoInfo[photo.id] and @photoInfo[photo.id].info
+            _curiousPromise.done()
         else
             flickr.photos.getInfo {photo_id: photo.id, secret: photo.secret}, (data) =>
-                infoFunc data
                 if @photoInfo[photo.id] then @photoInfo[photo.id].info = data else @photoInfo[photo.id] = {info:data}
+                _curiousPromise.done()
 
         if @photoInfo[photo.id] and @photoInfo[photo.id].exif
-            exifFunc @photoInfo[photo.id].exif
+            _curiousPromise.done()
         else
             flickr.photos.getExif {photo_id: photo.id, secret: photo.secret}, (data) =>
-                exifFunc data
                 if @photoInfo[photo.id] then @photoInfo[photo.id].exif = data else @photoInfo[photo.id] = {exif:data}
+                _curiousPromise.done()
+
+    _imageTransition: (photo) ->
+        oldImage = $('.photo-overlay').find('.img').css('background-image');
+        if oldImage and oldImage isnt 'none'
+            $('.photo-overlay')
+                .find('#img')
+                .css(
+                    'background-image': "url('#{flickr.buildLargePhotoUrl(photo)}')"
+                    opacity: '0'
+                ).parent().find('#img2').css(
+                    'background-image': "#{oldImage}"
+                    opacity: '1'
+                    display: 'block'
+                )
+            new AnimationTimer(250, (t) ->
+                p = -(Math.cos(Math.PI * t) - 1) / 2
+                $('.photo-overlay').find('#img').css('opacity', "#{p}")
+                $('.photo-overlay').find('#img2').css('opacity', "#{1-p}")
+            , true).onEnd( ->
+                $('.photo-overlay')
+                    .find('#img2').hide()
+                    .parent()
+                    .find('#img').css('opacity', '1')
+            )
+        else
+            $('.photo-overlay')
+                .find('.img')
+                .css('background-image', "url('#{flickr.buildLargePhotoUrl(photo)}')")
 
     _setUpListeners: ->
         $(window).scroll( =>
