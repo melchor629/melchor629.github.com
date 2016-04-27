@@ -4,7 +4,9 @@ title: Photo Gallery
 styles:
   - gallery.css
 scripts:
+  - jquery.mobile.custom.min.js
   - flickrApi.js
+  - timer.js
   - photoGallery.js
 ---
 
@@ -23,7 +25,7 @@ scripts:
 
 <div class="photo-overlay hide">
     <div class="photo-overlay-container" role="document" style="height: 100%">
-        <div class="image-view">
+        <div class="image-view col-sm-8 col-xs-12">
             <img src="about:blank" class="image-responsive" style="display:none">
             <div class="img"></div>
 
@@ -52,7 +54,7 @@ scripts:
             </div>
         </div>
 
-        <div class="image-info">
+        <div class="image-info col-sm-4 hidden-xs">
             <div class="page-header">
                 <h2></h2>
                 <span id="descripcion"></span>

@@ -31,16 +31,12 @@ class FlickrGallery
             photoNum = 0
             for photo in json.photoset.photo
                 @photos.push photo
-                clearFixClasses = '.visible-xs-block'
-                if photoNum % 2
-                    clearFixClasses += ' .visible-sm-block'
-                else if photoNum % 3
-                    clearFixClasses += ' .visible-md-block .visible-lg-block'
 
                 $('.gallery').append(
                     $('<div/>')
-                        .addClass('col-sm-6')
-                        .addClass('col-md-4')
+                        .addClass('col-xs-6')
+                        .addClass('col-sm-4')
+                        .addClass('col-md-3')
                         .append(
                             $('<div/>').css(
                                 'background-image': "url(#{flickr.buildPhotoUrl(photo)})"
@@ -72,13 +68,13 @@ class FlickrGallery
         @currentPhoto = num
 
         if @currentPhoto is 0
-            $('.photo-overlay').find('div.left').hide()
+            $('.photo-overlay').find('div.prev').hide()
         else
-            $('.photo-overlay').find('div.left').show()
+            $('.photo-overlay').find('div.prev').show()
         if @currentPhoto is @photos.length - 1
-            $('.photo-overlay').find('div.right').hide()
+            $('.photo-overlay').find('div.next').hide()
         else
-            $('.photo-overlay').find('div.right').show()
+            $('.photo-overlay').find('div.next').show()
 
     hideOverlay: ->
         @currentPhoto = null
@@ -203,10 +199,21 @@ class FlickrGallery
                     console.log null
         )
 
+        $('.image-view').mousemove( =>
+            $('.photo-overlay').find('.buttons-container').removeClass('no-move')
+            @_timer.restart()
+        )
+
+        @_timer = new Timer(3000, =>
+            $('.photo-overlay').find('.buttons-container').addClass('no-move')
+        , true)
+
         $('.photo-overlay').find('#close').click(@hideOverlay.bind(this))
         .parent().find('#info').click(@toggleInfoPanel.bind(this))
         $('.photo-overlay').find('div.next').click(@nextImage.bind(this))
-        $('.photo-overlay').find('div.left').click(@previousImage.bind(this))
+        $('.photo-overlay').find('div.prev').click(@previousImage.bind(this))
+        $('.image-view').swipeleft(@nextImage.bind(this))
+        $('.image-view').swiperight(@previousImage.bind(this))
 
 window.melchordegaleria = new FlickrGallery
     userId: '107436442@N02'
