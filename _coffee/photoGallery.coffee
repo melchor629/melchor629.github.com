@@ -71,12 +71,12 @@ class FlickrGallery
             @loadingMorePhotos = false
         )
 
-    showPhoto: (num) ->
+    showPhoto: (num, dir) ->
         $('body').css('overflow', 'hidden')
         $('.photo-overlay').find('img').attr('src', flickr.buildLargePhotoUrl(@photos[num]))
         $('.photo-overlay').find('.image-info').find('h2').text(@photos[num].title)
         $('.photo-overlay').removeClass('hide').addClass('show')
-        @_loadPhotoImage @photos[num]
+        @_loadPhotoImage @photos[num], dir
         @currentPhoto = num
 
         if @currentPhoto is 0
@@ -90,6 +90,8 @@ class FlickrGallery
 
         if @currentPhoto is @photos.length - 1 and @page < @totalPages
             @loadMorePhotos()
+        if @page is @totalPages
+            $('.load-spin-container').show()
 
     hideOverlay: ->
         @currentPhoto = null
@@ -100,6 +102,8 @@ class FlickrGallery
             $('.photo-overlay').find('#fecha').find('span').text ''
             $('.photo-overlay').find('#camara').find('span').text ''
         , 500)
+        if @page is @totalPages
+            $('.load-spin-container').hide()
 
     toggleInfoPanel: ->
         if $('.photo-overlay').find('.image-info').hasClass 'min-size'
@@ -111,13 +115,13 @@ class FlickrGallery
 
     nextImage: ->
         if @currentPhoto isnt null and @currentPhoto < @photos.length - 1
-            @showPhoto @currentPhoto + 1
+            @showPhoto @currentPhoto + 1, 'next'
 
     previousImage: ->
         if @currentPhoto isnt null and @currentPhoto > 0
-            @showPhoto @currentPhoto - 1
+            @showPhoto @currentPhoto - 1, 'prev'
 
-    _loadPhotoImage: (photo) ->
+    _loadPhotoImage: (photo, dir) ->
         infoFunc = (data) ->
             if data.stat is "ok"
                 sd = data.photo.dates.taken.split(/[-: ]/)
@@ -176,7 +180,7 @@ class FlickrGallery
         _curiousPromise = new CuriousPromise(3, =>
             infoFunc @photoInfo[photo.id].info
             exifFunc @photoInfo[photo.id].exif
-            @_imageTransition photo
+            @_imageTransition photo, dir
             @_curiousPromise = null
             $('.load-spin-container').removeClass('overlay-loading')
         )
@@ -200,23 +204,40 @@ class FlickrGallery
                 if @photoInfo[photo.id] then @photoInfo[photo.id].exif = data else @photoInfo[photo.id] = {exif:data}
                 _curiousPromise.done()
 
-    _imageTransition: (photo) ->
+    _imageTransition: (photo, dir) ->
         oldImage = $('.photo-overlay').find('.img').css('background-image');
         if oldImage and oldImage isnt 'none'
+            if dir
+                initialBackgroundPos = if dir is 'next' then '60% 50%' else '40% 50%'
+            else
+                initialBackgroundPos = 'center'
             $('.photo-overlay')
                 .find('#img')
                 .css(
                     'background-image': "url('#{flickr.buildLargePhotoUrl(photo)}')"
+                    'background-position': initialBackgroundPos
                     opacity: '0'
                 ).parent().find('#img2').css(
                     'background-image': "#{oldImage}"
+                    'background-position': 'center'
                     opacity: '1'
                     display: 'block'
                 )
             new AnimationTimer(250, (t) ->
                 p = -(Math.cos(Math.PI * t) - 1) / 2
-                $('.photo-overlay').find('#img').css('opacity', "#{p}")
-                $('.photo-overlay').find('#img2').css('opacity', "#{1-p}")
+                if dir
+                    pos1 = if dir is 'next' then 60 - 10*t else 40 + 10*t
+                    pos2 = if dir is 'next'  then 50 - 10*t else 50 + 10*t
+                else
+                    pos1 = pos2 = 50
+                $('.photo-overlay').find('#img').css(
+                    'opacity': "#{p}"
+                    'background-position': "#{pos1}% 50%"
+                )
+                $('.photo-overlay').find('#img2').css(
+                    'opacity': "#{1-p}"
+                    'background-position': "#{pos2}% 50%"
+                )
             , true).onEnd( ->
                 $('.photo-overlay')
                     .find('#img2').hide()
@@ -272,6 +293,6 @@ class FlickrGallery
         $('.image-view').swiperight(@previousImage.bind(this))
 
 window.melchordegaleria = new FlickrGallery
-    userId: '107436442@N02'
-    photosetId: '72157646899786200'
+    userId: '142458589@N03'
+    photosetId: '72157667134867210'
     container: $('.container')

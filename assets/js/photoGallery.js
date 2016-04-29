@@ -83,12 +83,12 @@
       })(this));
     };
 
-    FlickrGallery.prototype.showPhoto = function(num) {
+    FlickrGallery.prototype.showPhoto = function(num, dir) {
       $('body').css('overflow', 'hidden');
       $('.photo-overlay').find('img').attr('src', flickr.buildLargePhotoUrl(this.photos[num]));
       $('.photo-overlay').find('.image-info').find('h2').text(this.photos[num].title);
       $('.photo-overlay').removeClass('hide').addClass('show');
-      this._loadPhotoImage(this.photos[num]);
+      this._loadPhotoImage(this.photos[num], dir);
       this.currentPhoto = num;
       if (this.currentPhoto === 0) {
         $('.photo-overlay').find('div.prev').hide();
@@ -101,7 +101,10 @@
         $('.photo-overlay').find('div.next').show();
       }
       if (this.currentPhoto === this.photos.length - 1 && this.page < this.totalPages) {
-        return this.loadMorePhotos();
+        this.loadMorePhotos();
+      }
+      if (this.page === this.totalPages) {
+        return $('.load-spin-container').show();
       }
     };
 
@@ -109,11 +112,14 @@
       this.currentPhoto = null;
       $('body').css('overflow', 'inherit');
       $('.photo-overlay').removeClass('show');
-      return setTimeout(function() {
+      setTimeout(function() {
         $('.photo-overlay').addClass('hide');
         $('.photo-overlay').find('#fecha').find('span').text('');
         return $('.photo-overlay').find('#camara').find('span').text('');
       }, 500);
+      if (this.page === this.totalPages) {
+        return $('.load-spin-container').hide();
+      }
     };
 
     FlickrGallery.prototype.toggleInfoPanel = function() {
@@ -128,17 +134,17 @@
 
     FlickrGallery.prototype.nextImage = function() {
       if (this.currentPhoto !== null && this.currentPhoto < this.photos.length - 1) {
-        return this.showPhoto(this.currentPhoto + 1);
+        return this.showPhoto(this.currentPhoto + 1, 'next');
       }
     };
 
     FlickrGallery.prototype.previousImage = function() {
       if (this.currentPhoto !== null && this.currentPhoto > 0) {
-        return this.showPhoto(this.currentPhoto - 1);
+        return this.showPhoto(this.currentPhoto - 1, 'prev');
       }
     };
 
-    FlickrGallery.prototype._loadPhotoImage = function(photo) {
+    FlickrGallery.prototype._loadPhotoImage = function(photo, dir) {
       var _curiousPromise, exifFunc, infoFunc;
       infoFunc = function(data) {
         var date, sd;
@@ -221,7 +227,7 @@
         return function() {
           infoFunc(_this.photoInfo[photo.id].info);
           exifFunc(_this.photoInfo[photo.id].exif);
-          _this._imageTransition(photo);
+          _this._imageTransition(photo, dir);
           _this._curiousPromise = null;
           return $('.load-spin-container').removeClass('overlay-loading');
         };
@@ -272,23 +278,42 @@
       }
     };
 
-    FlickrGallery.prototype._imageTransition = function(photo) {
-      var oldImage;
+    FlickrGallery.prototype._imageTransition = function(photo, dir) {
+      var initialBackgroundPos, oldImage;
       oldImage = $('.photo-overlay').find('.img').css('background-image');
       if (oldImage && oldImage !== 'none') {
+        if (dir) {
+          initialBackgroundPos = dir === 'next' ? '60% 50%' : '40% 50%';
+        } else {
+          initialBackgroundPos = 'center';
+        }
         $('.photo-overlay').find('#img').css({
           'background-image': "url('" + (flickr.buildLargePhotoUrl(photo)) + "')",
+          'background-position': initialBackgroundPos,
           opacity: '0'
         }).parent().find('#img2').css({
           'background-image': "" + oldImage,
+          'background-position': 'center',
           opacity: '1',
           display: 'block'
         });
         return new AnimationTimer(250, function(t) {
-          var p;
+          var p, pos1, pos2;
           p = -(Math.cos(Math.PI * t) - 1) / 2;
-          $('.photo-overlay').find('#img').css('opacity', "" + p);
-          return $('.photo-overlay').find('#img2').css('opacity', "" + (1 - p));
+          if (dir) {
+            pos1 = dir === 'next' ? 60 - 10 * t : 40 + 10 * t;
+            pos2 = dir === 'next' ? 50 - 10 * t : 50 + 10 * t;
+          } else {
+            pos1 = pos2 = 50;
+          }
+          $('.photo-overlay').find('#img').css({
+            'opacity': "" + p,
+            'background-position': pos1 + "% 50%"
+          });
+          return $('.photo-overlay').find('#img2').css({
+            'opacity': "" + (1 - p),
+            'background-position': pos2 + "% 50%"
+          });
         }, true).onEnd(function() {
           return $('.photo-overlay').find('#img2').hide().parent().find('#img').css('opacity', '1');
         });
@@ -351,8 +376,8 @@
   })();
 
   window.melchordegaleria = new FlickrGallery({
-    userId: '107436442@N02',
-    photosetId: '72157646899786200',
+    userId: '142458589@N03',
+    photosetId: '72157667134867210',
     container: $('.container')
   });
 
