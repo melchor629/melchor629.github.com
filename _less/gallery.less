@@ -148,7 +148,7 @@
 }
 
 /**
- *  Image view
+ *  Image overlay
  **/
 .photo-overlay {
     position: fixed;
@@ -254,7 +254,7 @@
             text-shadow: 0 1px 0 black;
             cursor: pointer;
             opacity: 0.4;
-            transition: opacity .2s linear .1s;
+            transition: opacity .2s linear .1s, left .5s cubic-bezier(0.33, 0, 0.66, 1);
 
             &:hover {
                 opacity: 0.9
@@ -266,6 +266,31 @@
 
             &.next {
                 left: 92.5%;
+            }
+        }
+    }
+
+    .zoom-container {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 10;
+        overflow: scroll;
+
+        .zoom-image-view {
+            cursor: -webkit-grab; //Safari >:(
+            cursor: grab;
+
+            &.grabbing {
+                cursor: -webkit-grabbing; //Safari >:(
+                cursor: grabbing;
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
             }
         }
     }

@@ -77,6 +77,7 @@ class FlickrGallery
         $('.photo-overlay').find('img').attr('src', flickr.buildLargePhotoUrl(@photos[num]))
         $('.photo-overlay').find('.image-info').find('h2').text(@photos[num].title)
         $('.photo-overlay').removeClass('hide').addClass('show')
+        $('.buttons-container').find('.next').css('left', $('.image-view').width() - 70)
         @_loadPhotoImage @photos[num], dir
         @currentPhoto = num
 
@@ -110,9 +111,11 @@ class FlickrGallery
         if $('.photo-overlay').find('.image-info').hasClass 'min-size'
             $('.photo-overlay').find('.image-info').removeClass 'min-size'
             $('.photo-overlay').find('.image-view').removeClass 'max-size'
+            $('.buttons-container').find('.next').css('left', $(window).width() * 0.6666666666666666666 - 70)
         else
             $('.photo-overlay').find('.image-info').addClass 'min-size'
             $('.photo-overlay').find('.image-view').addClass 'max-size'
+            $('.buttons-container').find('.next').css('left', $(window).width() - 70)
 
     nextImage: ->
         if @currentPhoto isnt null and @currentPhoto < @photos.length - 1
@@ -121,6 +124,27 @@ class FlickrGallery
     previousImage: ->
         if @currentPhoto isnt null and @currentPhoto > 0
             @showPhoto @currentPhoto - 1, 'prev'
+
+    zoomImage: ->
+        flickr.photos.getSizes({ photo_id: @photos[@currentPhoto].id }, (json) =>
+            size = null
+            for s in json.sizes.size
+                if s.label is "Large"
+                    size = s
+                else if s.label is "Original"
+                    size = s
+                    break
+            $('.zoom-container > .zoom-image-view').css(
+                'background-image': "url(#{size.source})"
+                width: Number(size.width)
+                height: Number(size.height)
+            )
+            $('.zoom-container').removeClass('hide').scrollLeft(size.width / 2).scrollTop(size.height / 2)
+        )
+
+    hideZoomImage: ->
+        $('.zoom-container > .zoom-image-view').css 'background-image', null
+        $('.zoom-container').addClass('hide')
 
     _loadPhotoImage: (photo, dir) ->
         infoFunc = (data) ->
@@ -280,7 +304,10 @@ class FlickrGallery
         $(window).keyup((e) =>
             if $('.photo-overlay').hasClass('show')
                 if e.keyCode is 27 #ESC
-                    @hideOverlay()
+                    if $('.zoom-container').hasClass 'hide'
+                        @hideOverlay()
+                    else
+                        @hideZoomImage()
                 else if e.keyCode is 39 #Derecha
                     @nextImage()
                 else if e.keyCode is 37 #Izquierda
@@ -300,10 +327,36 @@ class FlickrGallery
 
         $('.photo-overlay').find('#close').click(@hideOverlay.bind(this))
         .parent().find('#info').click(@toggleInfoPanel.bind(this))
+        $('.photo-overlay').find('#zoom').click(@zoomImage.bind(this))
         $('.photo-overlay').find('div.next').click(@nextImage.bind(this))
         $('.photo-overlay').find('div.prev').click(@previousImage.bind(this))
         $('.image-view').swipeleft(@nextImage.bind(this))
         $('.image-view').swiperight(@previousImage.bind(this))
+        $('.photo-overlay').find('.zoom-image-view').mousedown((e) ->
+            posx = e.pageX
+            posy = e.pageY
+            imgPosX = $('.zoom-container').scrollLeft()
+            imgPosY = $('.zoom-container').scrollTop()
+            $('.zoom-image-view').mousemove((e) ->
+                if not $('.zoom-image-view').hasClass('grabbing')
+                    $('.zoom-image-view').addClass('grabbing')
+                $('.zoom-container').scrollLeft(imgPosX - (e.pageX - posx))
+                $('.zoom-container').scrollTop(imgPosY - (e.pageY - posy))
+            )
+        ).mouseup((e) ->
+            $('.zoom-image-view').off('mousemove').removeClass('grabbing')
+        )
+        $('.photo-overlay').find('.buttons-container').tap((e) =>
+            if Date.now() - @_lastTap <= 500
+                @zoomImage()
+            else
+                @_lastTap = Date.now()
+        )
+        $('.photo-overlay').find('.zoom-image-view').taphold((e) =>
+            if not $('.zoom-image-view').hasClass('grabbing')
+                @hideZoomImage()
+        )
+        @_lastTap = Date.now()
 
 window.melchordegaleria = new FlickrGallery
     userId: '142458589@N03'

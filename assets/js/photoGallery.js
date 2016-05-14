@@ -89,6 +89,7 @@
       $('.photo-overlay').find('img').attr('src', flickr.buildLargePhotoUrl(this.photos[num]));
       $('.photo-overlay').find('.image-info').find('h2').text(this.photos[num].title);
       $('.photo-overlay').removeClass('hide').addClass('show');
+      $('.buttons-container').find('.next').css('left', $('.image-view').width() - 70);
       this._loadPhotoImage(this.photos[num], dir);
       this.currentPhoto = num;
       if (this.currentPhoto === 0) {
@@ -126,10 +127,12 @@
     FlickrGallery.prototype.toggleInfoPanel = function() {
       if ($('.photo-overlay').find('.image-info').hasClass('min-size')) {
         $('.photo-overlay').find('.image-info').removeClass('min-size');
-        return $('.photo-overlay').find('.image-view').removeClass('max-size');
+        $('.photo-overlay').find('.image-view').removeClass('max-size');
+        return $('.buttons-container').find('.next').css('left', $(window).width() * 0.6666666666666666666 - 70);
       } else {
         $('.photo-overlay').find('.image-info').addClass('min-size');
-        return $('.photo-overlay').find('.image-view').addClass('max-size');
+        $('.photo-overlay').find('.image-view').addClass('max-size');
+        return $('.buttons-container').find('.next').css('left', $(window).width() - 70);
       }
     };
 
@@ -143,6 +146,38 @@
       if (this.currentPhoto !== null && this.currentPhoto > 0) {
         return this.showPhoto(this.currentPhoto - 1, 'prev');
       }
+    };
+
+    FlickrGallery.prototype.zoomImage = function() {
+      return flickr.photos.getSizes({
+        photo_id: this.photos[this.currentPhoto].id
+      }, (function(_this) {
+        return function(json) {
+          var i, len, ref, s, size;
+          size = null;
+          ref = json.sizes.size;
+          for (i = 0, len = ref.length; i < len; i++) {
+            s = ref[i];
+            if (s.label === "Large") {
+              size = s;
+            } else if (s.label === "Original") {
+              size = s;
+              break;
+            }
+          }
+          $('.zoom-container > .zoom-image-view').css({
+            'background-image': "url(" + size.source + ")",
+            width: Number(size.width),
+            height: Number(size.height)
+          });
+          return $('.zoom-container').removeClass('hide').scrollLeft(size.width / 2).scrollTop(size.height / 2);
+        };
+      })(this));
+    };
+
+    FlickrGallery.prototype.hideZoomImage = function() {
+      $('.zoom-container > .zoom-image-view').css('background-image', null);
+      return $('.zoom-container').addClass('hide');
     };
 
     FlickrGallery.prototype._loadPhotoImage = function(photo, dir) {
@@ -367,7 +402,11 @@
         return function(e) {
           if ($('.photo-overlay').hasClass('show')) {
             if (e.keyCode === 27) {
-              return _this.hideOverlay();
+              if ($('.zoom-container').hasClass('hide')) {
+                return _this.hideOverlay();
+              } else {
+                return _this.hideZoomImage();
+              }
             } else if (e.keyCode === 39) {
               return _this.nextImage();
             } else if (e.keyCode === 37) {
@@ -390,10 +429,44 @@
         };
       })(this), true);
       $('.photo-overlay').find('#close').click(this.hideOverlay.bind(this)).parent().find('#info').click(this.toggleInfoPanel.bind(this));
+      $('.photo-overlay').find('#zoom').click(this.zoomImage.bind(this));
       $('.photo-overlay').find('div.next').click(this.nextImage.bind(this));
       $('.photo-overlay').find('div.prev').click(this.previousImage.bind(this));
       $('.image-view').swipeleft(this.nextImage.bind(this));
-      return $('.image-view').swiperight(this.previousImage.bind(this));
+      $('.image-view').swiperight(this.previousImage.bind(this));
+      $('.photo-overlay').find('.zoom-image-view').mousedown(function(e) {
+        var imgPosX, imgPosY, posx, posy;
+        posx = e.pageX;
+        posy = e.pageY;
+        imgPosX = $('.zoom-container').scrollLeft();
+        imgPosY = $('.zoom-container').scrollTop();
+        return $('.zoom-image-view').mousemove(function(e) {
+          if (!$('.zoom-image-view').hasClass('grabbing')) {
+            $('.zoom-image-view').addClass('grabbing');
+          }
+          $('.zoom-container').scrollLeft(imgPosX - (e.pageX - posx));
+          return $('.zoom-container').scrollTop(imgPosY - (e.pageY - posy));
+        });
+      }).mouseup(function(e) {
+        return $('.zoom-image-view').off('mousemove').removeClass('grabbing');
+      });
+      $('.photo-overlay').find('.buttons-container').tap((function(_this) {
+        return function(e) {
+          if (Date.now() - _this._lastTap <= 500) {
+            return _this.zoomImage();
+          } else {
+            return _this._lastTap = Date.now();
+          }
+        };
+      })(this));
+      $('.photo-overlay').find('.zoom-image-view').taphold((function(_this) {
+        return function(e) {
+          if (!$('.zoom-image-view').hasClass('grabbing')) {
+            return _this.hideZoomImage();
+          }
+        };
+      })(this));
+      return this._lastTap = Date.now();
     };
 
     return FlickrGallery;
