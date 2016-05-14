@@ -39,6 +39,7 @@ class FlickrGallery
         @loadingMorePhotos = true
         @page++
         flickr.photosets.getPhotos({user_id: @userId, photoset_id: @photosetId, per_page: @photosPerPage, page: @page}, (json) =>
+            @_setHeaderImageBackground json.photoset.primary
             @totalPages = json.photoset.pages
             photoNum = 0
             for photo in json.photoset.photo
@@ -54,7 +55,7 @@ class FlickrGallery
                                 'background-image': "url(#{flickr.buildPhotoUrl(photo)})"
                             ).append(
                                 $('<div/>').append(
-                                    $('<p/>').text(photo.title).addClass('photo-title')
+                                    $('<div/>').text(photo.title).addClass('photo-title')
                                 )
                             ).data('num', @photos.length - 1)
                             .click((e) =>
@@ -248,6 +249,18 @@ class FlickrGallery
             $('.photo-overlay')
                 .find('.img')
                 .css('background-image', "url('#{flickr.buildLargePhotoUrl(photo)}')")
+
+    _setHeaderImageBackground: (photoId) ->
+        if $('.image-background').css('background-image') is 'none'
+            flickr.photos.getSizes({photo_id: photoId}, (json) ->
+                if json.stat is 'ok'
+                    img = null
+                    for size in json.sizes.size
+                        if size.label is 'Large'
+                            img = size.source
+                            break;
+                    $('.image-background').parallax({imageSrc: img});
+        )
 
     _setUpListeners: ->
         $(window).scroll( =>
