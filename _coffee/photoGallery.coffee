@@ -33,7 +33,7 @@ class FlickrGallery
 
     loadMorePhotos: ->
         if @page is @totalPages
-            $('.load-spin-container').hide()
+            @.$('.load-spin-container').hide()
             return
 
         @loadingMorePhotos = true
@@ -45,7 +45,7 @@ class FlickrGallery
             for photo in json.photoset.photo
                 @photos.push photo
 
-                $('.gallery').append(
+                @.$('.gallery').append(
                     $('<div/>')
                         .addClass('col-xs-6')
                         .addClass('col-sm-4')
@@ -60,7 +60,7 @@ class FlickrGallery
                             ).data('num', @photos.length - 1)
                             .click((e) =>
                                 e.preventDefault()
-                                @showPhoto $(e.delegateTarget).data('num')
+                                @showPhoto @.$(e.delegateTarget).data('num')
                                 false
                             )
                         )
@@ -68,54 +68,54 @@ class FlickrGallery
                 photoNum++
 
             $(window).resize()
-            $('.photo-overlay').find('div.next').show()
+            @.$('.photo-overlay').find('div.next').show()
             @loadingMorePhotos = false
         )
 
     showPhoto: (num, dir) ->
         $('body').css('overflow', 'hidden')
-        $('.photo-overlay').find('img').attr('src', flickr.buildLargePhotoUrl(@photos[num]))
-        $('.photo-overlay').find('.image-info').find('h2').text(@photos[num].title)
-        $('.photo-overlay').removeClass('hide').addClass('show')
-        $('.buttons-container').find('.next').css('left', $('.image-view').width() - 70)
+        @.$('.photo-overlay').find('img').attr('src', flickr.buildLargePhotoUrl(@photos[num]))
+        @.$('.photo-overlay').find('.image-info').find('h2').text(@photos[num].title)
+        @.$('.photo-overlay').removeClass('hide').addClass('show')
+        @.$('.buttons-container').find('.next').css('left', @.$('.image-view').width() - 70)
         @_loadPhotoImage @photos[num], dir
         @currentPhoto = num
 
         if @currentPhoto is 0
-            $('.photo-overlay').find('div.prev').hide()
+            @.$('.photo-overlay').find('div.prev').hide()
         else
-            $('.photo-overlay').find('div.prev').show()
+            @.$('.photo-overlay').find('div.prev').show()
         if @currentPhoto is @photos.length - 1
-            $('.photo-overlay').find('div.next').hide()
+            @.$('.photo-overlay').find('div.next').hide()
         else
-            $('.photo-overlay').find('div.next').show()
+            @.$('.photo-overlay').find('div.next').show()
 
         if @currentPhoto is @photos.length - 1 and @page < @totalPages
             @loadMorePhotos()
         if @page is @totalPages
-            $('.load-spin-container').show()
+            @.$('.load-spin-container').show()
 
     hideOverlay: ->
         @currentPhoto = null
         $('body').css('overflow', 'inherit')
-        $('.photo-overlay').removeClass('show')
+        @.$('.photo-overlay').removeClass('show')
         setTimeout(->
-            $('.photo-overlay').addClass('hide')
-            $('.photo-overlay').find('#fecha').find('span').text ''
-            $('.photo-overlay').find('#camara').find('span').text ''
+            @.$('.photo-overlay').addClass('hide')
+            @.$('.photo-overlay').find('#fecha').find('span').text ''
+            @.$('.photo-overlay').find('#camara').find('span').text ''
         , 500)
         if @page is @totalPages
-            $('.load-spin-container').hide()
+            @.$('.load-spin-container').hide()
 
     toggleInfoPanel: ->
-        if $('.photo-overlay').find('.image-info').hasClass 'min-size'
-            $('.photo-overlay').find('.image-info').removeClass 'min-size'
-            $('.photo-overlay').find('.image-view').removeClass 'max-size'
-            $('.buttons-container').find('.next').css('left', $(window).width() * 0.6666666666666666666 - 70)
+        if @.$('.photo-overlay').find('.image-info').hasClass 'min-size'
+            @.$('.photo-overlay').find('.image-info').removeClass 'min-size'
+            @.$('.photo-overlay').find('.image-view').removeClass 'max-size'
+            @.$('.buttons-container').find('.next').css('left', $(window).width() * 0.6666666666666666666 - 70)
         else
-            $('.photo-overlay').find('.image-info').addClass 'min-size'
-            $('.photo-overlay').find('.image-view').addClass 'max-size'
-            $('.buttons-container').find('.next').css('left', $(window).width() - 70)
+            @.$('.photo-overlay').find('.image-info').addClass 'min-size'
+            @.$('.photo-overlay').find('.image-view').addClass 'max-size'
+            @.$('.buttons-container').find('.next').css('left', $(window).width() - 70)
 
     nextImage: ->
         if @currentPhoto isnt null and @currentPhoto < @photos.length - 1
@@ -134,30 +134,30 @@ class FlickrGallery
                 else if s.label is "Original"
                     size = s
                     break
-            $('.zoom-container > .zoom-image-view').css(
+            @.$('.zoom-container > .zoom-image-view').css(
                 'background-image': "url(#{size.source})"
                 width: Number(size.width)
                 height: Number(size.height)
             )
-            $('.zoom-container').removeClass('hide').scrollLeft(size.width / 2).scrollTop(size.height / 2)
+            @.$('.zoom-container').removeClass('hide').scrollLeft(size.width / 2).scrollTop(size.height / 2)
         )
 
     hideZoomImage: ->
-        $('.zoom-container > .zoom-image-view').css 'background-image', null
-        $('.zoom-container').addClass('hide')
+        @.$('.zoom-container > .zoom-image-view').css 'background-image', null
+        @.$('.zoom-container').addClass('hide')
 
     _loadPhotoImage: (photo, dir) ->
         infoFunc = (data) ->
             if data.stat is "ok"
                 sd = data.photo.dates.taken.split(/[-: ]/)
                 date = new Date(sd[0], sd[1], sd[2], sd[3], sd[4], sd[5], 0)
-                $('.photo-overlay').find('#descripcion').text(data.photo.description._content).show()
-                $('.photo-overlay').find('#fecha').show().find('span').text(date.toLocaleString())
-                $('.photo-overlay').find('#enlace').find('a').attr('href', data.photo.urls.url[0]._content).show()
+                @.$('.photo-overlay').find('#descripcion').text(data.photo.description._content).show()
+                @.$('.photo-overlay').find('#fecha').show().find('span').text(date.toLocaleString())
+                @.$('.photo-overlay').find('#enlace').find('a').attr('href', data.photo.urls.url[0]._content).show()
             else
-                $('.photo-overlay').find('#descripcion').hide()
-                $('.photo-overlay').find('#fecha').hide()
-                $('.photo-overlay').find('#enlace').hide()
+                @.$('.photo-overlay').find('#descripcion').hide()
+                @.$('.photo-overlay').find('#fecha').hide()
+                @.$('.photo-overlay').find('#enlace').hide()
 
         exifFunc = (data) ->
             exposicion = null
@@ -175,43 +175,43 @@ class FlickrGallery
                     if tag.tag is 'Flash' then flash = tag.raw._content
 
             if data.stat is "ok"
-                $('.photo-overlay').find('#camara').show().find('span').text data.photo.camera
+                @.$('.photo-overlay').find('#camara').show().find('span').text data.photo.camera
             else
-                $('.photo-overlay').find('#camara').hide()
+                @.$('.photo-overlay').find('#camara').hide()
             if exposicion
-                $('.photo-overlay').find('#exposicion').show().find('span').text exposicion
+                @.$('.photo-overlay').find('#exposicion').show().find('span').text exposicion
             else
-                $('.photo-overlay').find('#exposicion').hide()
+                @.$('.photo-overlay').find('#exposicion').hide()
             if apertura
-                $('.photo-overlay').find('#apertura').show().find('span').text apertura
+                @.$('.photo-overlay').find('#apertura').show().find('span').text apertura
             else
-                $('.photo-overlay').find('#apertura').hide()
+                @.$('.photo-overlay').find('#apertura').hide()
             if iso
-                $('.photo-overlay').find('#iso').show().find('span').text iso
+                @.$('.photo-overlay').find('#iso').show().find('span').text iso
             else
-                $('.photo-overlay').find('#iso').hide()
+                @.$('.photo-overlay').find('#iso').hide()
             if distFocal
-                $('.photo-overlay').find('#dist-focal').show().find('span').text distFocal
+                @.$('.photo-overlay').find('#dist-focal').show().find('span').text distFocal
             else
-                $('.photo-overlay').find('#dist-focal').hide()
+                @.$('.photo-overlay').find('#dist-focal').hide()
             if flash
                 if flash.indexOf 'Off' isnt -1
-                    $('.photo-overlay').find('#flash').show().find('span').text 'Apagado, no se disparó'
+                    @.$('.photo-overlay').find('#flash').show().find('span').text 'Apagado, no se disparó'
                 else
-                    $('.photo-overlay').find('#flash').show().find('span').text 'Encendido, se disparó'
+                    @.$('.photo-overlay').find('#flash').show().find('span').text 'Encendido, se disparó'
             else
-                $('.photo-overlay').find('#flash').hide()
+                @.$('.photo-overlay').find('#flash').hide()
 
         _curiousPromise = new CuriousPromise(3, =>
             infoFunc @photoInfo[photo.id].info
             exifFunc @photoInfo[photo.id].exif
             @_imageTransition photo, dir
             @_curiousPromise = null
-            $('.load-spin-container').removeClass('overlay-loading')
+            @.$('.load-spin-container').removeClass('overlay-loading')
         )
 
-        $('.load-spin-container').addClass('overlay-loading')
-        $('.photo-overlay').find('img').imagesLoaded( =>
+        @.$('.load-spin-container').addClass('overlay-loading')
+        @.$('.photo-overlay').find('img').imagesLoaded( =>
             _curiousPromise.done()
         )
 
@@ -230,13 +230,13 @@ class FlickrGallery
                 _curiousPromise.done()
 
     _imageTransition: (photo, dir) ->
-        oldImage = $('.photo-overlay').find('.img').css('background-image');
+        oldImage = @.$('.photo-overlay').find('.img').css('background-image');
         if oldImage and oldImage isnt 'none'
             if dir
                 initialBackgroundPos = if dir is 'next' then '60% 50%' else '40% 50%'
             else
                 initialBackgroundPos = 'center'
-            $('.photo-overlay')
+            @.$('.photo-overlay')
                 .find('#img')
                 .css(
                     'background-image': "url('#{flickr.buildLargePhotoUrl(photo)}')"
@@ -248,34 +248,34 @@ class FlickrGallery
                     opacity: '1'
                     display: 'block'
                 )
-            new AnimationTimer(250, (t) ->
+            new AnimationTimer(250, (t) =>
                 p = -(Math.cos(Math.PI * t) - 1) / 2
                 if dir
                     pos1 = if dir is 'next' then 60 - 10*t else 40 + 10*t
                     pos2 = if dir is 'next'  then 50 - 10*t else 50 + 10*t
                 else
                     pos1 = pos2 = 50
-                $('.photo-overlay').find('#img').css(
+                @.$('.photo-overlay').find('#img').css(
                     'opacity': "#{p}"
                     'background-position': "#{pos1}% 50%"
                 )
-                $('.photo-overlay').find('#img2').css(
+                @.$('.photo-overlay').find('#img2').css(
                     'opacity': "#{1-p}"
                     'background-position': "#{pos2}% 50%"
                 )
-            , true).onEnd( ->
-                $('.photo-overlay')
+            , true).onEnd( =>
+                @.$('.photo-overlay')
                     .find('#img2').hide()
                     .parent()
                     .find('#img').css('opacity', '1')
             )
         else
-            $('.photo-overlay')
+            @.$('.photo-overlay')
                 .find('.img')
                 .css('background-image', "url('#{flickr.buildLargePhotoUrl(photo)}')")
 
     _setHeaderImageBackground: (photoId) ->
-        if $('.image-background').css('background-image') is 'none'
+        if @.$('.image-background').css('background-image') is 'none'
             flickr.photos.getSizes({photo_id: photoId}, (json) ->
                 if json.stat is 'ok'
                     img = null
@@ -283,28 +283,28 @@ class FlickrGallery
                         if size.label is 'Large'
                             img = size.source
                             break;
-                    $('.image-background').parallax({imageSrc: img});
+                    @.$('.image-background').parallax({imageSrc: img});
         )
 
     _setUpListeners: ->
         $(window).scroll( =>
-            bottom = $(window).scrollTop() + $(window).height()
-            sizeOfPage = $('#wrap').height()
+            bottom = @.$(window).scrollTop() + @.$(window).height()
+            sizeOfPage = $(@container).parent().height()
 
             if sizeOfPage - bottom < 100 and not @loadingMorePhotos
                 @loadMorePhotos()
         )
 
         $(window).resize( ->
-            $('.gallery > div > div').each((k, v) ->
-                $(v).height($(v).width())
+            @.$('.gallery > div > div').each((k, v) =>
+                @.$(v).height(@.$(v).width())
             )
         )
 
         $(window).keyup((e) =>
-            if $('.photo-overlay').hasClass('show')
+            if @.$('.photo-overlay').hasClass('show')
                 if e.keyCode is 27 #ESC
-                    if $('.zoom-container').hasClass 'hide'
+                    if @.$('.zoom-container').hasClass 'hide'
                         @hideOverlay()
                     else
                         @hideZoomImage()
@@ -316,49 +316,53 @@ class FlickrGallery
                     console.log null
         )
 
-        $('.image-view').mousemove( =>
-            $('.photo-overlay').find('.buttons-container').removeClass('no-move')
+        @.$('.image-view').mousemove( =>
+            @.$('.photo-overlay').find('.buttons-container').removeClass('no-move')
             @_timer.restart()
         )
 
         @_timer = new Timer(3000, =>
-            $('.photo-overlay').find('.buttons-container').addClass('no-move')
+            @.$('.photo-overlay').find('.buttons-container').addClass('no-move')
         , true)
 
-        $('.photo-overlay').find('#close').click(@hideOverlay.bind(this))
+        @.$('.photo-overlay').find('#close').click(@hideOverlay.bind(this))
         .parent().find('#info').click(@toggleInfoPanel.bind(this))
-        $('.photo-overlay').find('#zoom').click(@zoomImage.bind(this))
-        $('.photo-overlay').find('div.next').click(@nextImage.bind(this))
-        $('.photo-overlay').find('div.prev').click(@previousImage.bind(this))
-        $('.image-view').swipeleft(@nextImage.bind(this))
-        $('.image-view').swiperight(@previousImage.bind(this))
-        $('.photo-overlay').find('.zoom-image-view').mousedown((e) ->
+        @.$('.photo-overlay').find('#zoom').click(@zoomImage.bind(this))
+        @.$('.photo-overlay').find('div.next').click(@nextImage.bind(this))
+        @.$('.photo-overlay').find('div.prev').click(@previousImage.bind(this))
+        @.$('.image-view').swipeleft(@nextImage.bind(this))
+        @.$('.image-view').swiperight(@previousImage.bind(this))
+        @.$('.photo-overlay').find('.zoom-image-view').mousedown((e) =>
             posx = e.pageX
             posy = e.pageY
-            imgPosX = $('.zoom-container').scrollLeft()
-            imgPosY = $('.zoom-container').scrollTop()
-            $('.zoom-image-view').mousemove((e) ->
-                if not $('.zoom-image-view').hasClass('grabbing')
-                    $('.zoom-image-view').addClass('grabbing')
-                $('.zoom-container').scrollLeft(imgPosX - (e.pageX - posx))
-                $('.zoom-container').scrollTop(imgPosY - (e.pageY - posy))
+            imgPosX = @.$('.zoom-container').scrollLeft()
+            imgPosY = @.$('.zoom-container').scrollTop()
+            @.$('.zoom-image-view').mousemove((e) =>
+                if not @.$('.zoom-image-view').hasClass('grabbing')
+                    @.$('.zoom-image-view').addClass('grabbing')
+                @.$('.zoom-container').scrollLeft(imgPosX - (e.pageX - posx))
+                @.$('.zoom-container').scrollTop(imgPosY - (e.pageY - posy))
             )
-        ).mouseup((e) ->
-            $('.zoom-image-view').off('mousemove').removeClass('grabbing')
+        ).mouseup((e) =>
+            @.$('.zoom-image-view').off('mousemove').removeClass('grabbing')
         )
-        $('.photo-overlay').find('.buttons-container').tap((e) =>
+        @.$('.photo-overlay').find('.buttons-container').tap((e) =>
             if Date.now() - @_lastTap <= 500
                 @zoomImage()
             else
                 @_lastTap = Date.now()
         )
-        $('.photo-overlay').find('.zoom-image-view').taphold((e) =>
-            if not $('.zoom-image-view').hasClass('grabbing')
+        @.$('.photo-overlay').find('.zoom-image-view').taphold((e) =>
+            if not @.$('.zoom-image-view').hasClass('grabbing')
                 @hideZoomImage()
         )
         @_lastTap = Date.now()
 
-window.melchordegaleria = new FlickrGallery
-    userId: '142458589@N03'
-    photosetId: '72157667134867210'
-    container: $('.container')
+    $: (selector) ->
+        return $(@container).find(selector);
+
+if window.location.origin.indexOf('localhost:4000') isnt -1 or window.location.origin.indexOf('melchor9000') isnt -1
+    window.melchordegaleria = new FlickrGallery
+        userId: '142458589@N03'
+        photosetId: '72157667134867210'
+        container: $('.container')
