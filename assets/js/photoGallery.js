@@ -390,7 +390,7 @@
       $(window).scroll((function(_this) {
         return function() {
           var bottom, sizeOfPage;
-          bottom = _this.$(window).scrollTop() + _this.$(window).height();
+          bottom = $(window).scrollTop() + $(window).height();
           sizeOfPage = $(_this.container).parent().height();
           if (sizeOfPage - bottom < 100 && !_this.loadingMorePhotos) {
             return _this.loadMorePhotos();
