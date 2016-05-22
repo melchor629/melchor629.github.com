@@ -361,6 +361,8 @@ class FlickrGallery
     $: (selector) ->
         return $(@container).find(selector);
 
+window.FlickrGallery = FlickrGallery
+
 if window.location.origin.indexOf('localhost:4000') isnt -1 or window.location.origin.indexOf('melchor9000') isnt -1
     window.melchordegaleria = new FlickrGallery
         userId: '142458589@N03'

@@ -487,6 +487,8 @@
 
   })();
 
+  window.FlickrGallery = FlickrGallery;
+
   if (window.location.origin.indexOf('localhost:4000') !== -1 || window.location.origin.indexOf('melchor9000') !== -1) {
     window.melchordegaleria = new FlickrGallery({
       userId: '142458589@N03',
