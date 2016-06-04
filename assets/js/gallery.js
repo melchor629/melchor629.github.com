@@ -2,7 +2,11 @@
     "use strict";
 
     if($ === undefined) {
-        throw ("You need jQuery before running this script");
+        if(jQuery === undefined) {
+            throw ("You need jQuery before running this script");
+        } else {
+            window.$ = jQuery;
+        }
     }
 
     var loadCss = function(e, href) {
@@ -86,4 +90,4 @@
         }
     });
 
-})($ || jQuery);
+})($);
