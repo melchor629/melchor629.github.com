@@ -6,6 +6,7 @@
             throw ("You need jQuery before running this script");
         } else {
             window.$ = jQuery;
+            $ = jQuery;
         }
     }
 
