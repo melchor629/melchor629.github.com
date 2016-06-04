@@ -69,11 +69,15 @@
                 $(container).empty();
                 var user = $(container).data('flickr-user');
                 var gallery = $(container).data('flickr-album');
+                var desc = $(container).data('description') || null;
+                var title = $(container).data('title') || null;
                 window.galleryInstance = Gallery({
                     userId: user,
                     photosetId: gallery,
                     container: $(container)
                 });
+                if(desc) $(container).find('.gallery-header').find('.lead').text(desc);
+                if(title) $(container).find('.gallery-header').find('h1').text(title);
             });
         };
 
