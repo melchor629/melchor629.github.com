@@ -288,7 +288,7 @@ class FlickrGallery
 
     _setUpListeners: ->
         $(window).scroll( =>
-            bottom = $(window).scrollTop() + $(window).height()
+            bottom = $(document).scrollTop() + $(document).height()
             sizeOfPage = $(@container).parent().height()
 
             if sizeOfPage - bottom < 100 and not @loadingMorePhotos
