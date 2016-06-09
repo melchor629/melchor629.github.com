@@ -33,6 +33,13 @@ scripts:
     .someData.fullscreen { top: 0 }
 
     .debug { display: none }
+
+    .elBideo {
+        position: fixed;
+        top: 50px;
+        left: 100px;
+        z-index: 1000;
+    }
 </style>
 
 <div class="someData">
@@ -41,6 +48,7 @@ scripts:
     <p class="debug">Opacity: <span id="opacity">0</span></p>
     <p class="debug">FPS: <span id="fps">0</span></p>
     <p>Custom Image [9]:</p><input type="file" id="customImg">
+    <p>Your camera [9]:</p><button type="button" class="btn btn-sm btn-success" id="ycam">Capture</button>
 </div>
 
 <!-- http://threejs.org/docs/index.html#Reference -->
@@ -239,6 +247,10 @@ document.onreadystatechange = (function() {
     var motion = manualMove ? 0 : -25;
     var lastA = null;
     var focused = true;
+    var video = null;
+    var videocanvas = document.createElement('canvas');
+        videocanvas.width = 512;
+        videocanvas.height = 512;
     function render(a) {
         if(focused) requestAnimationFrame(render);
 
@@ -317,10 +329,14 @@ document.onreadystatechange = (function() {
             var fe = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
             if(fe !== null) {
                 exitFullscreen();
-                $('.someData').removeClass('fullscreen');
             } else {
                 launchIntoFullscreen($('.container')[0]);
                 $('.someData').addClass('fullscreen');
+                document.onwebkitfullscreenchange = document.onmozfullscreenchange = document.onfullscreenchange = function(e) {
+                    if(document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement) return;
+                    $('.someData').removeClass('fullscreen');
+                    document.onwebkitfullscreenchange = document.onmozfullscreenchange = document.onfullscreenchange = null;
+                };
             }
         } else {
             console.log(e);
@@ -351,15 +367,63 @@ document.onreadystatechange = (function() {
             var reader = new FileReader();
             reader.onload = function(e) {
                 textureLoader.load(e.target.result, function(texture) {
-                    var lexeing = material.uniforms.texture.value === textures.custom;
                     if(textures.custom) textures.custom.dispose();
                     textures.custom = texture;
-                    if(lexeing) material.uniforms.texture.value = texture;
+                    material.uniforms.texture.value = texture;
                 });
             };
             reader.readAsDataURL(this.files[0]);
         }
     });
+    document.querySelector('#ycam').addEventListener('click', function(e) {
+        e.preventDefault();
+        this.innerText = 'Wait...';
+        navigator.getUserMedia  = navigator.getUserMedia ||
+                          navigator.webkitGetUserMedia ||
+                          navigator.mozGetUserMedia ||
+                          navigator.msGetUserMedia;
+        navigator.getUserMedia({
+            audio: false,
+            video: {
+                    mandatory: {
+                      minWidth: 320,
+                      minHeight: 320
+                    }
+                }
+            }, function(stream) {
+            video = document.createElement('video');
+            video.width    = 512;
+            video.height   = 512;
+            video.autoplay = true;
+            video.src    = (URL || webkitURL).createObjectURL(stream);
+            $(video).addClass('elBideo');
+            $('.container').append(video);
+            video.addEventListener('canplay', function() {
+                setTimeout(function() {
+                    document.querySelector('#ycam').innerText = 'Look - 2s';
+                    setTimeout(function() {
+                        document.querySelector('#ycam').innerText = 'Look - 1s';
+                        setTimeout(function() {
+                            videocanvas.getContext('2d').drawImage(video, 0, 0, 512, 512);
+
+                            if(textures.custom) textures.custom.dispose();
+                            textureLoader.load(videocanvas.toDataURL('image/png'), function(texture) {
+                                textures.custom = texture;
+                                material.uniforms.texture.value = texture;
+                                document.querySelector('#ycam').innerText = 'Capture';
+                            });
+                            $('.elBideo').remove();
+                            video = null;
+                        }, 1000);
+                    }, 1000);
+                }, 1000);
+            });
+        }, function(error) {
+            alert('Cannot get webcam video: ' + error);
+            document.querySelector('#ycam').innerText = 'Capture';
+        });
+        return false;
+    }, false);
     function launchIntoFullscreen(element) {
         if(element.requestFullscreen) {
             element.requestFullscreen();
