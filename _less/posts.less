@@ -156,9 +156,11 @@ body {
     height: 48px;
     box-shadow: rgba(0,0,0,0.35) 0px 2px 7px;
     cursor: pointer;
-    position: absolute;
+    position: fixed;
+    z-index: 10;
     right: 8%;
-    top: -45px;
+    top: 25px;
+    transition: box-shadow .2s ease-in-out;
 
     i {
         font-size: 22px;
@@ -181,12 +183,17 @@ body {
         right: 0;
         margin-right: 0;
     }
+
+    &:hover {
+        box-shadow: rgba(0,0,0,0.35) 0 3px 10px 2px;
+    }
 }
 
 .circle-button-group {
-    position: absolute;
-    top: -45 + 48px;
+    position: fixed;
+    top: 0;
     transition: opacity 0.4s ease-in-out;
+    z-index: 10;
 
     .circle-button-extra {
         .circle-button();
@@ -210,7 +217,7 @@ body {
         }
 
         &.hover {
-            top: -45px !important;
+            top: 25px !important;
             opacity: 1;
             .transform(scale(1.0));
             z-index: 0;
@@ -235,12 +242,12 @@ body {
     }
 
     60% {
-        top: -20px;
+        top: 50px;
         .transform(rotate(-30deg));
     }
 
     100% {
-        top: -45px;
+        top: 25px;
         .transform(rotate(0deg));
     }
 });
@@ -252,7 +259,7 @@ body {
     }
 
     0% {
-        top: -45px;
+        top: 25px;
         .transform(rotate(0deg));
     }
 });

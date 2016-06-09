@@ -9,6 +9,10 @@ body {
     font-weight: 300;
 }
 
+#wrap > .container {
+    margin-top: 60px;
+}
+
 /**
  * Text
  **/
@@ -54,16 +58,19 @@ a:hover {
     border-top-color: transparent;
 }
 
-/** TODO Crear un ease bonito, adecuado a material design y pasar esto a less... **/
 /**
  * Navbar
  **/
 .navbar-default {
+    position: fixed;
+    width: 100%;
+    top: 0;
     background-image: none;
     background-color: @primary-color-normal;
     border: none;
     border-radius: 0;
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 5px;
+    z-index: 10;
 }
 
 .navbar-default .navbar-nav > li > a {
