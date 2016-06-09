@@ -103,7 +103,7 @@
 
   window.soundBuffers = soundBuffers = {};
 
-  window.AudioContext = window.webkitAudioContext || window.AudioContext;
+  window.AudioContext = window.AudioContext || window.mozAudioContext || window.webkitAudioContext;
 
   window.audioCtx = audioCtx = new AudioContext();
 
