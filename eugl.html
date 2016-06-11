@@ -123,7 +123,7 @@ scripts:
 </script>
 
 <script>
-document.onreadystatechange = (function() {
+document.onreadystatechange = (function() { //Falta jQuery, no lo podemos usar
     if(window.done) return;
     window.done = true;
     var width = window.innerWidth;
@@ -376,7 +376,7 @@ document.onreadystatechange = (function() {
         lastA = null;
         requestAnimationFrame(render);
     });
-    document.querySelector('#customImg').addEventListener('change', function() {
+    $('#customImg').on('change', function() {
         if(this.files && this.files[0]) {
             var reader = new FileReader();
             reader.onload = function(e) {
@@ -389,7 +389,7 @@ document.onreadystatechange = (function() {
             reader.readAsDataURL(this.files[0]);
         }
     });
-    document.querySelector('#ycam').addEventListener('click', function(e) {
+    $('#ycam').on('click', function(e) {
         e.preventDefault();
         this.innerText = 'Wait...';
         navigator.getUserMedia  = navigator.getUserMedia ||
@@ -414,10 +414,11 @@ document.onreadystatechange = (function() {
             if(window.location.hash.indexOf('troll') === -1)
                 $('.container').append(video);
             video.addEventListener('canplay', function() {
+                $('#ycam').text('Look - 3s');
                 setTimeout(function() {
-                    document.querySelector('#ycam').innerText = 'Look - 2s';
+                    $('#ycam').text('Look - 2s');
                     setTimeout(function() {
-                        document.querySelector('#ycam').innerText = 'Look - 1s';
+                        $('#ycam').text('Look - 1s');
                         setTimeout(function() {
                             videocanvas.getContext('2d').drawImage(video, 0, 0, 512, 512);
 
@@ -425,7 +426,7 @@ document.onreadystatechange = (function() {
                             textureLoader.load(videocanvas.toDataURL('image/png'), function(texture) {
                                 textures.custom = texture;
                                 material.uniforms.texture.value = texture;
-                                document.querySelector('#ycam').innerText = 'Capture';
+                                $('#ycam').text('Capture');
                             });
                             $('.elBideo').remove();
                             video = null;
@@ -438,7 +439,7 @@ document.onreadystatechange = (function() {
             document.querySelector('#ycam').innerText = 'Capture';
         });
         return false;
-    }, false);
+    });
     function launchIntoFullscreen(element) {
         if(element.requestFullscreen) {
             element.requestFullscreen();
