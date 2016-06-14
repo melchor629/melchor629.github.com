@@ -13,22 +13,12 @@
 
     <!-- Bootstrap styles -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
     <!-- Font -->
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100' rel='stylesheet'>
     <!-- Sticky Footer -->
     <link href="{{ site.baseurl }}/assets/css/bs-sticky-footer.css" rel="stylesheet">
     <!-- Personal Theme -->
     <link href="{{ site.baseurl }}/assets/css/base_style.css" rel="stylesheet">
-    <!-- Syntax highlight theme -->
-    <link href="{{ site.baseurl }}/assets/css/syntax.css" rel="stylesheet">
-    <!-- Material design effect for links -->
-    <link href="{{ site.baseurl }}/assets/css/waves.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet">
-    <!-- zoom.js -->
-    <link href="http://fat.github.io/zoom.js/css/zoom.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -53,10 +43,6 @@
 
     <!-- Remove tap highlight on Windows Phone for Waves effect -->
     <meta name="msapplication-tap-highlight" content="no"/>
-
-    <!-- atom & rss feed -->
-    <!-- <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
-    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed"> -->
 
     <!-- Custom styles from individual pages -->
     {% if page.styles %}
@@ -120,15 +106,10 @@
       </div>
     </div>
 
-    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="{{ site.baseurl }}/assets/js/jquery.mobile.custom.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <!-- Material design effect for links -->
     <script src="{{ site.baseurl }}/assets/js/waves.min.js"></script>
-    <!-- Parallax effects -->
-    <script src="{{ site.baseurl }}/assets/js/jquery.parallax.min.js"></script>
     <!-- zoom.js -->
     <script src="http://fat.github.io/zoom.js/js/zoom.js"></script>
 
@@ -146,6 +127,16 @@
       Waves.attach('.nav-button', ['waves-button', 'waves-light']);
       Waves.init();
     </script>
+
+    <!--== Not really urgent CSS ==-->
+    <!-- Syntax highlight theme -->
+    <link href="{{ site.baseurl }}/assets/css/syntax.css" rel="stylesheet">
+    <!-- Material design effect for links -->
+    <link href="{{ site.baseurl }}/assets/css/waves.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet">
+    <!-- zoom.js -->
+    <link href="http://fat.github.io/zoom.js/css/zoom.css" rel="stylesheet">
 
   </body>
 </html>
