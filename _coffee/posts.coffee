@@ -200,5 +200,4 @@ $(window).scroll (e) ->
     else if postsInfo.length is postsInfo.cargados
         $(window).off 'scroll'
         $(window).off 'resize'
-$(window).resize (e) ->
-    $(window).scroll()
+$(window).resize $(window).scroll.bind($(window))

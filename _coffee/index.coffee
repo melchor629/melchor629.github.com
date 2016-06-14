@@ -92,7 +92,7 @@ window.audioCtx = audioCtx = new AudioContext()
 
 a = new Audio
 canPlay =
-    m4a: a.canPlayType('audio/m4a;') or a.canPlayType('audio/x-m4a') or a.canPlayType('audio/aac'),
+    m4a: a.canPlayType('audio/m4a') or a.canPlayType('audio/x-m4a') or a.canPlayType('audio/aac'),
     mp3: a.canPlayType('audio/mp3') or a.canPlayType('audio/mpeg;'),
     ogg: a.canPlayType('audio/ogg; codecs="vorbis"')
     wav: a.canPlayType('audio/wav; codecs="1"');

@@ -1,3 +1,4 @@
 .DS_STORE
 _site
 *.lock
+node_modules/
