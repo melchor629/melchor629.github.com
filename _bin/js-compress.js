@@ -1,4 +1,5 @@
 //jshint esversion: 6
+'use strict';
 const UglifyJS = require('uglify-js');
 const fs = require('fs');
 
