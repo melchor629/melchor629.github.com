@@ -20,6 +20,7 @@ translateMonth = (month) ->
     mes
 
 postsInfo = undefined
+prevHash = window.location.hash
 
 showReturnIcon = () ->
     $('.circle-button').css('opacity', 1).removeClass('hide').addClass('show')
@@ -53,12 +54,13 @@ loadPost = (num) ->
     num = Number num
     post = postsInfo[num]
     oldScrollPos = window.scrollY
+    window.location.hash = "#" + post.url
+    prevHash = window.location.hash
     smoothScroll oldScrollPos, 0, ->
         $('.mainPage').removeClass('show').addClass '_hide'
         showReturnIcon()
         $.get post.url, (html) ->
             $('.postPage').append(html).removeClass('_hide').addClass('show').css 'position', 'absolute'
-            window.location.hash = "#" + post.url
             $('#share-tw a').attr 'href', twitterIntentUrl 'melchor629', window.location, "\"#{post.titulo}\""
             $('title').text "#{post.titulo} - The abode of melchor9000"
 
@@ -144,31 +146,32 @@ añadirPost = (num) ->
 
 
 $('.circle-button.back').click ->
+    prevHash = ""
     returnMainPage()
     false
 
 #Efecto para share
 enterT = undefined; leaveT = undefined; tapped = false
-$('.circle-button-group.share').mouseenter ->
-    $(this).find('.circle-button-extra').css('display', 'block')
+$('.circle-button.share').mouseenter ->
+    $(this).parent().find('.circle-button-extra').css('display', 'block')
     clearTimeout leaveT
     enterT = setTimeout =>
-        $(this).find('.circle-button-extra').addClass('hover')
+        $(this).parent().find('.circle-button-extra').addClass('hover')
             .animate({top: '-45px'}, 300);
     , 20
 .mouseleave ->
-    $(this).find('.circle-button-extra').removeClass('hover').each (k,v) ->
+    $(this).parent().find('.circle-button-extra').removeClass('hover').each (k,v) ->
         $(v).animate({top: "#{-73 - 48 * k}px"}, 300)
     clearTimeout enterT
     leaveT = setTimeout =>
-        $(this).find('.circle-button-extra').css('display', 'none')
+        $(this).parent().find('.circle-button-extra').css('display', 'none')
     , 333
 $('.circle-button.share').on 'tap', ->
     if tapped
-        $('.circle-button-group.share').trigger 'mouseleave'
+        $('.circle-button.share').trigger 'mouseleave'
         tapped = false
     else
-        $('.circle-button-group.share').trigger 'mouseenter'
+        $('.circle-button.share').trigger 'mouseenter'
         tapped = true
 
 #Mejorar efecto de aparicion de los elementos de share
@@ -182,6 +185,18 @@ $('#share-fb').click (e) ->
         quote: $('title').text()
     , (response) ->
         console.log response
+
+#Comprobar si se cambia window.location
+checkLocationChanges = ->
+    hash = window.location.hash
+    if prevHash isnt hash
+        if hash is ''
+            returnMainPage()
+        else
+            loadPost findNum decodeURIComponent window.location.hash.substr 1
+        prevHash = hash
+    setTimeout checkLocationChanges, 100
+checkLocationChanges()
 
 $.get('/assets/posts.json').success (data) ->
     postsInfo = data
