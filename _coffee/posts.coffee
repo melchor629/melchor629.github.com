@@ -152,27 +152,25 @@ $('.circle-button.back').click ->
 
 #Efecto para share
 enterT = undefined; leaveT = undefined; tapped = false
-$('.circle-button.share').mouseenter ->
-    $(this).parent().find('.circle-button-extra').css('display', 'block')
-    clearTimeout leaveT
-    enterT = setTimeout =>
-        $(this).parent().find('.circle-button-extra').addClass('hover')
-            .animate({top: '-45px'}, 300);
-    , 20
-.mouseleave ->
-    $(this).parent().find('.circle-button-extra').removeClass('hover').each (k,v) ->
-        $(v).animate({top: "#{-73 - 48 * k}px"}, 300)
-    clearTimeout enterT
-    leaveT = setTimeout =>
-        $(this).parent().find('.circle-button-extra').css('display', 'none')
-    , 333
-$('.circle-button.share').on 'tap', ->
-    if tapped
-        $('.circle-button.share').trigger 'mouseleave'
-        tapped = false
-    else
-        $('.circle-button.share').trigger 'mouseenter'
+$('.circle-button.share').click ->
+    if not tapped
+        $(this).parent().find('.circle-button-extra').css('display', 'block')
+        clearTimeout leaveT
+        enterT = setTimeout =>
+            $(this).parent().find('.circle-button-extra').addClass('hover')
+                .animate({top: '-45px'}, 300);
+        , 20
         tapped = true
+    else
+        $(this).parent().find('.circle-button-extra').removeClass('hover').each (k,v) ->
+            $(v).animate({top: "#{-73 - 48 * k}px"}, 300)
+        clearTimeout enterT
+        leaveT = setTimeout =>
+            $(this).parent().find('.circle-button-extra').css('display', 'none')
+        , 333
+        tapped = false
+$('.circle-button.share').on 'tap', ->
+    $('.circle-button.share').trigger 'click'
 
 #Mejorar efecto de aparicion de los elementos de share
 $('.circle-button-group.share .circle-button-extra').each (k,v) ->
