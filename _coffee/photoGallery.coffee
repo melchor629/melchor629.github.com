@@ -140,11 +140,21 @@ class FlickrGallery
                 height: Number(size.height)
             )
             @.$('.zoom-container').removeClass('hide').scrollLeft(size.width / 2).scrollTop(size.height / 2)
+            @.$('.zoom-container').mousemove((e) =>
+                w = $(window).width()
+                h = $(window).height()
+                factorX = (e.clientX-50) / (w-100)
+                factorY = (e.clientY-50) / (h-100)
+
+                @.$('.zoom-container')
+                    .scrollLeft((size.width-w+100) * factorX)
+                    .scrollTop((size.height-h+100) * factorY)
+            )
         )
 
     hideZoomImage: ->
         @.$('.zoom-container > .zoom-image-view').css 'background-image', null
-        @.$('.zoom-container').addClass('hide')
+        @.$('.zoom-container').addClass('hide').off('mousemove')
 
     _loadPhotoImage: (photo, dir) ->
         infoFunc = (data) ->
