@@ -75,9 +75,7 @@ Sip...
 
 No, pero no está mal. Suelen llegar esto:
 
-![Speed Test](https://www.dropbox.com/s/ndu84yksivzxszq/Jazztel%20xD.png?dl=1)
-
-Pero en lugar de 13 MB, 14MB
+![Speed Test](http://testdevelocidadgratis.com/badge/57dbbe2f47e0d91117cd22bd.png)
 
 ## Quiero saber más...
 **No.** :angry:
