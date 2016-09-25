@@ -23,6 +23,8 @@ En estas fechas tan señaladas como son la navidad (_y los ejercicios de program
 #include <iostream>
 #include <curses.h>
 #include <signal.h>
+#include <unistd.h>
+#include <stdlib.h>
 
 static void finish(int sig);
 void arbolDeNavidad();
@@ -133,3 +135,5 @@ void arbolDeNavidad() {
         </div>
     </div>
 </div>
+
+Para compilar, necesitas _curses_ (`sudo apt install libncurses5-dev` en Ubuntu y derivados). El comando para compilarlo es `g++ arbol.cpp -o arbol -lcurses`.
