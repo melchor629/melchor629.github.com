@@ -14,7 +14,7 @@
     <!-- Bootstrap styles -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <!-- Font -->
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100' rel='stylesheet'>
+    <link href="http://fonts.googleapis.com/css?family=Roboto:400,300,100" rel="stylesheet">
     <!-- Sticky Footer -->
     <link href="{{ site.baseurl }}/assets/css/bs-sticky-footer.css" rel="stylesheet">
     <!-- Personal Theme -->
@@ -126,6 +126,8 @@
     <script>
       Waves.attach('.nav-button', ['waves-button', 'waves-light']);
       Waves.init();
+      if(localStorage.darkmode)
+          $('body').addClass('darkmode darkmode-inmediate');
     </script>
 
     <!--== Not really urgent CSS ==-->

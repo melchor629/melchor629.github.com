@@ -75,6 +75,14 @@ createCheat 'l e t s space f l i p', ->
 createCheat 'w t f s t b', ->
     playSound 'when-the-fire-starts-to-burn'
 
+createCheat 'o s c u r o', ->
+    if localStorage.darkmode
+        localStorage.removeItem 'darkmode'
+        $('body').removeClass('darkmode').removeClass('darkmode-inmediate')
+    else
+        localStorage.darkmode = 'true'
+        $('body').addClass('darkmode')
+
 años = ->
     d = new Date
     n = new Date 830037600000
