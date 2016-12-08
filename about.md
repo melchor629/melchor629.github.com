@@ -14,7 +14,20 @@ Más técnicamente, he usado la librería [Parallax](https://github.com/wagerfie
 Técnicamente, no lo tengo hosteado en un servicio normal. Uso el poder de [GitHub](https://github.com) con [GitHub Pages](https://pages.github.com/) y me apoyo con [Jekyll](http://jekyllrb.com) para crear la web sea más fácil. Eso si, el dominio es con la web [Namecheap](http://www.namecheap.com).
 
 ## ¿Secretos en la web?
-**Konami's cheet**, o insultarle en catalán...
+ - **Konami's cheet**
+ - Insultarle en catalán
+ - `around the world`
+ - `interstellar`
+ - `saturday night fever`
+ - `do a barrel roll`
+ - `flip it`
+ - `wtfstb`
+ - `oscuro`
+ - `floating points`
+ - `visualizador`
+ - `coldplay`
+ - `cydonia`
+ - `andres`
 
 ## ¿Que música escuchas?
 Pues escucho de todo... Si entráis en mi perfil de [Last.FM](http://www.lastfm.es/user/melchor629) podéis ver lo que suelo escuchar, pero no es todo.

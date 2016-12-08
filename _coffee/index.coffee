@@ -101,6 +101,24 @@ createCheat 'v i s u a l i z a d o r', ->
     alert "Visualizador cambiado a #{localStorage.visualizador}"
     console.log "Visualizador cambiado a #{localStorage.visualizador}"
 
+createCheat 'c o l d p l a y', ->
+    switch Math.trunc(Math.random() * 10000) % 4
+        when 0 then playSound 'violet hill'
+        when 1 then playSound 'talk'
+        when 2 then playSound 'brothers & sisters'
+        when 3 then playSound 'every teardrop is a waterfall'
+
+createCheat 'c y d o n i a', ->
+    switch Math.trunc(Math.random() * 10000) % 5
+        when 0 then playSound 'apocalypse please'
+        when 1 then playSound 'uprising'
+        when 2 then playSound 'the globalist'
+        when 3 then playSound 'knights of cydonia1'
+        when 4 then playSound 'knights of cydonia2'
+
+createCheat 'a n d r e s', ->
+    $('body').append('<iframe width="'+$(window).width()+'" height="'+$(window).height()+'" src="https://www.youtube-nocookie.com/embed/8arKaFFTFGo?autoplay=1&controls=0&disablekb=1&fs=0&rel=0&showinfo=0&color=white&iv_load_policy=3" id="background" frameborder="0" allowfullscreen></iframe>')
+
 años = ->
     d = new Date
     n = new Date 830037600000
@@ -280,17 +298,6 @@ window.mobilecheck = function() {
 };
 `
 
-if not mobilecheck()
-    loadSound 'atw', 'mp3', 'ogg'
-    loadSound 'stay', 'm4a', 'ogg'
-    loadSound 'staying alive', 'm4a', 'ogg'
-    loadSound 'staying alive2', 'm4a', 'ogg'
-    loadSound 'when-the-fire-starts-to-burn', 'm4a', 'ogg'
-    loadSound 'k&g beat', 'm4a', 'ogg'
-    loadSound 'nuits sonores', 'm4a', 'ogg'
-    loadSound 'for marmish 2', 'm4a', 'ogg'
-    loadSound 'peoples potential', 'm4a', 'ogg'
-
 $('.profile_img img').load ->
     $(this).css('margin-top', "#{(256 - $(this).height()) / 2}px");
 
@@ -313,3 +320,23 @@ $(document).ready ->
     console.log " @@@@@ https://github.com/melchor629/melchor629.github.com/tree/master/_coffee @@@@@"
     console.log " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
     console.log ""
+
+    if not mobilecheck()
+        loadSound 'atw', 'mp3', 'ogg'
+        loadSound 'stay', 'm4a', 'ogg'
+        loadSound 'staying alive', 'm4a', 'ogg'
+        loadSound 'staying alive2', 'm4a', 'ogg'
+        loadSound 'when-the-fire-starts-to-burn', 'm4a', 'ogg'
+        loadSound 'k&g beat', 'm4a', 'ogg'
+        loadSound 'nuits sonores', 'm4a', 'ogg'
+        loadSound 'for marmish 2', 'm4a', 'ogg'
+        loadSound 'peoples potential', 'm4a', 'ogg'
+        loadSound 'every teardrop is a waterfall', 'm4a', 'ogg'
+        loadSound 'violet hill', 'm4a', 'ogg'
+        loadSound 'brothers & sisters', 'm4a', 'ogg'
+        loadSound 'talk', 'm4a', 'ogg'
+        loadSound 'apocalypse please', 'm4a', 'ogg'
+        loadSound 'uprising', 'm4a', 'ogg'
+        loadSound 'the globalist', 'm4a', 'ogg'
+        loadSound 'knights of cydonia1', 'm4a', 'ogg'
+        loadSound 'knights of cydonia2', 'm4a', 'ogg'
