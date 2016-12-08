@@ -76,6 +76,28 @@
     }
 }
 
+/**
+ * Background canvas effects
+ **/
+#background {
+    visibility: visible;
+    opacity: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+#background.noping {
+    .animation(fadeout, .5s, linear);
+    opacity: 0;
+}
+
+#background.nope {
+    visibility: hidden;
+    opacity: 0;
+}
+
 .keyframes(show, {
     0% {
         opacity: 0;
@@ -146,4 +168,16 @@
 .keyframes(iflip, {
     0% { .transform(scale(-1)) }
     100% { .transform(scale(1)) }
+});
+
+/**
+ * Fade in/out effect
+ **/
+.keyframes(fadein, {
+ from { opacity: 0 }
+ to { opacity: 1 }
+});
+.keyframes(fadeout, {
+    from { opacity: 1 }
+    to { opacity: 0 }
 });
