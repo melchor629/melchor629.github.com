@@ -21,21 +21,17 @@ removeKeys = ->
         $('.keys').addClass('hidden').empty()
     , 300
 
+cheet.onfail = removeKeys
+cheet.onnext = (key, str) ->
+    str = ' ' if str is 'space'
+    addKey str
+cheet.ondone = () ->
+    setTimeout ->
+        removeKeys()
+    , 1000
+
 createCheat = (cheatStr, done) ->
-    cheet cheatStr, {
-        next: (str, key, num, seq) ->
-            key = ' ' if key is 'space'
-            addKey key
-
-        fail: ->
-            removeKeys()
-
-        done: ->
-            done() if done?
-            setTimeout ->
-                removeKeys()
-            , 1000
-    }
+    cheet.add(cheatStr).then done
 
 createCheat '↑ ↑ ↓ ↓ ← → ← → b a', ->
     images[0] = (images[0] + 1) % (images.length)
@@ -63,7 +59,7 @@ createCheat 'd o space a space b a r r e l space r o l l', ->
         $('body').removeClass 'barrel-roll'
     , 4000
 
-createCheat 'l e t s space f l i p', ->
+createCheat 'f l i p space i t', ->
     if $('body').hasClass 'flip'
         $('body').removeClass('flip').addClass('iflip')
         setTimeout ->
