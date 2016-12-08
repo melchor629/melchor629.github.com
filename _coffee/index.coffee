@@ -88,6 +88,19 @@ createCheat 'f l o a t i n g space p o i n t s', ->
         when 2 then playSound 'for marmish 2'
         when 3 then playSound 'peoples potential'
 
+createCheat 'v i s u a l i z a d o r', ->
+    if localStorage.visualizador
+        if localStorage.visualizador is 'barras'
+            localStorage.visualizador = 'onda'
+        else if localStorage.visualizador is 'onda'
+            localStorage.visualizador = 'random'
+        else if localStorage.visualizador is 'random'
+            localStorage.visualizador = 'barras'
+    else
+        localStorage.visualizador = 'random'
+    alert "Visualizador cambiado a #{localStorage.visualizador}"
+    console.log "Visualizador cambiado a #{localStorage.visualizador}"
+
 años = ->
     d = new Date
     n = new Date 830037600000
@@ -146,6 +159,10 @@ loadSound = (name, snd_or_av1, av2) ->
     request.send();
 
 playSound = (name) ->
+    if redrawRequest isnt null
+        # No podemos poner otra canción si ya hay una, o está acabando
+        return
+
     buffer = soundBuffers[name]
     if not buffer
         window.alert 'Buffer is null or undefined'
@@ -157,7 +174,10 @@ playSound = (name) ->
         $('#background').removeClass 'nope'
         setTimeout( ->
             source.start(0);
-            if Math.round(Math.random() * 1000) % 2 then drawBars() else drawWave()
+            switch localStorage.visualizador || 'random'
+                when 'barras' then drawBars()
+                when 'onda' then drawWave()
+                when 'random' then if Math.round(Math.random() * 1000) % 2 then drawBars() else drawWave()
             console.log "Reproduciendo " + name
         , 100)
         source.onended = ->
@@ -286,3 +306,10 @@ $(window).resize ->
     c.width = $(window).width() * PIXEL_RATIO
     c.height = $(window).height() * PIXEL_RATIO
 $(window).resize()
+
+$(document).ready ->
+    console.log " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+    console.log " @@@@@   Ey locuelo, si quieres ver el código fuente, mejor miralo en Github   @@@@@"
+    console.log " @@@@@ https://github.com/melchor629/melchor629.github.com/tree/master/_coffee @@@@@"
+    console.log " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+    console.log ""
