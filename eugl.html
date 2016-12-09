@@ -318,29 +318,29 @@ document.onreadystatechange = (function() { //Falta jQuery, no lo podemos usar
     }
 
     document.onkeydown = function(e) {
-        if(manualMove && e.keyIdentifier === 'Up') {
+        if(manualMove && e.keyIdentifier === 38) {
             motion = -25;
-        } else if(manualMove && e.keyIdentifier === 'Down') {
+        } else if(manualMove && e.keyIdentifier === 40) {
             motion = 25;
-        } else if(e.keyIdentifier === 'U+0031') {
+        } else if(e.keyCode === 49) {
             material.uniforms.texture.value = textures.euklid;
-        } else if(e.keyIdentifier === 'U+0032') {
+        } else if(e.keyCode === 50) {
             material.uniforms.texture.value = textures.fallout_pipboy;
-        } else if(e.keyIdentifier === 'U+0033') {
+        } else if(e.keyCode === 51) {
             material.uniforms.texture.value = textures.pato;
-        } else if(e.keyIdentifier === 'U+0034') {
+        } else if(e.keyCode === 52) {
             material.uniforms.texture.value = textures.melchor;
-        } else if(e.keyIdentifier === 'U+0035') {
+        } else if(e.keyCode === 53) {
             material.uniforms.texture.value = textures.euklid;
-        } else if(e.keyIdentifier === 'U+0036') {
+        } else if(e.keyCode === 54) {
             material.uniforms.texture.value = textures.doge;
-        } else if(e.keyIdentifier === 'U+0037') {
+        } else if(e.keyCode === 55) {
             material.uniforms.texture.value = textures.euklid;
-        } else if(e.keyIdentifier === 'U+0038') {
+        } else if(e.keyCode === 56) {
             material.uniforms.texture.value = textures.euklid;
-        } else if(e.keyIdentifier === 'U+0039') {
+        } else if(e.keyCode === 57) {
             material.uniforms.texture.value = textures.custom;
-        } else if(e.keyIdentifier === 'U+0046') {
+        } else if(e.keyCode === 70) {
             var fe = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
             if(fe !== null) {
                 exitFullscreen();
