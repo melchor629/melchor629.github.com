@@ -11,9 +11,9 @@ const toConsole = (e, stdout, stderr) => {
 const dir = '../_less/';
 const outDir = '../assets/css/';
 fs.watch(dir, function(a, b) {
-    var ext = b.substr(b.lastIndexOf('.') + 1);
+    let ext = b.substr(b.lastIndexOf('.') + 1);
     if(ext === 'less') {
-        var fCss = b.substr(0, b.lastIndexOf('.')) + '.css',
+        let fCss = b.substr(0, b.lastIndexOf('.')) + '.css',
             from = dir + b, to = outDir + fCss,
         pr = cp.exec('lessc --clean-css ' + from + ' ' + to, toConsole);
         console.log('Compilando \'%s\' a \'%s\'', from, to);

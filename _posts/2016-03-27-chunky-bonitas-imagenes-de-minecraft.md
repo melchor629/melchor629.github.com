@@ -4,6 +4,7 @@ author: Melchor Garau Madrigal
 tags: ["chnky","render engine","minecraft","imagenes"]
 date: 2016-03-27 00:00:00 +0100
 thumb: chunky.png
+layout: nothing
 ---
 
 ![Pumpkins near the river](assets/img/chunky1.png)

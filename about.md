@@ -1,5 +1,6 @@
 ---
 title: About me
+description: Un poco sobre mi, melchor9000 (aka melchor629)
 layout: default
 ---
 ## Que cosa mas chula lo de la página de inicio y la foto...

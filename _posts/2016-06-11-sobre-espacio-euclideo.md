@@ -3,6 +3,7 @@ author: Melchor Garau Madrigal
 title: Sobre 'Espacio Euclídeo'
 date: 2016-06-11 16:30:00 +0100
 thumb: esp-eucl.png
+layout: nothing
 ---
 
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
