@@ -97,7 +97,7 @@ createCheat 'v i s u a l i z a d o r', ->
         else if localStorage.visualizador is 'random'
             localStorage.visualizador = 'barras'
     else
-        localStorage.visualizador = 'random'
+        localStorage.visualizador = 'barras'
     alert "Visualizador cambiado a #{localStorage.visualizador}"
     console.log "Visualizador cambiado a #{localStorage.visualizador}"
 
@@ -195,7 +195,8 @@ playSound = (name) ->
             switch localStorage.visualizador || 'random'
                 when 'barras' then drawBars()
                 when 'onda' then drawWave()
-                when 'random' then if Math.round(Math.random() * 1000) % 2 then drawBars() else drawWave()
+                when 'random'
+                    if Math.round(Math.random() * 1000) % 2 then drawBars() else drawWave()
             console.log "Reproduciendo " + name
         , 100)
         source.onended = ->
@@ -222,7 +223,7 @@ drawWave = ->
         redrawRequest = requestAnimationFrame(draw)
         soundAnalyser.getByteTimeDomainData dataArray
 
-        canvasCtx.fillStyle = 'rgb(255, 255, 255)'
+        canvasCtx.fillStyle = if (localStorage.darkmode || 'true') is 'true' then '#282828' else 'rgb(255, 255, 255)'
         canvasCtx.fillRect 0, 0, width(), height()
 
         canvasCtx.lineWidth = 4
@@ -260,7 +261,7 @@ drawBars = ->
         redrawRequest = requestAnimationFrame(draw)
         soundAnalyser.getByteFrequencyData dataArray
 
-        canvasCtx.fillStyle = 'rgb(255, 255, 255)'
+        canvasCtx.fillStyle = if (localStorage.darkmode || 'true') is 'true' then '#282828' else 'rgb(255, 255, 255)'
         canvasCtx.fillRect 0, 0, width(), height()
 
         barWidth = width() / bufferLength * 2.5
