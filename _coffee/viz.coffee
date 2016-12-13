@@ -1,6 +1,6 @@
 window.AudioContext = window.AudioContext || window.mozAudioContext || window.webkitAudioContext;
-window.audioCtx = audioCtx = new AudioContext()
-window.soundAnalyser = audioCtx.createAnalyser()
+audioCtx = audioCtx = new AudioContext()
+soundAnalyser = audioCtx.createAnalyser()
 soundAnalyser.maxDecibels = -5
 redrawRequest = null
 audioBuffer = null
@@ -10,6 +10,10 @@ soundAnalyser.connect audioCtx.destination
 aElement = $('<audio/>')[0]
 startPos = 0
 startTime = 0
+pauseAudioCtxTimeout = null
+isAudioCtxSuspended = true
+
+audioCtx.suspend()
 
 $('#cancion').change((e) ->
     e.preventDefault()
@@ -60,6 +64,8 @@ $('#stop').click (e) ->
 $('#pos').mousedown (e) ->
     stop(true)
     $('#pos').attr('disabled', null)
+    clearTimeout pauseAudioCtxTimeout
+    pauseAudioCtxTimeout = null
 
 $('#pos').mouseup (e) ->
     play Number($('#pos').val())
@@ -110,6 +116,15 @@ play = (start, length) ->
             samples = fullSamples.slice s, s + l
             buffer.copyToChannel samples, i
 
+    if pauseAudioCtxTimeout
+        clearTimeout pauseAudioCtxTimeout
+        pauseAudioCtxTimeout = null
+
+    if isAudioCtxSuspended
+        isAudioCtxSuspended = false
+        audioCtx.resume()
+        console.log "audioCtx resumed"
+
     if not source
         source = audioCtx.createBufferSource()
         source.buffer = buffer
@@ -136,7 +151,12 @@ stop = (nopos) ->
         canvasCtx.fillRect 0, 0, $('#background')[0].width, $('#background')[0].height
     $('#stop').attr('disabled', 'disabled')
     $('#pos').attr('disabled', 'disabled') if nopos isnt true
-    console.log nopos
+    pauseAudioCtxTimeout = setTimeout ->
+        isAudioCtxSuspended = true
+        pauseAudioCtxTimeout = null
+        audioCtx.suspend()
+        console.log "audioCtx suspended"
+    , 5000
     redrawRequest = source = null
 
 # https://github.com/mdn/voice-change-o-matic/blob/gh-pages/scripts/app.js#L128-L205
