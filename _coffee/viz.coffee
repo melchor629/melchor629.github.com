@@ -96,8 +96,8 @@ readFile = (file) ->
     fr.readAsArrayBuffer file
 
 play = (start, length) ->
-    start = start | 0
-    length = length | (audioBuffer.duration - start)
+    start = start || 0
+    length = length || (audioBuffer.duration - start)
     buffer = audioBuffer
 
     if start isnt 0 or length < audioBuffer.duration
