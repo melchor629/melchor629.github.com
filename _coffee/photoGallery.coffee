@@ -247,38 +247,41 @@ class FlickrGallery
             else
                 initialBackgroundPos = 'center'
             @.$('.photo-overlay')
-                .find('#img')
+                .find('#img2')
                 .css(
-                    'background-image': "url('#{flickr.buildLargePhotoUrl(photo)}')"
-                    'background-position': initialBackgroundPos
-                    opacity: '0'
-                ).parent().find('#img2').css(
                     'background-image': "#{oldImage}"
                     'background-position': 'center'
                     opacity: '1'
                     display: 'block'
+                ).parent().find('#img')
+                .css(
+                    'background-image': "url('#{flickr.buildLargePhotoUrl(photo)}')"
+                    'background-position': initialBackgroundPos
+                    opacity: '0'
                 )
-            new AnimationTimer(250, (t) =>
-                p = -(Math.cos(Math.PI * t) - 1) / 2
-                if dir
-                    pos1 = if dir is 'next' then 60 - 10*t else 40 + 10*t
-                    pos2 = if dir is 'next'  then 50 - 10*t else 50 + 10*t
-                else
-                    pos1 = pos2 = 50
-                @.$('.photo-overlay').find('#img').css(
-                    'opacity': "#{p}"
-                    'background-position': "#{pos1}% 50%"
+            setTimeout(() =>
+                new AnimationTimer(250, (t) =>
+                    p = -(Math.cos(Math.PI * t) - 1) / 2
+                    if dir
+                        pos1 = if dir is 'next' then 60 - 10*t else 40 + 10*t
+                        pos2 = if dir is 'next'  then 50 - 10*t else 50 + 10*t
+                    else
+                        pos1 = pos2 = 50
+                    @.$('.photo-overlay').find('#img').css(
+                        'opacity': "#{p}"
+                        'background-position': "#{pos1}% 50%"
+                    )
+                    @.$('.photo-overlay').find('#img2').css(
+                        'opacity': "#{1-p}"
+                        'background-position': "#{pos2}% 50%"
+                    )
+                , true).onEnd( =>
+                    @.$('.photo-overlay')
+                        .find('#img2').hide()
+                        .parent()
+                        .find('#img').css('opacity', '1')
                 )
-                @.$('.photo-overlay').find('#img2').css(
-                    'opacity': "#{1-p}"
-                    'background-position': "#{pos2}% 50%"
-                )
-            , true).onEnd( =>
-                @.$('.photo-overlay')
-                    .find('#img2').hide()
-                    .parent()
-                    .find('#img').css('opacity', '1')
-            )
+            , 100)
         else
             @.$('.photo-overlay')
                 .find('.img')

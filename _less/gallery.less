@@ -279,20 +279,14 @@
         z-index: 10;
         overflow: scroll;
 
-        .zoom-image-view {
-            cursor: -webkit-grab; //Safari >:(
-            cursor: grab;
-
-            &.grabbing {
-                cursor: -webkit-grabbing; //Safari >:(
-                cursor: grabbing;
-                -webkit-touch-callout: none;
-                -webkit-user-select: none;
-                -khtml-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-            }
+        .zoom-image-info {
+            cursor: default;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-size: 20px;
+            text-shadow: 0 0 4px rgba(0, 0, 0, 0.9);
         }
     }
 }
