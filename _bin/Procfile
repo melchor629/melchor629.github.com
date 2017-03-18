@@ -1,4 +1,4 @@
-jekyll: cd .. && jekyll serve --future
+jekyll: cd .. && bundle exec jekyll serve --future
 coffee: coffee -o ../assets/js/ -cw ../_coffee/
 less: node less-watch
 jscompress: node js-compress
