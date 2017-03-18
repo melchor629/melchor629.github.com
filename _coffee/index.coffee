@@ -223,7 +223,7 @@ drawWave = ->
         redrawRequest = requestAnimationFrame(draw)
         soundAnalyser.getByteTimeDomainData dataArray
 
-        canvasCtx.fillStyle = if (localStorage.darkmode || 'true') is 'true' then '#282828' else 'rgb(255, 255, 255)'
+        canvasCtx.fillStyle = if (localStorage.darkmode || 'false') is 'true' then '#282828' else 'rgb(255, 255, 255)'
         canvasCtx.fillRect 0, 0, width(), height()
 
         canvasCtx.lineWidth = 4
@@ -261,7 +261,7 @@ drawBars = ->
         redrawRequest = requestAnimationFrame(draw)
         soundAnalyser.getByteFrequencyData dataArray
 
-        canvasCtx.fillStyle = if (localStorage.darkmode || 'true') is 'true' then '#282828' else 'rgb(255, 255, 255)'
+        canvasCtx.fillStyle = if (localStorage.darkmode || 'false') is 'true' then '#282828' else 'rgb(255, 255, 255)'
         canvasCtx.fillRect 0, 0, width(), height()
 
         barWidth = width() / bufferLength * 2.5

@@ -150,7 +150,7 @@ class Cheet
             @matchingSeqs.push(seq) if seq.startsWith(@keysPressed)
 
         if @matchingSeqs.length > 0
-            @onnext(key, strForKey key) if @onnext
+            @onnext(key, @matchingSeqs[0].seq[@keysPressed.length - 1]) if @onnext
 
         if @matchingSeqs.length is 0
             @reset()
