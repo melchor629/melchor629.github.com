@@ -1,2 +1,1 @@
 jekyll: cd .. && bundle exec jekyll serve --future
-less: node less-watch

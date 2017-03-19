@@ -1,5 +1,8 @@
-@import "lib/prefixed_statements";
-@import "lib/material_design_colors";
+---
+---
+
+@import "prefixed_statements";
+@import "material_design_colors";
 
 /**
  * Spin load from Google's Material Design
@@ -72,22 +75,22 @@
     100% { top: 20px }
 }
 
-@green: #008744;
-@blue: #0057e7;
-@red: #d62d20;
-@yellow: #ffa700;
+$green: #008744;
+$blue: #0057e7;
+$red: #d62d20;
+$yellow: #ffa700;
 @keyframes color {
     100%, 0% {
-        stroke: @red;
+        stroke: $red;
     }
     40% {
-        stroke: @blue;
+        stroke: $blue;
     }
     66% {
-        stroke: @green;
+        stroke: $green;
     }
     80%, 90% {
-        stroke: @yellow;
+        stroke: $yellow;
     }
 }
 
@@ -304,7 +307,6 @@
 }
 
 .gallery-header {
-    //position: absolute;
     width: 100%;
     left: 0;
     top: 50px;

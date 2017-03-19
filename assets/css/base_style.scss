@@ -1,4 +1,7 @@
-@import "lib/material_design_colors";
+---
+---
+
+@import "material_design_colors";
 
 /**
  * Body
@@ -25,11 +28,11 @@ a {
 }
 
 a:link, a:visited, a:focus {
-    color: @primary-color-normal;
+    color: $primary-color-normal;
 }
 
 a:hover {
-    color: @primary-color-light;
+    color: $primary-color-light;
     text-decoration: none;
 }
 
@@ -42,19 +45,19 @@ a:hover {
 
 .panel-default > .panel-heading {
     background-image: none;
-    background-color: @primary-color-normal;
+    background-color: $primary-color-normal;
 }
 
 .panel-default > .panel-heading a {
-    color: @accent-color;
+    color: $accent-color;
 }
 
 .panel-default > .panel-heading a:hover {
-    color: @accent-color;
+    color: $accent-color;
 }
 
 .panel-default > .panel-collapse > .panel-body {
-    background-color: @primary-color-light;
+    background-color: $primary-color-light;
     border-top-color: transparent;
 }
 
@@ -66,7 +69,7 @@ a:hover {
     width: 100%;
     top: 0;
     background-image: none;
-    background-color: @primary-color-normal;
+    background-color: $primary-color-normal;
     border: none;
     border-radius: 0;
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 5px;
@@ -83,34 +86,34 @@ a:hover {
 
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
     color: white;
-    background-color: @primary-color-dark;
+    background-color: $primary-color-dark;
     line-height: 1.5em;
 }
 
 .navbar-default .navbar-nav > li.active > a {
     color: white;
     background-image: none;
-    background-color: @primary-color-dark;
+    background-color: $primary-color-dark;
     transition: background-color .2s linear, color .1s linear;
 }
 
 .navbar-default .navbar-nav > li.active > a:hover {
-    color: @accent-color;
-    background-color: @primary-color-dark;
+    color: $accent-color;
+    background-color: $primary-color-dark;
 }
 
 .navbar-default .navbar-brand {
-    color: @accent-color;
+    color: $accent-color;
     font-weight: 400;
     text-shadow: none;
 }
 
 .navbar-default .navbar-brand:hover {
-    color: @accent-color;
+    color: $accent-color;
 }
 
 .navbar-default .navbar-collapse {
-    border-color: @primary-color-normal;
+    border-color: $primary-color-normal;
     box-shadow: none;
 }
 
@@ -118,26 +121,23 @@ a:hover {
  * Footer
  **/
 #footer {
-    background-color: @primary-color-normal;
+    background-color: $primary-color-normal;
     box-shadow: rgba(0,0,0,0.4) 0px 2px 5px inset;
 }
 
 #footer a, #footer a:hover {
-    color: @primary-color-light;
+    color: $primary-color-light;
 }
 
 #footer p {
-    color: @md-grey-100;
+    color: $md-grey-100;
 }
 
 /**
  * Dark mode
  **/
- .darkmode {
-     body& {
-         background-color: rgb(40, 40, 40);
-     }
-
+body.darkmode { background-color: rgb(40, 40, 40) }
+.darkmode {
      h1, h2, h3, h4, h5, h6, div, span, p, li {
          color: white;
      }
@@ -160,7 +160,7 @@ a:hover {
              transition: none;
          }
      }
- }
+}
 
 body {
     transition: background-color 1s ease-in-out;

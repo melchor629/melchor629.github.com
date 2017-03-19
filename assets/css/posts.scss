@@ -1,5 +1,8 @@
-@import "lib/prefixed_statements";
-@import "lib/material_design_colors";
+---
+---
+
+@import "prefixed_statements";
+@import "material_design_colors";
 
 body {
     overflow-x: hidden;
@@ -42,7 +45,7 @@ pre {
         transition: box-shadow .2s linear;
         width: 100%;
         height: 100%;
-        background-color: @primary-color-normal;
+        background-color: $primary-color-normal;
 
         &:hover {
             box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.55);
@@ -92,13 +95,13 @@ pre {
     position: relative;
 
     &._hide {
-        .animation(outMainPage .5s);
+        @include animation(outMainPage .5s);
         left: -300px;
         opacity: 0
     }
 
     &.show {
-        .animation(inMainPage .5s);
+        @include animation(inMainPage .5s);
     }
 }
 
@@ -112,13 +115,13 @@ pre {
     }
 
     &._hide {
-        .animation(outPostPage .5s);
+        @include animation(outPostPage .5s);
         left: 300px
     }
 
     &.show {
         display: block;
-        .animation(inPostPage .5s);
+        @include animation(inPostPage .5s);
     }
 
     img {
@@ -158,7 +161,7 @@ pre {
 }
 
 .circle-button {
-    background-color: @accent-color;
+    background-color: $accent-color;
     border-radius: 30px;
     width: 48px;
     height: 48px;
@@ -179,11 +182,11 @@ pre {
     &.hide {
         display: block !important;
         top: -130px;
-        .animation(outReturn .8s cubic-bezier(.72,.15,.5,.95));
+        @include animation(outReturn .8s cubic-bezier(.72,.15,.5,.95));
     }
 
     &.show {
-        .animation(inReturn .8s cubic-bezier(.72,.15,.5,.95));
+        @include animation(inReturn .8s cubic-bezier(.72,.15,.5,.95));
         top: 25px;
     }
 
@@ -209,7 +212,7 @@ pre {
     z-index: 10;
 
     .circle-button-extra {
-        .circle-button();
+        @extend .circle-button;
         position: relative;
         right: 0;
         top: -73px;
@@ -222,7 +225,7 @@ pre {
         display: none;
         opacity: 0;
         z-index: -1;
-        .transform(scale(0.1));
+        @include transform(scale(0.1));
         transition: all .3s ease-in-out;
 
         i {
@@ -232,7 +235,7 @@ pre {
         &.hover {
             top: 25px !important;
             opacity: 1;
-            .transform(scale(1.0));
+            @include transform(scale(1.0));
             z-index: 0;
         }
     }
@@ -248,36 +251,36 @@ pre {
 }
 
 
-.keyframes(inReturn, {
+@include keyframes(inReturn) {
     0% {
         top: -130px;
-        .transform(rotate(180deg));
+        @include transform(rotate(180deg));
     }
 
     60% {
         top: 50px;
-        .transform(rotate(-30deg));
+        @include transform(rotate(-30deg));
     }
 
     100% {
         top: 25px;
-        .transform(rotate(0deg));
+        @include transform(rotate(0deg));
     }
-});
+};
 
-.keyframes(outReturn, {
+@include keyframes(outReturn) {
     100% {
         top: -130px;
-        .transform(rotate(180deg));
+        @include transform(rotate(180deg));
     }
 
     0% {
         top: 25px;
-        .transform(rotate(0deg));
+        @include transform(rotate(0deg));
     }
-});
+};
 
-.keyframes(outMainPage, {
+@include keyframes(outMainPage) {
     from {
         left: 0px;
         opacity: 1;
@@ -287,9 +290,9 @@ pre {
         left: -300px;
         opacity: 0;
     }
-});
+};
 
-.keyframes(inMainPage, {
+@include keyframes(inMainPage) {
     from {
         left: -300px;
         opacity: 0;
@@ -299,9 +302,9 @@ pre {
         left: 0px;
         opacity: 1;
     }
-});
+};
 
-.keyframes(outPostPage, {
+@include keyframes(outPostPage) {
     from {
         top: 50px;
         left: 0px;
@@ -313,9 +316,9 @@ pre {
         left: 300px;
         opacity: 0;
     }
-});
+};
 
-.keyframes(inPostPage, {
+@include keyframes(inPostPage) {
     from {
         left: 300px;
         opacity: 0;
@@ -325,4 +328,4 @@ pre {
         left: 0px;
         opacity: 1;
     }
-});
+};
