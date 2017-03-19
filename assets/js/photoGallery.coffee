@@ -1,3 +1,6 @@
+---
+---
+
 class CuriousPromise
     constructor: (numOfDoneCalls, cbk) ->
         @num = numOfDoneCalls

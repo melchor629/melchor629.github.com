@@ -1,3 +1,6 @@
+---
+---
+
 class Timer
     constructor: (time, cbk, autostart) ->
         @time = time || 1000

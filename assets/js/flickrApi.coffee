@@ -1,3 +1,6 @@
+---
+---
+
 apiKey = 'a901b91486eb90e967465d6df5f96ea1'
 apiUrl = 'https://api.flickr.com/services/rest/'
 
