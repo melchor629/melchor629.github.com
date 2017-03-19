@@ -92,7 +92,7 @@
 }
 
 #background.noping {
-    @include animation(fadeout, .5s, linear);
+    @include animation(fadeout .5s linear);
     opacity: 0;
 }
 
@@ -139,7 +139,7 @@
  * Barrel roll effect
  **/
 .barrel-roll {
-    @include animation(barrel-roll, 4s, cubic-bezier(.4,0,.4,1));
+    @include animation(barrel-roll 4s cubic-bezier(.4,0,.4,1));
 }
 
 @include keyframes(barrel-roll) {
@@ -156,12 +156,12 @@
  * Flip effect
  **/
 .flip {
-    @include animation(flip, 2s);
+    @include animation(flip 2s);
     @include transform(scale(-1))
 }
 
 .iflip {
-    @include animation(iflip, 2s);
+    @include animation(iflip 2s);
 }
 
 @include keyframes(flip) {
