@@ -5,14 +5,17 @@ nonavbar: true
 robots: NoIndex, NoFollow
 styles:
   - 404.css
+scripts:
+  - parallax.js
+  - jquery.parallax.min.js
 ---
 <!-- Diseñar mejor, poner un minijuego -->
 <div id="scene">
-    <div class="layer" data-depth="0.5">
-        <img width="100%" src="/assets/img/404.png">
-    </div>
     <div class="layer" data-depth="0.3">
         <h3 class="subtitle">Mira si te has equvocado al poner la URL...</h3>
+    </div>
+    <div class="layer" data-depth="0.5">
+        <img width="100%" src="/assets/img/404.png">
     </div>
     <div class="layer" data-depth="0.8">
         <h1 class="title">Uooo, esta página no existe</h1>
@@ -30,7 +33,3 @@ styles:
         }
     }
 </script>
-
-<style>
-
-</style>

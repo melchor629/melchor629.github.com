@@ -321,7 +321,7 @@ $(window).resize()
 $(document).ready ->
     console.log " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
     console.log " @@@@@   Ey locuelo, si quieres ver el código fuente, mejor miralo en Github   @@@@@"
-    console.log " @@@@@ https://github.com/melchor629/melchor629.github.com/tree/master/_coffee @@@@@"
+    console.log " @@@@@ https://github.com/melchor629/melchor629.github.com/tree/master/assets  @@@@@"
     console.log " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
     console.log ""
 
