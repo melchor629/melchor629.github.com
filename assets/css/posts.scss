@@ -21,7 +21,6 @@ pre {
  **/
 .post_entry {
     margin: 0 0 15px;
-    padding: 5px;
 
     //Clearfix para tener pares de posts en linea
     @media (min-width: 768px) and (max-width: 1199px) {
@@ -93,16 +92,6 @@ pre {
 
 .mainPage {
     position: relative;
-
-    &._hide {
-        @include animation(outMainPage .5s);
-        left: -300px;
-        opacity: 0
-    }
-
-    &.show {
-        @include animation(inMainPage .5s);
-    }
 }
 
 .postPage {
@@ -112,16 +101,6 @@ pre {
 
     @media (min-width: 768px) {
         font-size: 20px;
-    }
-
-    &._hide {
-        @include animation(outPostPage .5s);
-        left: 300px
-    }
-
-    &.show {
-        display: block;
-        @include animation(inPostPage .5s);
     }
 
     img {
@@ -277,55 +256,5 @@ pre {
     0% {
         top: 25px;
         @include transform(rotate(0deg));
-    }
-};
-
-@include keyframes(outMainPage) {
-    from {
-        left: 0px;
-        opacity: 1;
-    }
-
-    to {
-        left: -300px;
-        opacity: 0;
-    }
-};
-
-@include keyframes(inMainPage) {
-    from {
-        left: -300px;
-        opacity: 0;
-    }
-
-    to {
-        left: 0px;
-        opacity: 1;
-    }
-};
-
-@include keyframes(outPostPage) {
-    from {
-        top: 50px;
-        left: 0px;
-        opacity: 1;
-    }
-
-    to {
-        top: 50px;
-        left: 300px;
-        opacity: 0;
-    }
-};
-
-@include keyframes(inPostPage) {
-    from {
-        left: 300px;
-        opacity: 0;
-    }
-
-    to {
-        left: 0px;
-        opacity: 1;
     }
 };
