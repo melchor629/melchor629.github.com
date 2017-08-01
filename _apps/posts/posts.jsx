@@ -95,6 +95,7 @@ class Posts extends React.Component {
         $('#share-tw').click(() => window.open(twitterIntentUrl('melchor629', window.location, `"${this.state.post.titulo}"`)));
         $('#share-email').click(() => window.location = (`mailto:?subject=${encodeURIComponent(this.state.post.titulo)}%20-%20melchor9000&body=Lee%20la%20entrada%20de%20la%20morada%20de%20melchor9000:%0A%09${encodeURIComponent(this.state.post.titulo + "\n\t" + window.location)}`));
         $('#share-wa').click(() => window.location = `whatsapp://send?text=${encodeURIComponent(this.state.post.titulo+": "+window.location)}`);
+        $('#share-tg').click(() => window.location = `tg://msg_url?url=${encodeURIComponent(window.location)}`)
         if(!/ipad|iphone|ipod|android/.test(navigator.userAgent.toLowerCase())) $('#share-wa').hide();
     }
 }
