@@ -38,7 +38,6 @@ class Posts extends React.Component {
                 $('.circle-button').css('opacity', 1).removeClass('hide').addClass('show')
             });
             $('title').text(`${this.state.post.titulo} - The abode of melchor9000`);
-            $('#share-tw a').attr('href', twitterIntentUrl('melchor629', window.location, `"${this.state.post.titulo}"`));
             return (
                 <div className="postPage" dangerouslySetInnerHTML={{__html:this.state.post.html}}></div>
             );
@@ -80,9 +79,6 @@ class Posts extends React.Component {
             } else if(newHash === '') {
                 this.setState((prev, props) => ({ post: null }));
                 $('.circle-button').removeClass('show').addClass('hide')
-                setTimeout(() =>
-                    $('.circle-button').css('opacity', 0)
-                , 1000);
             } else {
                 //¿Algo mas?
                 let titulo = this.state.entries.filter((v) => v.url === newHash)[0].titulo;
@@ -95,6 +91,11 @@ class Posts extends React.Component {
         if(window.location.hash !== '') {
             window.dispatchEvent(new HashChangeEvent("hashchange", { oldURL: window.location, newURL: window.location }));
         }
+
+        $('#share-tw').click(() => window.open(twitterIntentUrl('melchor629', window.location, `"${this.state.post.titulo}"`)));
+        $('#share-email').click(() => window.location = (`mailto:?subject=${encodeURIComponent(this.state.post.titulo)}%20-%20melchor9000&body=Lee%20la%20entrada%20de%20la%20morada%20de%20melchor9000:%0A%09${encodeURIComponent(this.state.post.titulo + "\n\t" + window.location)}`));
+        $('#share-wa').click(() => window.location = `whatsapp://send?text=${encodeURIComponent(this.state.post.titulo+": "+window.location)}`);
+        if(!/ipad|iphone|ipod|android/.test(navigator.userAgent.toLowerCase())) $('#share-wa').hide();
     }
 }
 

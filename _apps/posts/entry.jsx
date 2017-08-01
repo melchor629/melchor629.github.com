@@ -3,27 +3,27 @@ import React from 'react';
 const translateDay = (day) => {
     let dia = day
     switch(day) {
-        case 'Mon': dia = 'Lun'
-        case 'Tue': dia = 'Mar'
-        case 'Wed': dia = 'Mié'
-        case 'Thu': dia = 'Jue'
-        case 'Fri': dia = 'Vié'
-        case 'Sat': dia = 'Sáb'
-        case 'Sun': dia = 'Dom'
+        case 'Mon': dia = 'Lun';
+        case 'Tue': dia = 'Mar';
+        case 'Wed': dia = 'Mié';
+        case 'Thu': dia = 'Jue';
+        case 'Fri': dia = 'Vié';
+        case 'Sat': dia = 'Sáb';
+        case 'Sun': dia = 'Dom';
     }
     return dia;
 };
 
 const translateMonth = (month) => {
-    let mes = month
+    let mes = month;
     switch(month) {
-        case 'Jan': mes = 'Ene'
-        case 'Apr': mes = 'Abr'
-        case 'Aug': mes = 'Ago'
-        case 'Dec': mes = 'Dic'
+        case 'Jan': mes = 'Ene';
+        case 'Apr': mes = 'Abr';
+        case 'Aug': mes = 'Ago';
+        case 'Dec': mes = 'Dic';
     }
     return mes;
-}
+};
 
 class Entry extends React.Component {
     render() {

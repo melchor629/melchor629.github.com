@@ -160,12 +160,14 @@ pre {
 
     &.hide {
         display: block !important;
-        top: -130px;
-        @include animation(outReturn .8s cubic-bezier(.72,.15,.5,.95));
+        top: 25px;
+        @include transform(scale(0));
+        @include animation(outReturn .2s cubic-bezier(.72,.15,.5,.95));
     }
 
     &.show {
-        @include animation(inReturn .8s cubic-bezier(.72,.15,.5,.95));
+        @include animation(inReturn .2s cubic-bezier(.72,.15,.5,.95));
+        @include transform(scale(1));
         top: 25px;
     }
 
@@ -229,32 +231,52 @@ pre {
     }
 }
 
+.share-modal {
+    .modal-content {
+        border-radius: 3px;
+
+        .modal-header {
+            border: none
+        }
+
+        .modal-body {
+            padding: 15px 0;
+
+            .share-link {
+                padding: 5px 15px;
+                width: 100%;
+                font-size: 24px;
+            }
+        }
+    }
+}
+
 
 @include keyframes(inReturn) {
     0% {
-        top: -130px;
-        @include transform(rotate(180deg));
+        top: 25px;
+        @include transform(scale(0));
     }
 
     60% {
-        top: 50px;
-        @include transform(rotate(-30deg));
+        top: 25px;
+        @include transform(scale(1.1));
     }
 
     100% {
         top: 25px;
-        @include transform(rotate(0deg));
+        @include transform(scale(1));
     }
 };
 
 @include keyframes(outReturn) {
     100% {
-        top: -130px;
-        @include transform(rotate(180deg));
+        top: 25px;
+        @include transform(scale(0));
     }
 
     0% {
         top: 25px;
-        @include transform(rotate(0deg));
+        @include transform(scale(1));
     }
 };

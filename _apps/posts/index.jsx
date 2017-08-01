@@ -20,6 +20,5 @@ $('#share-fb').click((e) => {
     );
 });
 
-$('.circle-button.back').click(() => {
-    window.location.hash = "";
-});
+$('.circle-button.back').click(() => window.location.hash = "");
+$('.circle-button-group.share').click(() => $('#share-modal').modal('toggle'));

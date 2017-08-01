@@ -27,14 +27,35 @@ scripts:
     <div class="circle-button hide share">
         <i class="fa fa-share"></i>
     </div>
+</div>
 
-    <div class="circle-button-extra waves-effect waves-circle waves-float" id="share-tw">
-        <a href="https://twitter.com/intent/tweet?" target="_blank">
-            <i class="fa fa-twitter"></i>
-        </a>
-    </div>
+<div class="modal share-modal fade" id="share-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Compartir entrada</h2>
+            </div>
+            <div class="modal-body">
+                <div class="waves-effect share-link" id="share-tw">
+                    <div class="col-xs-2"><i class="fa fa-twitter"></i></div>
+                    <div class="col-xs-10">Twitter</div>
+                </div>
 
-    <div class="circle-button-extra waves-effect waves-circle waves-float" id="share-fb">
-        <i class="fa fa-facebook"></i>
+                <div class="waves-effect share-link" id="share-fb">
+                    <div class="col-xs-2"><i class="fa fa-facebook"></i></div>
+                    <div class="col-xs-10">Facebook</div>
+                </div>
+
+                <div class="waves-effect share-link" id="share-wa">
+                    <div class="col-xs-2"><i class="fa fa-whatsapp"></i></div>
+                    <div class="col-xs-10">WhatsApp</div>
+                </div>
+
+                <div class="waves-effect share-link" id="share-email">
+                    <div class="col-xs-2"><i class="fa fa-envelope"></i></div>
+                    <div class="col-xs-10">Email</div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
