@@ -2,3 +2,4 @@
 _site
 *.lock
 node_modules/
+_bundle/
