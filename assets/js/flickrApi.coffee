@@ -9,7 +9,7 @@ randomString = ->
         Math.round(Math.random() * 1000000)
     str = ''
     for i in [0..8]
-        num = Math.random() % 3
+        num = Math.round(Math.random() * 3) % 3
         if num == 0
             str += String.fromCharCode((rand() % 26) + 97)
         else if num == 1
