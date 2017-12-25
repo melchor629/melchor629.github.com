@@ -26,9 +26,9 @@ class Posts extends React.Component {
             $('title').text('Posts - The abode of melchor9000');
             return (
                 <div className="posts_container row">
-                    <div className="col-sm-6 col-lg-4">{entries1}</div>
-                    {cols >= 2 && <div className="col-sm-6 col-lg-4">{entries2}</div>}
-                    {cols >= 3 && <div className="col-sm-6 col-lg-4">{entries3}</div>}
+                    <div className="col-md-6 col-lg-4">{entries1}</div>
+                    {cols >= 2 && <div className="col-md-6 col-lg-4">{entries2}</div>}
+                    {cols >= 3 && <div className="col-md-6 col-lg-4">{entries3}</div>}
                 </div>
             );
         } else {

@@ -50,7 +50,7 @@ class FlickrGallery
 
                 @.$('.gallery').append(
                     $('<div/>')
-                        .addClass('col-xs-6')
+                        .addClass('col-6')
                         .addClass('col-sm-4')
                         .addClass('col-md-3')
                         .append(
@@ -79,7 +79,7 @@ class FlickrGallery
         $('body').css('overflow', 'hidden')
         @.$('.photo-overlay').find('img').attr('src', flickr.buildLargePhotoUrl(@photos[num]))
         @.$('.photo-overlay').find('.image-info').find('h2').text(@photos[num].title)
-        @.$('.photo-overlay').removeClass('hide').addClass('show')
+        @.$('.photo-overlay').removeClass('d-none').addClass('show')
         @.$('.buttons-container').find('.next').css('left', @.$('.image-view').width() - 70)
         @_loadPhotoImage @photos[num], dir
         @currentPhoto = num
@@ -103,7 +103,7 @@ class FlickrGallery
         $('body').css('overflow', 'inherit')
         @.$('.photo-overlay').removeClass('show')
         setTimeout(->
-            @.$('.photo-overlay').addClass('hide')
+            @.$('.photo-overlay').addClass('d-none')
             @.$('.photo-overlay').find('#fecha').find('span').text ''
             @.$('.photo-overlay').find('#camara').find('span').text ''
         , 500)
@@ -142,7 +142,7 @@ class FlickrGallery
                 width: Number(size.width)
                 height: Number(size.height)
             )
-            @.$('.zoom-container').removeClass('hide').scrollLeft(size.width / 2).scrollTop(size.height / 2)
+            @.$('.zoom-container').removeClass('d-none').scrollLeft(size.width / 2).scrollTop(size.height / 2)
             @.$('.zoom-container').mousemove((e) =>
                 w = $(window).width()
                 h = $(window).height()
@@ -157,7 +157,7 @@ class FlickrGallery
 
     hideZoomImage: ->
         @.$('.zoom-container > .zoom-image-view').css 'background-image', null
-        @.$('.zoom-container').addClass('hide').off('mousemove')
+        @.$('.zoom-container').addClass('d-none').off('mousemove')
 
     _loadPhotoImage: (photo, dir) ->
         infoFunc = (data) ->
@@ -299,13 +299,14 @@ class FlickrGallery
                         if size.label is 'Large'
                             img = size.source
                             break;
-                    @.$('.image-background').parallax({imageSrc: img});
+                    @.$('.image-background').parallax {imageSrc: img}
+                    $('.parallax-mirror > img').attr 'src', img
         )
 
     _setUpListeners: ->
         $(window).scroll( =>
             bottom = $(document).scrollTop() + $(window).height()
-            sizeOfPage = document.body.scrollHeight #$(@container).parent().height()
+            sizeOfPage = document.body.scrollHeight
 
             if sizeOfPage - bottom < 100 and not @loadingMorePhotos
                 @loadMorePhotos()
@@ -320,7 +321,7 @@ class FlickrGallery
         $(window).keyup((e) =>
             if @.$('.photo-overlay').hasClass('show')
                 if e.keyCode is 27 #ESC
-                    if @.$('.zoom-container').hasClass 'hide'
+                    if @.$('.zoom-container').hasClass 'd-none'
                         @hideOverlay()
                     else
                         @hideZoomImage()

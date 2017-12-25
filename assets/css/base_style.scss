@@ -65,56 +65,57 @@ a:hover {
  * Navbar
  **/
 .navbar-default {
-    position: fixed;
-    width: 100%;
-    top: 0;
-    background-image: none;
     background-color: $primary-color-normal;
-    border: none;
-    border-radius: 0;
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 5px;
-    z-index: 10;
-}
+    @media (min-width: 768px) { padding: 0 1rem; }
 
-.navbar-default .navbar-nav > li > a {
-    color: white;
-    transition: background-color .2s linear, color .1s linear;
-    height: 50px;
-    padding: 15px;
-    border-radius: 0;
-}
+    .navbar-nav {
+        @media (max-width: 767px) {
+            margin-left: -15px;
+            margin-right: -15px !important;
+        }
 
-.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-    color: white;
-    background-color: $primary-color-dark;
-    line-height: 1.5em;
-}
+        .nav-item .nav-link {
+            color: white;
+            transition: background-color .2s linear, color .1s linear;
+            border-radius: 0;
 
-.navbar-default .navbar-nav > li.active > a {
-    color: white;
-    background-image: none;
-    background-color: $primary-color-dark;
-    transition: background-color .2s linear, color .1s linear;
-}
+            @media (max-width: 767px) {
+                width: 100%;
+            }
+        }
 
-.navbar-default .navbar-nav > li.active > a:hover {
-    color: $accent-color;
-    background-color: $primary-color-dark;
-}
+        .nav-item .nav-link:hover, .nav-item .nav-link:focus {
+            color: white;
+            background-color: $primary-color-dark;
+        }
 
-.navbar-default .navbar-brand {
-    color: $accent-color;
-    font-weight: 400;
-    text-shadow: none;
-}
+        & > li.active > a {
+            color: white;
+            background-image: none;
+            background-color: $primary-color-dark;
+            transition: background-color .2s linear, color .1s linear;
+        }
 
-.navbar-default .navbar-brand:hover {
-    color: $accent-color;
-}
+        & > li.active > a:hover {
+            color: $accent-color;
+            background-color: $primary-color-dark;
+        }
+    }
 
-.navbar-default .navbar-collapse {
-    border-color: $primary-color-normal;
-    box-shadow: none;
+    .navbar-brand {
+        color: $accent-color;
+        font-weight: 400;
+    }
+
+    .navbar-brand:hover {
+        color: $accent-color;
+    }
+
+    .navbar-collapse {
+        border-color: $primary-color-normal;
+        box-shadow: none;
+    }
 }
 
 /**

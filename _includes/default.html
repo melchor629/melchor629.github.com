@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
     <!-- Bootstrap styles -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <!-- Font -->
     <link href="http://fonts.googleapis.com/css?family=Roboto:400,300,100" rel="stylesheet">
     <!-- Sticky Footer -->
@@ -57,31 +57,26 @@
 
   <body>
     <div id="wrap">
-      <nav class="navbar navbar-default" role="navigation">
+      <nav class="navbar navbar-default navbar-dark navbar-expand-md fixed-top" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{{ HOME_PATH }}">{{ site.title }}</a>
-        </div>
+        <a class="navbar-brand" href="{{ HOME_PATH }}">{{ site.title }}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="jb-navbar-collapse">
-          <ul class="nav navbar-nav">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
             {% assign site_pages = site.pages | sort: 'title' | where_exp:'page','page.nonavbar != true' %}
             {% for node in site_pages %}
                   {% if page.url == node.url and node.url %}
-                      <li class="active">
-                        <a href="{{ site.baseurl }}{{ node.url }}" class="nav-button">{{ node.title }}</a>
+                      <li class="nav-item active">
+                        <a href="{{ site.baseurl }}{{ node.url }}" class="nav-link">{{ node.title }}</a>
                       </li>
                   {% else %}
                   {% if node.title != nil %}
-                      <li>
-                        <a href="{{ site.baseurl }}{{ node.url }}" class="nav-button">{{ node.title }}</a>
+                      <li class="nav-item">
+                        <a href="{{ site.baseurl }}{{ node.url }}" class="nav-link">{{ node.title }}</a>
                       </li>
                   {% endif %}
                   {% endif %}
@@ -107,8 +102,9 @@
       </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.0.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <!-- Material design effect for links -->
     <script src="{{ site.baseurl }}/assets/js/waves.min.js"></script>
     <!-- zoom.js -->
@@ -125,7 +121,7 @@
       {% endfor %}
     {% endif %}
     <script>
-      Waves.attach('.nav-button', ['waves-button', 'waves-light']);
+      Waves.attach('.nav-link', ['waves-button', 'waves-light']);
       Waves.init();
       if(localStorage.darkmode)
           $('body').addClass('darkmode darkmode-inmediate');

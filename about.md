@@ -59,6 +59,7 @@ Conocer, conozco muchos, pero que sepa, ya no tantos. Esos son lo que os pondré
  - [Less](http://lesscss.org)
  - [Haskell](http://haskell.org) _Gracias a la carrera_
  - [Swift](https://swift.org)
+ - [Kotlin](https://kotlinlang.org)
 
 Y sobre lenguajes de marcado (Markup Languages), tenemos simplemente _HTML_ y _[Markdown](http://daringfireball.net/projects/markdown/syntax)_.
 
@@ -87,9 +88,9 @@ Sip...
 ## ¿Tienes un pepino de interné?
 >interné: manera muy española de decir Internet
 
-No, pero no está mal. Suelen llegar esto:
+Bueno, empieza a estar decente ahora mismo:
 
-![Speed Test](http://testdevelocidadgratis.com/badge/57dbbe2f47e0d91117cd22bd.png)
+![Speed Test](http://beta.speedtest.net/result/6909050449.png)
 
 ## Quiero saber más...
 **No.** :angry:

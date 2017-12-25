@@ -19,40 +19,16 @@ pre {
 /**
  * Posts
  **/
-.post_entry {
-    margin: 0 0 15px;
+.card {
+    background-color: $primary-color-normal !important;
+    box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.35);
+    transition: box-shadow .25s ease-in-out;
 
-    //Clearfix para tener pares de posts en linea
-    @media (min-width: 768px) and (max-width: 1199px) {
-        &:nth-child(odd) {
-            clear: left;
-        }
-    }
-
-    @media (min-width: 1200px) {
-        //Los elementos multiplos de 3 (0, 3, 6, ...)
-        //n empieza en 1, no en 0
-        &:nth-child(3n+1) {
-            clear: left;
-        }
-    }
-
-
-    .inner-outer {
-        border-radius: 4px;
-        box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.45);
-        transition: box-shadow .2s linear;
-        width: 100%;
-        height: 100%;
-        background-color: $primary-color-normal;
-
-        &:hover {
-            box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.55);
-        }
+    &:hover {
+        box-shadow: 0px 1px 6px 2px rgba(0, 0, 0, 0.35);
     }
 
     .post_thumb {
-        margin-top: 10px;
         height: 300px;
         overflow: hidden;
         position: relative;
@@ -70,19 +46,6 @@ pre {
             background-color: transparent;
             transition: opacity .2s linear;
         }
-    }
-
-    .post_title {
-        padding-right: 25px;
-        padding-left: 25px;
-        a {
-            color: white;
-        }
-    }
-
-    .post_info {
-        padding-right: 25px;
-        color: white;
     }
 }
 
@@ -147,7 +110,7 @@ pre {
     box-shadow: rgba(0,0,0,0.35) 0px 2px 7px;
     cursor: pointer;
     position: fixed;
-    z-index: 10;
+    z-index: 1035;
     right: 8%;
     top: -130px;
     transition: box-shadow .2s ease-in-out;
@@ -190,7 +153,7 @@ pre {
     position: fixed;
     top: 0;
     transition: opacity 0.4s ease-in-out;
-    z-index: 10;
+    z-index: 1035;
 
     .circle-button-extra {
         @extend .circle-button;

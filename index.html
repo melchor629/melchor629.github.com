@@ -6,32 +6,34 @@ styles:
   - index.css
 scripts:
   - http://hammerjs.github.io/dist/hammer.min.js
-  - jquery.parallax.min.js
+  - parallax.js
   - jquery.mobile.custom.min.js
   - cheet.js
   - index.js
 ---
 
-<div class="center-block profile">
-    <div class="profile_name">
-        <h1>melchor9000</h1>
-        <h3>Melchor Garau Madrigal</h3>
-    </div>
+<div class="d-flex justify-content-center align-items-center">
+    <div class="profile">
+        <div class="profile_name">
+            <h1>melchor9000</h1>
+            <h3>Melchor Garau Madrigal</h3>
+        </div>
 
-    <div class="profile_img">
-        <div class="layer" data-depth="0.3">
-            <div class="image-wrapper">
-                <div class="image-wrapper-inner">
-                    <img src="assets/img/Pixel Art.png">
+        <div class="profile_img">
+            <div class="layer" data-depth="0.3">
+                <div class="image-wrapper">
+                    <div class="image-wrapper-inner">
+                        <img src="assets/img/Pixel Art.png">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="profile_description">
-        <p class="lead">
-            <span id="año">18</span> Años<br>Estudiante de Ingenería del Software en la Universidad de Málaga<br>Programador...
-        </p>
+        <div class="profile_description">
+            <p class="lead">
+                <span id="año">18</span> Años<br>Estudiante de Ingenería del Software en la Universidad de Málaga<br>Programador...
+            </p>
+        </div>
     </div>
 </div>
 
@@ -44,6 +46,6 @@ scripts:
 <script>
     document.onreadystatechange = function() {
         if(document.readyState === 'interactive')
-            $('.profile_img').parallax();
+            new Parallax($('.profile_img').get(0));
     }
 </script>

@@ -25,8 +25,8 @@ scripts:
 
 <div class="row gallery"></div>
 
-<div class="load-spin-container">
-    <div class="center-block load-spin">
+<div class="load-spin-container d-flex justify-content-center">
+    <div class="load-spin">
         <!-- De http://codepen.io/jczimm/pen/vEBpoL -->
         <svg class="load-spin-inner" viewBox="25 25 50 50">
             <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="6" stroke-miterlimit="10"/>
@@ -34,16 +34,16 @@ scripts:
     </div>
 </div>
 
-<div class="photo-overlay hide">
+<div class="photo-overlay d-none">
     <div class="photo-overlay-container" role="document" style="height: 100%">
-        <div class="zoom-container hide">
+        <div class="zoom-container d-none">
             <div class="zoom-image-view"></div>
             <div class="zoom-image-info">
                 ESC para cerrar<br />
                 Mantener apretado para cerrar
             </div>
         </div>
-        <div class="image-view col-sm-8 col-xs-12">
+        <div class="image-view col-sm-8 col-12">
             <img src="about:blank" style="display:none">
             <div class="img" id="img"></div>
             <div class="img" id="img2"></div>

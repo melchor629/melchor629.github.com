@@ -32,19 +32,17 @@ class Entry extends React.Component {
         let mes = translateMonth(fechaPartes[2])
         let fecha = this.props.entry.fecha.replace(fechaPartes[1], dia).replace(fechaPartes[2], mes)
         return (
-            <div className="post_entry row">
-                <div className="inner-outer">
-                    <div className="post_thumb" style={{backgroundImage: `url(${this.props.entry.img})`}}>
-                        <a href={'#'+this.props.entry.url} className="post_url">
-                            <div className="cover"></div>
-                        </a>
-                    </div>
-                    <h3 className="text-center post_title">
-                        <a href={'#'+this.props.entry.url} className="post_url">{this.props.entry.titulo}</a>
-                    </h3>
-                    <div className="post_info">
-                        <small><p className="text-right post_created_time">{fecha}</p></small>
-                    </div>
+            <div className="card mb-sm-4 mb-2">
+                <div className="card-img-top post_thumb" style={{backgroundImage: `url(${this.props.entry.img})`}}>
+                    <a href={'#'+this.props.entry.url} className="post_url">
+                        <div className="cover"></div>
+                    </a>
+                </div>
+                <div className="card-body">
+                    <h4 className="card-title">
+                        <a href={'#'+this.props.entry.url} className="text-white">{this.props.entry.titulo}</a>
+                    </h4>
+                    <p className="card-text"><small className="text-light">{fecha}</small></p>
                 </div>
             </div>
         );

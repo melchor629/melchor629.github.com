@@ -175,6 +175,7 @@ loadSound = (name, snd_or_av1, av2) ->
     request.onload = (e) ->
         audioCtx.decodeAudioData request.response, (buffer) ->
             soundBuffers[name] = buffer
+            console.log name
     request.onerror = (e) ->
         console.error 'El archivo ' + file + ' no existe'
     request.send();

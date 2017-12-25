@@ -6,6 +6,16 @@ scripts:
   - viz.js
 ---
 
+<style>
+    .custom-file-control:lang(es)::before {
+        content: 'Buscar'
+    }
+
+    .custom-file-control:lang(es):empty::after {
+        content: 'Seleccione archivo...'
+    }
+</style>
+
 <div class="row">
     <p class="lead">
         Arrastra (hasta aquí) o busca (con el botón de abajo) una canción compatible con tu navegador y deja que la magia actúe.
@@ -15,10 +25,13 @@ scripts:
 </div>
 
 <div class="row">
-    <div class="col-sm-6 col-xs-12">
-        <input type="file" accept="audio/*" id="cancion" name="cancion" />
+    <div class="col-sm-6 col-12">
+        <label class="custom-file">
+            <input type="file" id="cancion" name="cancion" accept="audio/*" class="custom-file-input">
+            <span class="custom-file-control"></span>
+        </label>
     </div>
-    <div class="col-sm-6 col-xs-12">
+    <div class="col-sm-6 col-12">
         <select id="visualizador" class="form-control">
             <option value="1">Barras</option>
             <option value="2">Onda</option>
@@ -26,9 +39,9 @@ scripts:
     </div>
 </div>
 
-<div class="row" style="text-align:center">
-    <input type="button" class="btn btn-default" value="Play" id="play" disabled="disabled" />
-    <input type="button" class="btn btn-default" value="Stop" id="stop" disabled="disabled" />
+<div class="d-flex justify-content-center btn-group" role="group" aria-label="Botones de reproducir y pausa">
+    <input type="button" class="btn btn-secondary" value="Play" id="play" disabled="disabled" />
+    <input type="button" class="btn btn-secondary" value="Stop" id="stop" disabled="disabled" />
 </div>
 
 <div class="row">
