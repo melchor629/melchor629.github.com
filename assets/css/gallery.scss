@@ -104,8 +104,6 @@ $yellow: #ffa700;
     transition: box-shadow cubic-bezier(0.33, 0, 0.66, 1) .3s;
     background-position: center;
     background-size: cover;
-    width: 100%;
-    min-height: 100px;
     text-align: center;
     cursor: pointer;
 
@@ -117,27 +115,39 @@ $yellow: #ffa700;
         box-shadow: rgba(0, 0, 0, 0.35) 0 0 10px 1px;
     }
 
-    & > div {
-        opacity: 0;
+    & > .square {
+        position: relative;
         width: 100%;
-        height: 100%;
-        padding: 15px;
+
+        opacity: 0;
         border-radius: 4px;
         text-align: center;
         background: rgba(0,0,0,.40);
         background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.6) 100%);
         transition: opacity cubic-bezier(0.33, 0, 0.66, 1) .3s;
 
+        &:after {
+            content: "";
+            display: block;
+            padding-bottom: 100%;
+        }
+
         &:hover {
             opacity: 1;
         }
+    
+        .square-content {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
 
         .photo-title {
-            position: absolute;
-            width: 80%;
-            bottom: 40px;
+            padding-top: 85%;
+            padding-left: 5px;
+            padding-right: 5px;
             color: white;
-            font-size: 26px;
+            font-size: 22px;
             font-weight: bold;
             text-shadow: rgba(255,255,255,.3) 0 0 5px;
             white-space: nowrap;
@@ -145,7 +155,8 @@ $yellow: #ffa700;
             text-overflow: ellipsis;
 
             @media(max-width: 756px) {
-                font-size: 24px;
+                font-size: 18px;
+                padding-top: 87.5%;
             }
         }
     }
@@ -173,7 +184,9 @@ $yellow: #ffa700;
     .image-view {
         height: 100%;
         float: left;
-        transition: width .5s cubic-bezier(0.33, 0, 0.66, 1);
+        transition: width .5s cubic-bezier(0.33, 0, 0.66, 1),
+            flex .5s cubic-bezier(0.33, 0, 0.66, 1),
+            max-width .5s cubic-bezier(0.33, 0, 0.66, 1);
         padding: 0;
 
         img {
@@ -197,6 +210,8 @@ $yellow: #ffa700;
 
         &.max-size {
             width: 100%;
+            flex: 0 0 100%;
+            max-width: 100%
         }
     }
 

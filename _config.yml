@@ -37,3 +37,9 @@ sass:
 
 exclude:
   - node_modules
+  - Gemfile
+  - Gemfile.lock
+  - gulpfile.js
+  - package-lock.json
+  - package.json
+  - README.md
