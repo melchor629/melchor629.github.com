@@ -4,56 +4,6 @@ import Swipeable from 'react-swipeable';
 import ZoomImageOverlay from './ZoomImageOverlay.jsx';
 import flickr from '../flickr';
 
-/* ALGUN DIA TE VENDRÁ BIEN, POR SI AÑADES ANIMACIONES EN LAS TRANSICIONES
-_imageTransition: (photo, dir) ->
-        oldImage = @.$('.photo-overlay').find('.img').css('background-image');
-        if oldImage and oldImage isnt 'none'
-            if dir
-                initialBackgroundPos = if dir is 'next' then '60% 50%' else '40% 50%'
-            else
-                initialBackgroundPos = 'center'
-            @.$('.photo-overlay')
-                .find('#img2')
-                .css(
-                    'background-image': "#{oldImage}"
-                    'background-position': 'center'
-                    opacity: '1'
-                    display: 'block'
-                ).parent().find('#img')
-                .css(
-                    'background-image': "url('#{flickr.buildLargePhotoUrl(photo)}')"
-                    'background-position': initialBackgroundPos
-                    opacity: '0'
-                )
-            setTimeout(() =>
-                new AnimationTimer(250, (t) =>
-                    p = -(Math.cos(Math.PI * t) - 1) / 2
-                    if dir
-                        pos1 = if dir is 'next' then 60 - 10*t else 40 + 10*t
-                        pos2 = if dir is 'next'  then 50 - 10*t else 50 + 10*t
-                    else
-                        pos1 = pos2 = 50
-                    @.$('.photo-overlay').find('#img').css(
-                        'opacity': "#{p}"
-                        'background-position': "#{pos1}% 50%"
-                    )
-                    @.$('.photo-overlay').find('#img2').css(
-                        'opacity': "#{1-p}"
-                        'background-position': "#{pos2}% 50%"
-                    )
-                , true).onEnd( =>
-                    @.$('.photo-overlay')
-                        .find('#img2').hide()
-                        .parent()
-                        .find('#img').css('opacity', '1')
-                )
-            , 100)
-        else
-            @.$('.photo-overlay')
-                .find('.img')
-                .css('background-image', "url('#{flickr.buildLargePhotoUrl(photo)}')")
-*/
-
 export default class Overlay extends Component {
     static propTypes = {
         userId: PropTypes.string.isRequired,
@@ -78,7 +28,8 @@ export default class Overlay extends Component {
         photoIsLoaded: PropTypes.func.isRequired,
         hasNextPage: PropTypes.bool.isRequired,
         page: PropTypes.number.isRequired,
-        loadMorePhotosAndNext: PropTypes.func.isRequired
+        loadMorePhotosAndNext: PropTypes.func.isRequired,
+        changeAnimation: PropTypes.object.isRequired
     };
 
     componentDidMount() {
@@ -146,7 +97,8 @@ export default class Overlay extends Component {
         const {
             currentPhoto, isZoomed, next, prev, close, zoom, hasNext,
             hasPrev, show, showInfoPanel, toggleInfoPanel, photoIsLoaded,
-            hasNextPage, userId, photosetId, perPage, page, loadMorePhotosAndNext
+            hasNextPage, userId, photosetId, perPage, page, loadMorePhotosAndNext,
+            changeAnimation
         } = this.props;
         const photo = currentPhoto;
         const info = photo.info ? photo.info : null;
@@ -220,9 +172,17 @@ export default class Overlay extends Component {
                                onSwipedRight={ hasPrev ? prev : nopeWithVibration }
                                onTap={this.onTap.bind(this)}
                                className={imageViewClasses.join(' ')}>
-                        <img src={photo.url} onLoad={photoIsLoaded} style={{display: "none"}} alt={photo.title} />
+                        <img src={flickr.buildLargePhotoUrl(photo)} onLoad={photoIsLoaded} style={{display: "none"}} alt={photo.title} />
+                        { !changeAnimation.animating ?
                         <div className="img" id="img" style={{backgroundImage: `url(${flickr.buildLargePhotoUrl(photo)})`}}></div>
-                        <div className="img" id="img2"></div>
+                        :
+                        <div className="img" id="img" style={changeAnimation.style1} />
+                        }
+                        { !changeAnimation.animating ?
+                        <div className="img" id="img2"></div>    
+                        :
+                        <div className="img" id="img2" style={changeAnimation.style2} />
+                        }
 
                         <div className="buttons-container">
                             <div className="buttons">

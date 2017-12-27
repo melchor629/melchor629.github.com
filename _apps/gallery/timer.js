@@ -47,8 +47,8 @@ export class AnimationTimer extends Timer {
         this._startTime = null
         const func = (timestamp) => {
             if(this._startTime === null) this._startTime = timestamp
-            if(timestamp - this._startTime <= this.duration) {
-                this._cbk((timestamp - this._startTime) / this.duration, timestamp)
+            if(timestamp - this._startTime <= this.time) {
+                this._cbk((timestamp - this._startTime) / this.time, timestamp)
                 window.requestAnimationFrame(func)
             } else {
                 this._endCbk()
@@ -58,7 +58,7 @@ export class AnimationTimer extends Timer {
     }
 
     stop() {
-        this._startTime = this.duration + 1
+        this._startTime = this.time + 1
     }
 
     onEnd(cbk) {

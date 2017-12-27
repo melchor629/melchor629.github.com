@@ -3,10 +3,11 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
+import logger from 'redux-logger';
 import App from './containers/App';
 import galleryApp from './reducers';
 
-let store = createStore(galleryApp, applyMiddleware(ReduxThunk));
+let store = createStore(galleryApp, process.env.NODE_ENV === 'production' ? applyMiddleware(ReduxThunk) : applyMiddleware(ReduxThunk, logger));
 
 render(
     <Provider store={store}>

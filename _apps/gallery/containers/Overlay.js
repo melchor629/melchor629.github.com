@@ -11,7 +11,8 @@ const mapStateToProps = ({ galleryList }, ownProps) => {
         show: galleryList.showOverlayEffect,
         showInfoPanel: galleryList.showInfoPanel || galleryList.showInfoPanel === undefined,
         hasNextPage: galleryList.page < galleryList.totalPages,
-        page: galleryList.page
+        page: galleryList.page,
+        changeAnimation: galleryList.animation
     }
 };
 

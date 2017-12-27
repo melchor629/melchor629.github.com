@@ -1,12 +1,11 @@
 import flickr from '../flickr';
+import { AnimationTimer } from '../timer';
 
 export const FIRST_PHOTOS_LOADED = 'FIRST_PHOTOS_LOADED';
 export const LOADING_MORE_PHOTOS = 'LOADING_MORE_PHOTOS';
 export const MORE_PHOTOS_LOADED = 'MORE_PHOTOS_LOADED';
 export const SHOW_DETAILED = 'SHOW_DETAILED';
 export const NEXT_DETAILED = 'NEXT_DETAILED';
-export const PREV_DETAILED = 'PREV_DETAILED';
-export const HIDE_DETAILED = 'HIDE_DETAILED';
 export const HIDDEN_DETAILED = 'HIDDEN_DETAILED';
 export const LOADING_PHOTO_DETAIL = 'LOADING_PHOTO_DETAIL';
 export const LOADED_PHOTO_DETAIL = 'LOADED_PHOTO_DETAIL';
@@ -15,6 +14,9 @@ export const LOADED_PHOTO_IMAGE = 'LOADED_PHOTO_IMAGE';
 export const TOGGLE_INFO_PANEL = 'TOGGLE_INFO_PANEL';
 export const ENABLE_PHOTO_ZOOM = 'ENABLE_PHOTO_ZOOM';
 export const DISABLE_PHOTO_ZOOM = 'DISABLE_PHOTO_ZOOM';
+export const PHOTO_CHANGE_ANIMATION_START = 'PHOTO_CHANGE_ANIMATION_START';
+export const PHOTO_CHANGE_ANIMATION_STEP = 'PHOTO_CHANGE_ANIMATION_STEP';
+export const PHOTO_CHANGE_ANIMATION_END = 'PHOTO_CHANGE_ANIMATION_END';
 
 class CuriousPromise {
     constructor(numOfDoneCalls, cbk) {
@@ -58,13 +60,17 @@ export const showDetailed = photo => ({
     photo: photo.id
 });
 
-export const nextDetailed = () => ({
-    type: NEXT_DETAILED
-});
+export const nextDetailed = () => dispatch => {
+    dispatch({ type: PHOTO_CHANGE_ANIMATION_START, direction: 'next' });
+    new AnimationTimer(250, t => dispatch({ type: PHOTO_CHANGE_ANIMATION_STEP, direction: 'next', t }), true)
+        .onEnd(() => dispatch({ type: PHOTO_CHANGE_ANIMATION_END, direction: 'next' }));
+};
 
-export const prevDetailed = () => ({
-    type: PREV_DETAILED
-});
+export const prevDetailed = () => dispatch => {
+    dispatch({ type: PHOTO_CHANGE_ANIMATION_START, direction: 'prev' });
+    new AnimationTimer(250, t => dispatch({ type: PHOTO_CHANGE_ANIMATION_STEP, direction: 'prev', t }), true)
+        .onEnd(() => dispatch({ type: PHOTO_CHANGE_ANIMATION_END, direction: 'prev' }));
+};
 
 export const hideDetailed = () => dispatch => {
     //Esto es para la animación de desaparecer

@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
-import { MORE_PHOTOS_LOADED, FIRST_PHOTOS_LOADED, SHOW_DETAILED, HIDE_DETAILED, LOADING_PHOTO_DETAIL, LOADED_PHOTO_DETAIL, NEXT_DETAILED, PREV_DETAILED, HIDDEN_DETAILED, TOGGLE_INFO_PANEL, LOADED_PHOTO_IMAGE, LOADING_PHOTO_IMAGE, LOADING_MORE_PHOTOS, ENABLE_PHOTO_ZOOM, DISABLE_PHOTO_ZOOM } from '../actions';
+import { MORE_PHOTOS_LOADED, FIRST_PHOTOS_LOADED, SHOW_DETAILED, HIDE_DETAILED, LOADING_PHOTO_DETAIL, LOADED_PHOTO_DETAIL, NEXT_DETAILED, PREV_DETAILED, HIDDEN_DETAILED, TOGGLE_INFO_PANEL, LOADED_PHOTO_IMAGE, LOADING_PHOTO_IMAGE, LOADING_MORE_PHOTOS, ENABLE_PHOTO_ZOOM, DISABLE_PHOTO_ZOOM, PHOTO_CHANGE_ANIMATION_START, PHOTO_CHANGE_ANIMATION_STEP, PHOTO_CHANGE_ANIMATION_END } from '../actions';
+import flickr from '../flickr';
 
 const linkedPhotos = photos => photos.map((photo, i) => ({
     photo,
@@ -24,7 +25,13 @@ const initialState = {
 
     loadingPhotos: true,
     loading: false,
-    loadingPhoto: false
+    loadingPhoto: false,
+
+    animation: {
+        animating: false,
+        style1: { backgroundImage: null, opacity: null, backgroundPosition: null },
+        style2: { backgroundImage: null, opacity: null, backgroundPosition: null, display: 'hidden' }
+    }
 }
 
 const galleryList = (state = initialState, action) => {
@@ -71,25 +78,92 @@ const galleryList = (state = initialState, action) => {
         case LOADED_PHOTO_IMAGE:
             return { ...state, loadingPhoto: false };
         
-        case NEXT_DETAILED:
-            let photos = linkedPhotos(state.photos);
-            let next = find(photos, state.detailedPhoto).next;
-            return {
-                ...state,
-                detailedPhoto: next.id,
-                hasNext: !!find(photos, next.id).next,
-                hasPrev: true
+        case PHOTO_CHANGE_ANIMATION_START:
+            photos = linkedPhotos(state.photos);
+            const current = find(photos, state.detailedPhoto);
+            next = current.next;
+            prev = current.prev;
+            if(action.direction === 'next') {
+                return {
+                    ...state,
+                    detailedPhoto: next.id,
+                    hasNext: !!find(photos, next.id).next,
+                    hasPrev: true,
+                    animation: {
+                        animating: true,
+                        direction: 'next',
+                        style1: {
+                            backgroundImage: `url(${flickr.buildLargePhotoUrl(next)})`,
+                            opacity: 0,
+                            backgroundPosition: '60% 50%'
+                        },
+                        style2: {
+                            backgroundImage: `url(${flickr.buildLargePhotoUrl(current.photo)})`,
+                            opacity: 1,
+                            backgroundPosition: '50% 50%',
+                            display: 'block'
+                        }
+                    }
+                };
+            } else {
+                return {
+                    ...state,
+                    detailedPhoto: prev.id,
+                    hasNext: true,
+                    hasPrev: !!find(photos, prev.id).prev,
+                    animation: {
+                        animating: true,
+                        direction: 'prev',
+                        style1: {
+                            backgroundImage: `url(${flickr.buildLargePhotoUrl(current.photo)})`,
+                            opacity: 1,
+                            backgroundPosition: '50% 50%'
+                        },
+                        style2: {
+                            backgroundImage: `url(${flickr.buildLargePhotoUrl(prev)})`,
+                            opacity: 0,
+                            backgroundPosition: '40% 50%',
+                            display: 'block'
+                        }
+                    }
+                };
             }
         
-        case PREV_DETAILED:
-            photos = linkedPhotos(state.photos);
-            let prev = find(photos, state.detailedPhoto).prev;
+        case PHOTO_CHANGE_ANIMATION_STEP:
+            const p = -(Math.cos(Math.PI * action.t) - 1) / 2;
+            if(state.animation.direction === 'next') {
+                const pos1 = 60 - 10*action.t;
+                const pos2 = 50 - 10*action.t;
+                return {
+                    ...state,
+                    animation: {
+                        ...state.animation,
+                        style1: { ...state.animation.style1, opacity: p, backgroundPosition: `${pos1}% 50%` },
+                        style2: { ...state.animation.style2, opacity: 1-p, backgroundPosition: `${pos2}% 50%` }
+                    }
+                };
+            } else {
+                const pos1 = 40 + 10*action.t;
+                const pos2 = 50 + 10*action.t;
+                return {
+                    ...state,
+                    animation: {
+                        ...state.animation,
+                        style1: { ...state.animation.style1, opacity: 1-p, backgroundPosition: `${pos2}% 50%` },
+                        style2: { ...state.animation.style2, opacity: p, backgroundPosition: `${pos1}% 50%` }
+                    }
+                };
+            }
+        
+        case PHOTO_CHANGE_ANIMATION_END:
             return {
                 ...state,
-                detailedPhoto: prev.id,
-                hasNext: true,
-                hasPrev: !!find(photos, prev.id).prev
-            }
+                animation: {
+                    animating: false,
+                    style1: { backgroundImage: null, opacity: null, backgroundPosition: null },
+                    style2: { backgroundImage: null, opacity: null, backgroundPosition: null, display: 'hidden' }
+                }
+            };
         
         case TOGGLE_INFO_PANEL:
             return { ...state, showInfoPanel: !state.showInfoPanel };
