@@ -79,10 +79,10 @@ const galleryList = (state = initialState, action) => {
             return { ...state, loadingPhoto: false };
         
         case PHOTO_CHANGE_ANIMATION_START:
-            photos = linkedPhotos(state.photos);
+            let photos = linkedPhotos(state.photos);
             const current = find(photos, state.detailedPhoto);
-            next = current.next;
-            prev = current.prev;
+            let next = current.next;
+            let prev = current.prev;
             if(action.direction === 'next') {
                 return {
                     ...state,
