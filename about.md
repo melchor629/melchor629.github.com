@@ -31,7 +31,7 @@ Técnicamente, no lo tengo hosteado en un servicio normal. Uso el poder de [GitH
  - `andres`
 
 ## ¿Que música escuchas?
-Pues escucho de todo... Si entráis en mi perfil de [Last.FM](http://www.lastfm.es/user/melchor629) podéis ver lo que suelo escuchar, pero no es todo.
+Pues escucho de todo... Si entráis en mi perfil de [Last.FM](http://www.lastfm.es/user/melchor629) podéis ver lo que suelo escuchar, pero no está todo.
 
 ## ¿Que haces ahora?
 Estudiar...
@@ -45,21 +45,21 @@ Escuchar regetón (_no se como se escribe y así se queda **FIN**_) sobretodo de
 ## ¿Que lenguajes de programación conoces?
 Conocer, conozco muchos, pero que sepa, ya no tantos. Esos son lo que os pondré:
 
- - [PHP](http://php.net)
- - CSS
- - C++
- - Javascript
  - [Java](https://www.java.com/)
- - [Python](https://www.python.org)
- - C
+ - JavaScript/TypeScript
  - [CoffeeScript](http://coffeescript.org/)
- - [GLSL](https://www.opengl.org/documentation/glsl/) _?_
- - [Objective-C](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html)
- - [Dart](https://www.dartlang.org/)
- - [Less](http://lesscss.org)
- - [Haskell](http://haskell.org) _Gracias a la carrera_
+ - C++
+ - C
  - [Swift](https://swift.org)
  - [Kotlin](https://kotlinlang.org)
+ - [Python](https://www.python.org)
+ - [Objective-C](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html)
+ - [Haskell](http://haskell.org) _Gracias a la carrera_
+ - [Dart](https://www.dartlang.org/)
+ - [PHP](http://php.net)
+ - Ensamblador: ARM y MIPS
+
+Para estilos en la Web, CSS, SCSS y Less.
 
 Y sobre lenguajes de marcado (Markup Languages), tenemos simplemente _HTML_ y _[Markdown](http://daringfireball.net/projects/markdown/syntax)_.
 
@@ -73,6 +73,9 @@ Si, ese en cambio lo uso mucho mas, [@melchor629](https://twitter.com/melchor629
 
 ## ¿Y GitHub? No lo has puesto...
 :smirk: [@melchor629](https://github.com/melchor629)
+
+## ¿Reddit?
+[/u/melchor9000](https://www.reddit.com/user/melchor9000/)
 
 ## ¿Tienes un pepino de pe se?
 
@@ -97,6 +100,3 @@ Bueno, empieza a estar decente ahora mismo:
 
 ## ¿Por qué?
 **Porque no.** :rage:
-
-## Enga, enrollate…
-[Enlace a un lugar donde puedes preguntar](http://ask.fm/Melchor629)
