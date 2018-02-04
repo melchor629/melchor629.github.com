@@ -135,6 +135,14 @@ a:hover {
 }
 
 /**
+ * Code blocks
+ **/
+pre {
+    border-radius: 3px;
+    padding: 5px;
+}
+
+/**
  * Dark mode
  **/
 body.darkmode { background-color: rgb(40, 40, 40) }
@@ -160,6 +168,19 @@ body.darkmode { background-color: rgb(40, 40, 40) }
          h1, h2, h3, h4, h5, h6, div, span, p, li {
              transition: none;
          }
+     }
+
+     code {
+         background-color: #1f1f1f;
+     }
+
+     pre {
+        background-color: #232323;
+        code { background-color: transparent }
+     }
+
+     .modal-content {
+         background-color: #3f3f3f;
      }
 }
 

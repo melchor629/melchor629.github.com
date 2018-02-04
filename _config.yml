@@ -1,4 +1,4 @@
-plugins:
+plugins_dir:
   - jemoji
   - jekyll-sitemap
   - jekyll-coffeescript
