@@ -7,7 +7,6 @@ styles:
   - 404.css
 scripts:
   - parallax.js
-  - jquery.parallax.min.js
 ---
 <!-- Diseñar mejor, poner un minijuego -->
 <div id="scene">
@@ -28,7 +27,7 @@ scripts:
             $(window).resize(function() {
                 $('#scene').height($('body').height() - 130).parallax('updateLayers');
             });
-            $('#scene').parallax();
+            new Parallax($('#scene').get(0));
             $(window).resize();
         }
     }
