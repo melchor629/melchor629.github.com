@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import Overlay from '../components/Overlay.jsx';
 import { loadDetailedPhoto, nextDetailed, prevDetailed, hideDetailed, toggleInfoPanel, loadingPhotoImage, loadedPhotoImage, loadMorePhotos, enablePhotoZoom, disablePhotoZoom } from '../actions';
 
-const mapStateToProps = ({ galleryList }, ownProps) => {
+const mapStateToProps = ({ galleryList }) => {
     return {
         currentPhoto: galleryList.photos.filter(photo => photo.id === galleryList.detailedPhoto)[0],
         isZoomed: galleryList.zoomEnabled,
@@ -13,10 +13,10 @@ const mapStateToProps = ({ galleryList }, ownProps) => {
         hasNextPage: galleryList.page < galleryList.totalPages,
         page: galleryList.page,
         changeAnimation: galleryList.animation
-    }
+    };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         loadFullInfoForPhoto: photo => dispatch(loadDetailedPhoto(photo)),
         toggleShow: () => dispatch({ type: 'TOGGLE_SHOW' }),
@@ -29,7 +29,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         close: () => dispatch(hideDetailed()),
         zoom: photo => dispatch(enablePhotoZoom(photo)),
         zoomOff: () => dispatch(disablePhotoZoom())
-    }
+    };
 };
 
 export default connect(

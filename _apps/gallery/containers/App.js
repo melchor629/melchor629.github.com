@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import App from '../components/App.jsx';
 
-const mapStateToProps = ({ galleryList }, ownProps) => {
+const mapStateToProps = ({ galleryList }) => {
     return {
         primary: galleryList.primary,
         photos: galleryList.photos,
@@ -10,7 +10,7 @@ const mapStateToProps = ({ galleryList }, ownProps) => {
         detailedPhoto: galleryList.detailedPhoto,
         loading: galleryList.loading || galleryList.loadingPhoto,
         loadingPhotosList: galleryList.loadingPhotos
-    }
+    };
 };
 
 export default connect(

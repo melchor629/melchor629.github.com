@@ -25,7 +25,7 @@ scripts:
     document.onreadystatechange = function() {
         if(document.readyState === 'interactive') {
             $(window).resize(function() {
-                $('#scene').height($('body').height() - 130).parallax('updateLayers');
+                $('#scene').height($('body').height() - 130);
             });
             new Parallax($('#scene').get(0));
             $(window).resize();

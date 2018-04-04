@@ -143,7 +143,7 @@ export const loadDetailedPhoto = photo => dispatch => {
             cp.done();
         });
     }
-}
+};
 
 export const enablePhotoZoom = photo => dispatch => {
     if(photo.zoomUrl === undefined) {

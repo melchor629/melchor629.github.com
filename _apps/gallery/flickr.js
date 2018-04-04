@@ -1,5 +1,5 @@
-const apiKey = 'a901b91486eb90e967465d6df5f96ea1'
-const apiUrl = 'https://api.flickr.com/services/rest/'
+const apiKey = 'a901b91486eb90e967465d6df5f96ea1';
+const apiUrl = 'https://api.flickr.com/services/rest/';
 
 function* range(start, end, step = 1) {
     for(let i = start; i < end; i += step) {
@@ -8,54 +8,54 @@ function* range(start, end, step = 1) {
 }
 
 const randomString = () => {
-    const rand = () => Math.round(Math.random() * 1000000)
-    let str = ''
+    const rand = () => Math.round(Math.random() * 1000000);
+    let str = '';
     for(let i of range(0, 8)) {
-        let num = Math.trunc(Math.random() * 3) % 3
+        let num = Math.trunc(Math.random() * 3) % 3;
         if(num === 0)
-            str += String.fromCharCode((rand() % 26) + 97)
+            str += String.fromCharCode((rand() % 26) + 97);
         else if(num === 1)
-            str += String.fromCharCode((rand() % 26) + 65)
+            str += String.fromCharCode((rand() % 26) + 65);
         else
-            str += String.fromCharCode((rand() % 10) + 48)
+            str += String.fromCharCode((rand() % 10) + 48);
     }
-    return str
-}
+    return str;
+};
 
 const doRequest = (request, cbk) => {
-    const rndCbk = 'flickr_' + randomString()
+    const rndCbk = 'flickr_' + randomString();
     request = { ...request,
         api_key: apiKey,
         format: 'json',
         jsoncallback: rndCbk
-    }
+    };
     window[rndCbk] = (json) => {
-        cbk(json)
-        delete window[rndCbk]
-    }
-    let script = document.createElement('script')
-    script.src = buildUrl(apiUrl, request)
-    document.head.appendChild(script)
-    document.head.removeChild(script)
-}
+        cbk(json);
+        delete window[rndCbk];
+    };
+    let script = document.createElement('script');
+    script.src = buildUrl(apiUrl, request);
+    document.head.appendChild(script);
+    document.head.removeChild(script);
+};
 
 const buildUrl = (url, parameters) => {
-    let queryString = ''
+    let queryString = '';
 
     for(let key in parameters) {
         if(parameters.hasOwnProperty(key))
-            queryString += encodeURIComponent(key) + '=' + encodeURIComponent(parameters[key]) + '&'
+            queryString += encodeURIComponent(key) + '=' + encodeURIComponent(parameters[key]) + '&';
     }
 
     if(queryString.lastIndexOf('&') === queryString.length - 1)
-        queryString = queryString.substring(0, queryString.length - 1)
+        queryString = queryString.substring(0, queryString.length - 1);
 
-      return url + '?' + queryString
+    return url + '?' + queryString;
 };
 
 const protoFunc = (meth) =>
     (params, callback) =>
-        doRequest({ ...params, method: meth }, callback)
+        doRequest({ ...params, method: meth }, callback);
 
 export default {
     galleries: {

@@ -1,8 +1,10 @@
 import React from 'react';
 import Entry from './entry.jsx';
 
+const $ = window.$;
+
 const twitterIntentUrl = (username, url, text) =>
-    `http://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}&via=${username}&related=${username}%3AMelchor%20Garau%20Madrigal`
+    `http://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}&via=${username}&related=${username}%3AMelchor%20Garau%20Madrigal`;
 
 class Posts extends React.Component {
     constructor(props) {
@@ -35,7 +37,7 @@ class Posts extends React.Component {
             setTimeout(() => {
                 window.scrollTo(window.scrollX, 0);
                 $('img').attr('data-action', 'zoom');
-                $('.circle-button').css('opacity', 1).removeClass('hide').addClass('show')
+                $('.circle-button').css('opacity', 1).removeClass('hide').addClass('show');
             });
             $('title').text(`${this.state.post.titulo} - The abode of melchor9000`);
             return (
@@ -45,7 +47,7 @@ class Posts extends React.Component {
     }
 
     showMore(step = 3) {
-        this.setState((prev, props) => ({
+        this.setState((prev) => ({
             showing: prev.showing + step
         }));
     }
@@ -62,7 +64,7 @@ class Posts extends React.Component {
                 }
             }
         }).bind(this)).resize((() => {
-            this.setState((prev, props) => ({ showing: prev.showing + 0 }));
+            this.setState((prev) => ({ showing: prev.showing + 0 }));
             $(window).scroll();
         }).bind(this)).scroll();
 
@@ -74,16 +76,16 @@ class Posts extends React.Component {
             if(oldHash === '') {
                 let titulo = this.state.entries.filter((v) => v.url === newHash)[0].titulo;
                 $.get(newHash, (html) => {
-                    this.setState((prev, props) => ({ post: { html, titulo }, topPos: window.scrollY }));
+                    this.setState(() => ({ post: { html, titulo }, topPos: window.scrollY }));
                 });
             } else if(newHash === '') {
-                this.setState((prev, props) => ({ post: null }));
-                $('.circle-button').removeClass('show').addClass('hide')
+                this.setState(() => ({ post: null }));
+                $('.circle-button').removeClass('show').addClass('hide');
             } else {
                 //¿Algo mas?
                 let titulo = this.state.entries.filter((v) => v.url === newHash)[0].titulo;
                 $.get(newHash, (html) => {
-                    this.setState((prev, props) => ({ post: { html, titulo }, topPos: window.scrollY }));
+                    this.setState(() => ({ post: { html, titulo }, topPos: window.scrollY }));
                 });
             }
         }, false);
@@ -95,7 +97,7 @@ class Posts extends React.Component {
         $('#share-tw').click(() => window.open(twitterIntentUrl('melchor629', window.location, `"${this.state.post.titulo}"`)));
         $('#share-email').click(() => window.location = (`mailto:?subject=${encodeURIComponent(this.state.post.titulo)}%20-%20melchor9000&body=Lee%20la%20entrada%20de%20la%20morada%20de%20melchor9000:%0A%09${encodeURIComponent(this.state.post.titulo + "\n\t" + window.location)}`));
         $('#share-wa').click(() => window.location = `whatsapp://send?text=${encodeURIComponent(this.state.post.titulo+": "+window.location)}`);
-        $('#share-tg').click(() => window.location = `tg://msg_url?url=${encodeURIComponent(window.location)}`)
+        $('#share-tg').click(() => window.location = `tg://msg_url?url=${encodeURIComponent(window.location)}`);
         if(!/ipad|iphone|ipod|android/.test(navigator.userAgent.toLowerCase())) $('#share-wa').hide();
     }
 }
